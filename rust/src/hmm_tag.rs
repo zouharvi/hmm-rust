@@ -9,7 +9,7 @@ impl HMM {
             loader.mapper_t.count().unwrap(),
             loader.mapper_w.count().unwrap(),
         );
-        const SCALE_FACTOR : f64 = 4096.0;
+        const SCALE_FACTOR: f64 = 4096.0;
         for sent in &loader.data {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
@@ -49,7 +49,6 @@ impl HMM {
 
         hmm
     }
-    
     // evaluate or print predictions
     pub fn eval_tag(&mut self, loader: &Loader) {
         let mut total = 0;

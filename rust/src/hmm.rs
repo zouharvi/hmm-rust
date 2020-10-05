@@ -13,7 +13,8 @@ pub struct HMM {
 impl HMM {
     // initialize HMM parameters with either zeroes or smoothed probabilities
     pub fn zeroes(count_state: usize, count_emiss: usize) -> HMM {
-        #[cfg(feature = "smooth")] {
+        #[cfg(feature = "smooth")]
+        {
             let prob_start = vec![96.0; count_state];
             let prob_trans = vec![vec![-64.0; count_state]; count_state];
             let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
@@ -26,7 +27,8 @@ impl HMM {
                 state: 0,
             }
         }
-        #[cfg(not(feature = "smooth"))] {
+        #[cfg(not(feature = "smooth"))]
+        {
             let prob_start = vec![0.0; count_state];
             let prob_trans = vec![vec![0.0; count_state]; count_state];
             let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
@@ -172,7 +174,7 @@ impl HMM {
                 if let Some(val) = value0.max_prob.partial_cmp(&value1.max_prob) {
                     val
                 } else {
-                    std::cmp::Ordering::Equal 
+                    std::cmp::Ordering::Equal
                 }
             })
             .map(|(idx, val)| (idx, val.max_prob))
@@ -194,7 +196,7 @@ impl HMM {
 
         #[cfg(feature = "comp_cum")]
         {
-            let cum_path_prob : f64 = trellis[observations.len() - 1]
+            let cum_path_prob: f64 = trellis[observations.len() - 1]
                 .iter()
                 .map(|val| val.cum_prob)
                 .sum();

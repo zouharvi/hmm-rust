@@ -70,11 +70,7 @@ pub struct Loader {
 #[allow(dead_code)]
 impl Loader {
     pub fn load_from_loader<'a>(loader: &Loader, path: &str) -> Result<Loader, &'a str> {
-        Self::load_with_mappers(
-            loader.mapper_w.clone(),
-            loader.mapper_t.clone(),
-            path,
-        )
+        Self::load_with_mappers(loader.mapper_w.clone(), loader.mapper_t.clone(), path)
     }
 
     // parse the .tt/.t files
