@@ -1,3 +1,4 @@
+use rand::rngs::ThreadRng;
 use rand::Rng;
 
 pub struct HMMData {
@@ -53,8 +54,25 @@ pub struct HMM {
     pub state: usize,
 }
 
+#[derive(Clone)]
+struct TrellisItem {
+    pub cum_prob: f32,
+    pub max_prob: f32,
+    pub max_path: usize,
+}
+
+impl TrellisItem {
+    pub fn new() -> TrellisItem {
+        TrellisItem {
+            cum_prob: 0.0,
+            max_prob: 0.0,
+            max_path: 0,
+        }
+    }
+}
+
 impl HMM {
-    fn roll_vector(probs: &Vec<f32>, mut rng: rand::rngs::ThreadRng) -> Option<usize> {
+    fn vector_sample(probs: &Vec<f32>, mut rng: ThreadRng) -> Option<usize> {
         let dice = rng.gen::<f32>();
         let mut cum = 0.0;
         for n in 0..(probs.len()) {
@@ -68,61 +86,82 @@ impl HMM {
 
     pub fn traverse(&mut self, steps: usize) {
         let rng = rand::thread_rng();
-        self.state = HMM::roll_vector(&self.data.prob_start, rng).unwrap();
+        self.state = HMM::vector_sample(&self.data.prob_start, rng).unwrap();
         for _ in 0..steps {
-            let emission = HMM::roll_vector(&self.data.prob_emiss[self.state], rng).unwrap();
+            let emission = HMM::vector_sample(&self.data.prob_emiss[self.state], rng).unwrap();
             println!("State: {}, Emission: {}", self.state, emission);
 
-            self.state = HMM::roll_vector(&self.data.prob_trans[self.state], rng).unwrap();
+            self.state = HMM::vector_sample(&self.data.prob_trans[self.state], rng).unwrap();
         }
     }
 
     pub fn viterbi(&mut self, observations: Vec<usize>) {
-        let mut paths = Vec::<Vec<(usize, f32)>>::new();
+        let mut trellis = Vec::<Vec<TrellisItem>>::with_capacity(observations.len());
         for _ in 0..observations.len() {
-            paths.push(vec![(0, 0.0); self.data.count_state]);
+            trellis.push(vec![TrellisItem::new(); self.data.count_state]);
         }
 
         for state in 0..(self.data.count_state) {
             let hop_prob =
                 self.data.prob_start[state] * self.data.prob_emiss[state][observations[0]];
-            paths[0][state] = (0, hop_prob);
+            trellis[0][state].max_prob = hop_prob;
+            trellis[0][state].cum_prob = hop_prob;
         }
 
+        // Trellis computation
         for time in 1..observations.len() {
             for state_b in 0..(self.data.count_state) {
-                let mut max_hop = 0.0;
                 for state_a in 0..(self.data.count_state) {
-                    let hop_prob =
-                        paths[time - 1][state_a].1 * self.data.prob_trans[state_a][state_b];
-                    if hop_prob > max_hop {
-                        paths[time][state_b].0 = state_a;
-                        max_hop = hop_prob;
+                    let hop_prob = trellis[time - 1][state_a].cum_prob
+                        * self.data.prob_trans[state_a][state_b];
+                    if hop_prob > trellis[time][state_b].max_prob {
+                        trellis[time][state_b].max_path = state_a;
+                        trellis[time][state_b].max_prob = hop_prob;
                     }
-                    paths[time][state_b].1 += hop_prob * self.data.prob_emiss[state_b][observations[time]];
+                    trellis[time][state_b].max_prob *=
+                        self.data.prob_emiss[state_b][observations[time]];
+                    trellis[time][state_b].cum_prob +=
+                        hop_prob * self.data.prob_emiss[state_b][observations[time]];
                 }
             }
         }
+
+        // Trellis printing
+        println!("Trellis unit (cum_prob, max_prob, max_pointer)");
         for state in 0..self.data.count_state {
             for time in 0..observations.len() {
-                print!("{} ({:.2}), ", paths[time][state].0, paths[time][state].1);
+                print!(
+                    "({:.2}, {:.2}, {}) ",
+                    trellis[time][state].cum_prob,
+                    trellis[time][state].max_prob,
+                    trellis[time][state].max_path,
+                );
             }
             println!();
         }
 
-        let mut max_tup = (0, 0.0);
-        for path_tup in &paths[observations.len()-1] {
-            if path_tup.1 > max_tup.1 {
-                max_tup.0 = path_tup.0;
-                max_tup.1 = path_tup.1;
-            }
-        }
-        
-        println!("Most probable path with probability {:.2}:", max_tup.1);
+        let (max_path_end, max_path_prob) = trellis[observations.len() - 1]
+            .iter()
+            .enumerate()
+            .max_by(|(_, value0), (_, value1)| {
+                value0.max_prob.partial_cmp(&value1.max_prob).unwrap()
+            })
+            .map(|(idx, val)| (idx, val.max_prob))
+            .unwrap();
+
+        let cum_path_prob = trellis[observations.len() - 1]
+            .iter()
+            .max_by(|value0, value1| value0.cum_prob.partial_cmp(&value1.cum_prob).unwrap())
+            .map(|val| val.cum_prob)
+            .unwrap();
+
+        println!("Cummulative observation probability: {:.4}", cum_path_prob);
+        println!("Most probable path:");
+        println!("Probability: {:.4}", max_path_prob);
         let mut max_path = vec![0; observations.len()];
-        max_path[observations.len()-1] = max_tup.0; 
-        for time in (0..(observations.len()-1)).rev() {
-            max_path[time] = paths[time+1][max_path[time+1]].0;
+        max_path[observations.len() - 1] = max_path_end;
+        for time in (0..(observations.len() - 1)).rev() {
+            max_path[time] = trellis[time + 1][max_path[time + 1]].max_path;
         }
         for time in 0..observations.len() {
             print!("{}-", max_path[time]);
