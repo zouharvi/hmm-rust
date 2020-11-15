@@ -17,9 +17,8 @@ Trellis unit (cum_prob, max_prob, max_pointer)
 (0.20, 0.20, 0) (0.10, 0.05, 1) (0.01, 0.00, 0) 
 (0.25, 0.25, 0) (0.00, 0.00, 1) (0.02, 0.01, 0) 
 Cummulative observation probability: 0.0235
-Most probable path:
-Probability: 0.0141
-1-0-1-
+Most probable path probability: 0.0141
+Most probable path: 1-0-1-
 ```
 
 Absolutely don't use this code anywhere.

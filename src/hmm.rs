@@ -156,8 +156,8 @@ impl HMM {
             .unwrap();
 
         println!("Cummulative observation probability: {:.4}", cum_path_prob);
-        println!("Most probable path:");
-        println!("Probability: {:.4}", max_path_prob);
+        println!("Most probable path probability: {:.4}", max_path_prob);
+        print!("Most probable path: ");
         let mut max_path = vec![0; observations.len()];
         max_path[observations.len() - 1] = max_path_end;
         for time in (0..(observations.len() - 1)).rev() {
