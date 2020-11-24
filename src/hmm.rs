@@ -2,15 +2,15 @@ use rand::rngs::ThreadRng;
 use rand::Rng;
 
 pub struct HMMData {
-    count_state: usize,
-    count_emiss: usize,
-    prob_start: Vec<f32>,
-    prob_trans: Vec<Vec<f32>>,
-    prob_emiss: Vec<Vec<f32>>,
+    pub count_state: usize,
+    pub count_emiss: usize,
+    pub prob_start: Vec<f32>,
+    pub prob_trans: Vec<Vec<f32>>,
+    pub prob_emiss: Vec<Vec<f32>>,
 }
 
 impl HMMData {
-    fn zeroes(count_state: usize, count_emiss: usize) -> HMMData {
+    pub fn zeroes(count_state: usize, count_emiss: usize) -> HMMData {
         let mut prob_start = Vec::<f32>::new();
         for _ in 0..count_state {
             prob_start.push(0.0);
@@ -31,21 +31,6 @@ impl HMMData {
             prob_trans,
             prob_emiss,
         }
-    }
-
-    pub fn example_ice() -> HMMData {
-        let mut hmm = HMMData::zeroes(2, 3);
-
-        // 0 - hot, 1 - cold
-        hmm.prob_start[0] = 0.5;
-        hmm.prob_start[1] = 0.5;
-        hmm.prob_trans[0] = vec![0.6, 0.4];
-        hmm.prob_trans[1] = vec![0.5, 0.5];
-        // 0 - 1 ice cream, 1 - 2 ice creams, 2 - 3 ice creams
-        hmm.prob_emiss[0] = vec![0.2, 0.4, 0.4];
-        hmm.prob_emiss[1] = vec![0.6, 0.5, 0.0];
-
-        return hmm;
     }
 }
 

@@ -1,9 +1,15 @@
 mod hmm;
-use hmm::{HMMData, HMM};
+mod example;
+
 
 fn main() {
-    let mut ice = HMM {
-        data: HMMData::example_ice(),
+}
+
+
+#[test]
+fn ice_example() {
+    let mut ice = hmm::HMM {
+        data: hmm::HMMData::example_ice(),
         state: 0,
     };
     println!("-----");
