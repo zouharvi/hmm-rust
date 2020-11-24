@@ -1,23 +1,23 @@
 mod hmm;
-mod example;
+mod hmm_tag;
+mod hmm_ice;
 mod loader;
-use loader::{Loader,Mapper};
+use loader::Loader;
 
 fn main() {
     // load data
-    let data_train = Loader::load("data/de-train.tt").unwrap();
-    data_train.print();
+    println!("Loading data");
+    let data_train = Loader::load("data/de-eval.tt").unwrap();
+    // data_train.print();
+    println!("Fitting the model");
+    let model = hmm::HMM::hmm_tag(&data_train);
 }
-
 
 #[test]
 fn ice_example() {
-    let mut ice = hmm::HMM {
-        data: hmm::HMMData::example_ice(),
-        state: 0,
-    };
+    let mut model = hmm::HMM::hmm_ice();
     println!("-----");
-    ice.traverse(3);
+    model.traverse(3);
     println!("-----");
-    ice.viterbi(vec![1, 2, 0]);
+    model.viterbi(vec![1, 2, 0], true);
 }

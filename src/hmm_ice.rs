@@ -1,9 +1,9 @@
-use crate::hmm::HMMData;
+use crate::hmm::HMM;
 
-impl HMMData {
+impl HMM {
     #[allow(dead_code)]
-    pub fn example_ice() -> HMMData {
-        let mut hmm = HMMData::zeroes(2, 3);
+    pub fn hmm_ice() -> HMM {
+        let mut hmm = HMM::zeroes(2, 3);
 
         // 0 - hot, 1 - cold
         hmm.prob_start[0] = 0.5;

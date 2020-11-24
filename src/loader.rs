@@ -29,6 +29,14 @@ impl Mapper {
             return self.counter - 1;
         }
     }
+
+    pub fn count(&self) -> Option<usize> {
+        if self.counter == 0 {
+            return None
+        } else {
+            return Some(self.counter-1)
+        }
+    }
 }
 
 pub struct Sentence {
@@ -69,7 +77,9 @@ impl Loader {
                 let mut sent = Sentence { tokens: vec![] };
                 for line in tokens {
                     if line == "" {
-                        data.push(sent);
+                        if sent.tokens.len() != 0 {
+                            data.push(sent);
+                        }
                         sent = Sentence { tokens: vec![] };
                     } else {
                         let vals = line.split("\t").collect::<Vec<&str>>();
