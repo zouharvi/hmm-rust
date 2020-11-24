@@ -10,7 +10,8 @@ fn main() {
     let data_train = Loader::load("data/de-eval.tt").unwrap();
     // data_train.print();
     println!("Fitting the model");
-    let model = hmm::HMM::hmm_tag(&data_train);
+    let mut model = hmm::HMM::hmm_tag(&data_train);
+    model.eval_tag(&data_train);
 }
 
 #[test]

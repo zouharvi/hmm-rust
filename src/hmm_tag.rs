@@ -2,7 +2,6 @@ use crate::hmm::HMM;
 use crate::loader::Loader;
 
 impl HMM {
-    #[allow(dead_code)]
     pub fn hmm_tag(loader: &Loader) -> HMM {
         let mut hmm = HMM::zeroes(
             loader.mapper_t.count().unwrap()+1,
@@ -50,5 +49,23 @@ impl HMM {
         }
 
         return hmm;
+    }
+
+    pub fn eval_tag(&mut self, loader: &Loader) {
+        for sent in &loader.data {
+            let observations = sent.tokens.iter().map(|x| x.0).collect::<Vec::<usize>>();
+            let max_path = self.viterbi(observations, false);
+            print!("Pred: ");
+            for time in 0..max_path.len() {
+                print!("{}-", max_path[time]);
+            }
+            println!();
+            print!("True: ");
+            for time in 0..max_path.len() {
+                print!("{}-", sent.tokens[time].1);
+            }
+            println!();
+            return;
+        }
     }
 }

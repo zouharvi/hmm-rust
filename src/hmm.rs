@@ -82,14 +82,14 @@ impl HMM {
         for _ in 0..observations.len() {
             trellis.push(vec![TrellisItem::new(); self.count_state]);
         }
-
+        
         for state in 0..(self.count_state) {
             let hop_prob =
-                self.prob_start[state] * self.prob_emiss[state][observations[0]];
+            self.prob_start[state] * self.prob_emiss[state][observations[0]];
             trellis[0][state].max_prob = hop_prob;
             trellis[0][state].cum_prob = hop_prob;
         }
-
+        
         // Trellis computation
         for time in 1..observations.len() {
             for state_b in 0..(self.count_state) {
@@ -143,12 +143,12 @@ impl HMM {
         max_path[observations.len() - 1] = max_path_end;
         for time in (0..(observations.len() - 1)).rev() {
             max_path[time] = trellis[time + 1][max_path[time + 1]].max_path;
+        }
 
         if print {
             println!("Cummulative observation probability: {:.4}", cum_path_prob);
             println!("Most probable path probability: {:.4}", max_path_prob);
             print!("Most probable path: ");
-            }
             for time in 0..observations.len() {
                 print!("{}-", max_path[time]);
             }
