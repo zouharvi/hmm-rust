@@ -1,8 +1,11 @@
 mod hmm;
 mod example;
-
+mod loader;
+use loader::Loader;
 
 fn main() {
+    let data_train = Loader::load("data/de-train.tt").unwrap();
+    data_train.print();
 }
 
 
