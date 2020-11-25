@@ -12,18 +12,9 @@ pub struct HMM {
 
 impl HMM {
     pub fn zeroes(count_state: usize, count_emiss: usize) -> HMM {
-        let mut prob_start = Vec::<f32>::new();
-        for _ in 0..count_state {
-            prob_start.push(0.0);
-        }
-        let mut prob_trans = Vec::<Vec<f32>>::new();
-        for _ in 0..count_state {
-            prob_trans.push(vec![0.0; count_state]);
-        }
-        let mut prob_emiss = Vec::<Vec<f32>>::new();
-        for _ in 0..count_emiss {
-            prob_emiss.push(vec![0.0; count_emiss]);
-        }
+        let prob_start = vec![0.0; count_state];
+        let prob_trans = vec![vec![0.0; count_state]; count_state];
+        let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
 
         HMM {
             count_state,

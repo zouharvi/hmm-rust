@@ -41,12 +41,12 @@ impl HMM {
                 hmm.prob_emiss[key][val] += 1.0;
             }
         }
-        for key in 0..hmm.prob_emiss.len() {
-            let total: f32 = hmm.prob_emiss[key].iter().sum();
-            for val in 0..hmm.prob_emiss[key].len() {
-                hmm.prob_emiss[key][val] /= total;
-            }
-        }
+        // for key in 0..hmm.prob_emiss.len() {
+        //     let total: f32 = hmm.prob_emiss[key].iter().sum();
+        //     for val in 0..hmm.prob_emiss[key].len() {
+        //         hmm.prob_emiss[key][val] /= total;
+        //     }
+        // }
 
         return hmm;
     }
