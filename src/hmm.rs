@@ -54,6 +54,7 @@ impl TrellisItem {
 }
 
 impl HMM {
+    #[allow(dead_code)]
     fn vector_sample(probs: &Vec<f32>, mut rng: ThreadRng) -> Option<usize> {
         let dice = rng.gen::<f32>();
         let mut cum = 0.0;
@@ -66,6 +67,7 @@ impl HMM {
         return None;
     }
 
+    #[allow(dead_code)]
     pub fn traverse(&mut self, steps: usize) {
         let rng = rand::thread_rng();
         self.state = HMM::vector_sample(&self.prob_start, rng).unwrap();

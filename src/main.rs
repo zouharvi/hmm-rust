@@ -7,7 +7,7 @@ use loader::Loader;
 fn main() {
     // load data
     println!("Loading data");
-    let data_train = Loader::load("data/de-eval.tt").unwrap();
+    let data_train = Loader::load("data/de-train.tt").unwrap();
     // data_train.print();
     println!("Fitting the model");
     let mut model = hmm::HMM::hmm_tag(&data_train);
