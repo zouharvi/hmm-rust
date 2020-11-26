@@ -5,10 +5,6 @@ mod loader;
 use loader::Loader;
 
 fn main() {
-    #[cfg(feature = "skip_cum")] {
-        println!("Skipping cummulative probability computation")
-    }
-
     println!("Loading data");
     let data_train = Loader::load("data/de-train.tt").unwrap();
     let data_eval = Loader::load_from_loader(&data_train, "data/de-eval.tt").unwrap();

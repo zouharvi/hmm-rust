@@ -13,7 +13,7 @@ impl HMM {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
         }
-        let total: f64 = hmm.prob_start.iter().sum();
+        let total: f64 = hmm.prob_start.iter().sum::<f64>() / 4096.0;
         for key in 0..hmm.prob_start.len() {
             hmm.prob_start[key] /= total;
         }
@@ -27,7 +27,7 @@ impl HMM {
             }
         }
         for key1 in 0..hmm.prob_trans.len() {
-            let total: f64 = hmm.prob_trans[key1].iter().sum();
+            let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / 4096.0;
             for key2 in 0..hmm.prob_trans[key1].len() {
                 hmm.prob_trans[key1][key2] /= total;
             }
@@ -41,12 +41,12 @@ impl HMM {
                 hmm.prob_emiss[key][val] += 1.0;
             }
         }
-        // for key in 0..hmm.prob_emiss.len() {
-        //     let total: f64 = hmm.prob_emiss[key].iter().sum();
-        //     for val in 0..hmm.prob_emiss[key].len() {
-        //         hmm.prob_emiss[key][val] /= total;
-        //     }
-        // }
+        for key in 0..hmm.prob_emiss.len() {
+            let total: f64 = hmm.prob_emiss[key].iter().sum::<f64>() / 4096.0;
+            for val in 0..hmm.prob_emiss[key].len() {
+                hmm.prob_emiss[key][val] /= total;
+            }
+        }
 
         return hmm;
     }
