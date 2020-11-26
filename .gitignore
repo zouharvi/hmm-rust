@@ -1,1 +1,3 @@
 rust/target
+data_measured/*out
+**/__pycache__/

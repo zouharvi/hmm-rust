@@ -1,5 +1,14 @@
-r-run:
+r-build:
 	@ cd rust; \
-	RUSTFLAGS=-Awarnings \
-	time -f"%e" 2> ../r-time \
-	cargo run --release --features="fast print_acc" 1>&2 2>/dev/null 
+	cargo build --release --features="fast print_pred"
+
+r-run:
+	@ time -f"%e" 2>data_measured/r-time \
+	./rust/target/release/hmm-rust 1>data_measured/r-out
+
+r-build-acc:
+	@ cd rust; \
+	cargo build --release --features="fast print_acc"
+
+r-run-out:
+	./rust/target/release/hmm-rust

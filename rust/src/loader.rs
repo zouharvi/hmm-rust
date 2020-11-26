@@ -35,7 +35,7 @@ impl Mapper {
         if self.counter == 0 {
             return None;
         } else {
-            return Some(self.counter - 1);
+            return Some(self.counter);
         }
     }
 }
@@ -94,8 +94,8 @@ impl Loader {
                     if line == "" {
                         if sent.tokens.len() != 0 {
                             data.push(sent);
+                            sent = Sentence { tokens: vec![] };
                         }
-                        sent = Sentence { tokens: vec![] };
                     } else {
                         let vals = line.split("\t").collect::<Vec<&str>>();
                         sent.tokens.push((

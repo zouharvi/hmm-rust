@@ -4,15 +4,15 @@ use crate::loader::Loader;
 impl HMM {
     pub fn hmm_tag(loader: &Loader) -> HMM {
         let mut hmm = HMM::zeroes(
-            loader.mapper_t.count().unwrap() + 1,
-            loader.mapper_w.count().unwrap() + 1,
+            loader.mapper_t.count().unwrap(),
+            loader.mapper_w.count().unwrap(),
         );
-
+        let SCALE_FACTOR : f64 = 4096.0;
         for sent in &loader.data {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
         }
-        let total: f64 = hmm.prob_start.iter().sum::<f64>() / 4096.0;
+        let total: f64 = hmm.prob_start.iter().sum::<f64>() / SCALE_FACTOR;
         for key in 0..hmm.prob_start.len() {
             hmm.prob_start[key] /= total;
         }
@@ -25,7 +25,7 @@ impl HMM {
             }
         }
         for key1 in 0..hmm.prob_trans.len() {
-            let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / 4096.0;
+            let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / SCALE_FACTOR;
             for key2 in 0..hmm.prob_trans[key1].len() {
                 hmm.prob_trans[key1][key2] /= total;
             }
@@ -39,7 +39,7 @@ impl HMM {
             }
         }
         for key in 0..hmm.prob_emiss.len() {
-            let total: f64 = hmm.prob_emiss[key].iter().sum::<f64>() / 4096.0;
+            let total: f64 = hmm.prob_emiss[key].iter().sum::<f64>() / SCALE_FACTOR;
             for val in 0..hmm.prob_emiss[key].len() {
                 hmm.prob_emiss[key][val] /= total;
             }
@@ -62,16 +62,15 @@ impl HMM {
                 }
             }
 
-            #[cfg(feature = "print_pred_sent")]
+            #[cfg(feature = "print_pred")]
             {
-                print!("Pred: ");
                 for time in 0..max_path.len() {
-                    print!("{}-", max_path[time]);
-                }
-                println!();
-                print!("True: ");
-                for time in 0..max_path.len() {
-                    print!("{}-", sent.tokens[time].1);
+                    println!(
+                        "{}\t{}\t{}",
+                        loader.mapper_w.map_from.get(&sent.tokens[time].0).unwrap(),
+                        loader.mapper_t.map_from.get(&max_path[time]).unwrap(),
+                        loader.mapper_t.map_from.get(&sent.tokens[time].1).unwrap()
+                    );
                 }
                 println!();
             }

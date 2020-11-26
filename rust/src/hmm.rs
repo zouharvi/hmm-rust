@@ -134,8 +134,6 @@ impl HMM {
             }
         }
 
-        // panic!("");
-
         #[cfg(feature = "print_trellis")]
         {
             // Trellis printing
@@ -176,11 +174,10 @@ impl HMM {
 
         #[cfg(not(feature = "skip_cum"))]
         {
-            let cum_path_prob = trellis[observations.len() - 1]
+            let cum_path_prob : f64 = trellis[observations.len() - 1]
                 .iter()
-                .max_by(|value0, value1| value0.cum_prob.partial_cmp(&value1.cum_prob).unwrap())
                 .map(|val| val.cum_prob)
-                .unwrap();
+                .sum();
             #[cfg(feature = "print_trellis")]
             {
                 println!("Cummulative observation probability: {:.4}", cum_path_prob);
