@@ -120,15 +120,23 @@ impl HMM {
             }
 
             // normalize
-            let layer_total: f64 = trellis[time].iter().map(|x| x.max_prob).sum();
+            let layer_total_max: f64 = trellis[time].iter().map(|x| x.max_prob).sum();
             for state_i in 0..(self.count_state) {
-                trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / layer_total;
+                trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / layer_total_max;
+            }
+            #[cfg(not(feature = "skip_cum"))]
+            {
+                let layer_total_cum: f64 = trellis[time].iter().map(|x| x.cum_prob).sum();
+                for state_i in 0..(self.count_state) {
+                    trellis[time][state_i].cum_prob =
+                        trellis[time][state_i].cum_prob / layer_total_cum;
+                }
             }
         }
 
         // panic!("");
 
-        #[cfg(feature = "trellis_print")]
+        #[cfg(feature = "print_trellis")]
         {
             // Trellis printing
             println!("Trellis unit (max_prob, max_pointer)");
@@ -156,7 +164,7 @@ impl HMM {
         for time in (0..(observations.len() - 1)).rev() {
             max_path[time] = trellis[time + 1][max_path[time + 1]].max_path;
         }
-        #[cfg(feature = "trellis_print")]
+        #[cfg(feature = "print_trellis")]
         {
             println!("Most probable path probability: {:.4}", max_path_prob);
             print!("Most probable path: ");
@@ -173,7 +181,7 @@ impl HMM {
                 .max_by(|value0, value1| value0.cum_prob.partial_cmp(&value1.cum_prob).unwrap())
                 .map(|val| val.cum_prob)
                 .unwrap();
-            #[cfg(feature = "trellis_print")]
+            #[cfg(feature = "print_trellis")]
             {
                 println!("Cummulative observation probability: {:.4}", cum_path_prob);
             }

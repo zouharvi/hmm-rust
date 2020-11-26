@@ -8,7 +8,6 @@ impl HMM {
             loader.mapper_w.count().unwrap() + 1,
         );
 
-        println!("Start probabilities");
         for sent in &loader.data {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
@@ -18,7 +17,6 @@ impl HMM {
             hmm.prob_start[key] /= total;
         }
 
-        println!("Transition probabilities");
         for sent in &loader.data {
             for pos in 1..sent.tokens.len() {
                 let key1 = sent.tokens[pos - 1].1;
@@ -33,7 +31,6 @@ impl HMM {
             }
         }
 
-        println!("Emission probabilities");
         for sent in &loader.data {
             for pos in 0..sent.tokens.len() {
                 let val = sent.tokens[pos].0;
@@ -51,7 +48,7 @@ impl HMM {
         return hmm;
     }
 
-    pub fn eval_tag(&mut self, loader: &Loader) -> f64 {
+    pub fn eval_tag(&mut self, loader: &Loader) {
         let mut total = 0;
         let mut correct = 0;
         for sent in &loader.data {
@@ -65,7 +62,7 @@ impl HMM {
                 }
             }
 
-            #[cfg(feature = "sent_pred_print")]
+            #[cfg(feature = "print_pred_sent")]
             {
                 print!("Pred: ");
                 for time in 0..max_path.len() {
@@ -80,6 +77,10 @@ impl HMM {
             }
         }
 
-        return (correct as f64) / (total as f64)
+        #[cfg(feature = "print_acc")]
+        {
+            let acc = (correct as f64) / (total as f64);
+            println!("- Accuracy: {:.2}%", acc * 100.0);
+        }
     }
 }
