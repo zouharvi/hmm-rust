@@ -33,7 +33,9 @@ File paths are hardcoded, because there are no plans to make this portable and t
 
 ## Correctness
 
-Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used. All parameters were multiplied by `4096` in both versions, because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). Despite my best efforts, the two versions produce slightly different results. This may be due to different corner-case handling in the two systems.
+Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used. All parameters were multiplied by `4096` in both versions, because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). In trellis computation, the layers are all normalized to sum to one. Another solutions would be to work in log space.
+
+Despite my best efforts, the two versions produce slightly different results. This may be due to different corner-case handling in the two systems.
 
 Unseen tokens were dealt with by substituting the emission probability with 1, thus relying on the surrounding transition probabilities. 
 
