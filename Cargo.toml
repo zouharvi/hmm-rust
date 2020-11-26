@@ -4,7 +4,12 @@ version = "0.1.0"
 authors = ["Vilém Zouhar <vilem.zouhar@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 rand = "^0.7"
+
+[features]
+default = []
+fast = ["skip_cum"]
+skip_cum = []
+trellis_print = []
+sent_pred_print = []

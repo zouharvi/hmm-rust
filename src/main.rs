@@ -5,6 +5,10 @@ mod loader;
 use loader::Loader;
 
 fn main() {
+    #[cfg(feature="skip_cum")] {
+        println!("Skipping cummulative probability computation")
+    }
+
     println!("Loading data");
     let data_train = Loader::load("data/de-train.tt").unwrap();
     // let data_eval = Loader::load("data/de-eval.tt").unwrap();
@@ -20,5 +24,5 @@ fn ice_example() {
     println!("-----");
     model.traverse(3);
     println!("-----");
-    model.viterbi(vec![1, 2, 0], true, false);
+    model.viterbi(vec![1, 2, 0]);
 }

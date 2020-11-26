@@ -44,6 +44,7 @@ pub struct Sentence {
 }
 
 impl Sentence {
+    #[allow(dead_code)]
     pub fn print(&self, mapper_w: &Mapper, mapper_t: &Mapper) {
         for x in &self.tokens {
             println!(
@@ -105,6 +106,7 @@ impl Loader {
         return Err("Error loading test data");
     }
 
+    #[allow(dead_code)]
     pub fn print(&self) {
         for x in &self.data {
             x.print(&self.mapper_w, &self.mapper_t)

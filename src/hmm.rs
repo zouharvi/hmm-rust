@@ -2,12 +2,12 @@ use rand::rngs::ThreadRng;
 use rand::Rng;
 
 pub struct HMM {
-    pub count_state: usize,
-    pub count_emiss: usize,
+    count_state: usize,
+    count_emiss: usize,
     pub prob_start: Vec<f32>,
     pub prob_trans: Vec<Vec<f32>>,
     pub prob_emiss: Vec<Vec<f32>>,
-    pub state: usize,
+    state: usize,
 }
 
 impl HMM {
@@ -29,6 +29,7 @@ impl HMM {
 
 #[derive(Clone)]
 struct TrellisItem {
+    #[cfg(not(feature = "skip_cum"))]
     pub cum_prob: f32,
     pub max_prob: f32,
     pub max_path: usize,
@@ -37,6 +38,7 @@ struct TrellisItem {
 impl TrellisItem {
     pub fn new() -> TrellisItem {
         TrellisItem {
+            #[cfg(not(feature = "skip_cum"))]
             cum_prob: 0.0,
             max_prob: 0.0,
             max_path: 0,
@@ -78,12 +80,15 @@ impl HMM {
         }
     }
 
-    pub fn viterbi(&mut self, observations: Vec<usize>, print: bool, skip_cum: bool) -> Vec<usize> {
+    pub fn viterbi(&mut self, observations: Vec<usize>) -> Vec<usize> {
         let mut trellis = vec![vec![TrellisItem::new(); self.count_state]; observations.len()];
         for state in 0..(self.count_state) {
             let hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0]);
             trellis[0][state].max_prob = hop_prob;
-            trellis[0][state].cum_prob = hop_prob;
+            #[cfg(not(feature = "skip_cum"))]
+            {
+                trellis[0][state].cum_prob = hop_prob;
+            }
         }
 
         // Trellis computation
@@ -91,28 +96,34 @@ impl HMM {
             for state_b in 0..(self.count_state) {
                 for state_a in 0..(self.count_state) {
                     let hop_prob =
-                        trellis[time - 1][state_a].cum_prob * self.prob_trans[state_a][state_b];
+                        trellis[time - 1][state_a].max_prob * self.prob_trans[state_a][state_b];
                     if hop_prob > trellis[time][state_b].max_prob {
                         trellis[time][state_b].max_path = state_a;
                         trellis[time][state_b].max_prob = hop_prob;
                     }
                     let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
                     trellis[time][state_b].max_prob *= prob_emiss_local;
-                    if !skip_cum {
+                }
+                #[cfg(not(feature = "skip_cum"))]
+                {
+                    for state_a in 0..(self.count_state) {
+                        let hop_prob =
+                            trellis[time - 1][state_a].cum_prob * self.prob_trans[state_a][state_b];
+                        let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
                         trellis[time][state_b].cum_prob += hop_prob * prob_emiss_local;
                     }
                 }
             }
         }
 
-        if print {
+        #[cfg(feature = "trellis_print")]
+        {
             // Trellis printing
-            println!("Trellis unit (cum_prob, max_prob, max_pointer)");
+            println!("Trellis unit (max_prob, max_pointer)");
             for state in 0..self.count_state {
                 for time in 0..observations.len() {
                     print!(
-                        "({:.2}, {:.2}, {}) ",
-                        trellis[time][state].cum_prob,
+                        "({:.2}, {}) ",
                         trellis[time][state].max_prob,
                         trellis[time][state].max_path,
                     );
@@ -129,30 +140,32 @@ impl HMM {
             })
             .map(|(idx, val)| (idx, val.max_prob))
             .unwrap();
-        if !skip_cum {
-            let cum_path_prob = trellis[observations.len() - 1]
-                .iter()
-                .max_by(|value0, value1| value0.cum_prob.partial_cmp(&value1.cum_prob).unwrap())
-                .map(|val| val.cum_prob)
-                .unwrap();
-            if print {
-                println!("Cummulative observation probability: {:.4}", cum_path_prob);
-            }
-        }
-        
         let mut max_path = vec![0; observations.len()];
         max_path[observations.len() - 1] = max_path_end;
         for time in (0..(observations.len() - 1)).rev() {
             max_path[time] = trellis[time + 1][max_path[time + 1]].max_path;
         }
-
-        if print {
+        #[cfg(feature = "trellis_print")]
+        {
             println!("Most probable path probability: {:.4}", max_path_prob);
             print!("Most probable path: ");
             for time in 0..observations.len() {
                 print!("{}-", max_path[time]);
             }
             println!();
+        }
+
+        #[cfg(not(feature = "skip_cum"))]
+        {
+            let cum_path_prob = trellis[observations.len() - 1]
+                .iter()
+                .max_by(|value0, value1| value0.cum_prob.partial_cmp(&value1.cum_prob).unwrap())
+                .map(|val| val.cum_prob)
+                .unwrap();
+            #[cfg(feature = "trellis_print")]
+            {
+                println!("Cummulative observation probability: {:.4}", cum_path_prob);
+            }
         }
 
         return max_path;

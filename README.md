@@ -1,6 +1,13 @@
 # Rust HMM
 
-Just a few hours toy implementation of random HMM walk and the viterbi algorithm.
+Just a few hours toy implementation of random HMM walk and the viterbi algorithm. Run with `cargo run --release --features="fast"` to get the peak performance.
+
+## POS Tagging
+
+TODO
+
+
+## Ice Cream
 
 Example output on the famous ice cream consumption problem on hot and cold days:
 
