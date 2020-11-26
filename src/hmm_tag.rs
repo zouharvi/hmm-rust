@@ -52,10 +52,20 @@ impl HMM {
         return hmm;
     }
 
-    pub fn eval_tag(&mut self, loader: &Loader) {
+    pub fn eval_tag(&mut self, loader: &Loader) -> f32 {
+        let mut total = 0;
+        let mut correct = 0;
         for sent in &loader.data {
             let observations = sent.tokens.iter().map(|x| x.0).collect::<Vec<usize>>();
-            let max_path = self.viterbi(observations);
+            total += observations.len();
+            let max_path = self.viterbi(&observations);
+
+            for time in 0..observations.len() {
+                if sent.tokens[time].1 == max_path[time] {
+                    correct += 1;
+                }
+            }
+
             #[cfg(feature = "sent_pred_print")]
             {
                 print!("Pred: ");
@@ -69,6 +79,9 @@ impl HMM {
                 }
                 println!();
             }
+            return 0.0;
         }
+
+        return (correct as f32) / (total as f32)
     }
 }

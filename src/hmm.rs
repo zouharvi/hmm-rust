@@ -80,7 +80,7 @@ impl HMM {
         }
     }
 
-    pub fn viterbi(&mut self, observations: Vec<usize>) -> Vec<usize> {
+    pub fn viterbi(&mut self, observations: &Vec<usize>) -> Vec<usize> {
         let mut trellis = vec![vec![TrellisItem::new(); self.count_state]; observations.len()];
         for state in 0..(self.count_state) {
             let hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0]);

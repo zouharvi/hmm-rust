@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::string::String;
 
+#[derive(Clone)]
 pub struct Mapper {
     pub map_to: HashMap<String, usize>,
     pub map_from: HashMap<usize, String>,
@@ -65,10 +66,23 @@ pub struct Loader {
 }
 
 impl Loader {
-    pub fn load(path: &str) -> Result<Loader, &str> {
-        let mut mapper_w = Mapper::empty();
-        let mut mapper_t = Mapper::empty();
+    pub fn load_from_loader<'a>(loader: &Loader, path: &str) -> Result<Loader, &'a str> {
+        Self::load_with_mappers(
+            loader.mapper_w.clone(),
+            loader.mapper_t.clone(),
+            path,
+        )
+    }
 
+    pub fn load(path: &str) -> Result<Loader, &str> {
+        Self::load_with_mappers(Mapper::empty(), Mapper::empty(), path)
+    }
+
+    fn load_with_mappers<'a>(
+        mut mapper_w: Mapper,
+        mut mapper_t: Mapper,
+        path: &str,
+    ) -> Result<Loader, &'a str> {
         if let Ok(mut file) = File::open(path) {
             let mut contents = String::new();
             let result = file.read_to_string(&mut contents);
@@ -97,8 +111,8 @@ impl Loader {
 
                 return Ok(Loader {
                     data,
-                    mapper_w,
-                    mapper_t,
+                    mapper_w: mapper_w,
+                    mapper_t: mapper_t,
                 });
             }
         }
