@@ -5,15 +5,27 @@ mod loader;
 use loader::Loader;
 
 fn main() {
-    println!("Loading data");
+    eprintln!("Loading data");
     let data_train = Loader::load("data/de-train.tt").unwrap();
-    let data_eval = Loader::load_from_loader(&data_train, "data/de-eval.tt").unwrap();
-    println!("Fitting the model");
+    eprintln!("Fitting the model");
     let mut model = hmm::HMM::hmm_tag(&data_train);
-    println!("Train dataset:");
-    model.eval_tag(&data_train);
-    println!("Dev dataset:");
-    model.eval_tag(&data_eval);
+    
+    #[cfg(feature = "comp_train")] {
+        eprintln!("Train dataset:");
+        model.eval_tag(&data_train, true);
+    }
+
+    #[cfg(feature = "comp_dev")] {
+        eprintln!("Dev dataset:");
+        let data_eval = Loader::load_from_loader(&data_train, "data/de-eval.tt").unwrap();
+        model.eval_tag(&data_eval, true);
+    }
+    
+    #[cfg(feature = "comp_test")] {
+        eprintln!("Test dataset:");
+        let data_test = Loader::load_from_loader(&data_train, "data/de-test.t").unwrap();
+        model.eval_tag(&data_test, false);
+    }
 }
 
 #[test]

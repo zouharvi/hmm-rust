@@ -9,9 +9,11 @@ rand = "^0.7"
 
 [features]
 default = []
-fast = ["skip_cum"]
-skip_cum = []
+comp_cum = []
 print_trellis = []
 print_pred_sent = []
 print_acc = []
 print_pred = []
+comp_dev = []
+comp_test = []
+comp_train = []

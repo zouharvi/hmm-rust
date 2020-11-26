@@ -29,7 +29,7 @@ impl HMM {
 
 #[derive(Clone)]
 struct TrellisItem {
-    #[cfg(not(feature = "skip_cum"))]
+    #[cfg(feature = "comp_cum")]
     pub cum_prob: f64,
     pub max_prob: f64,
     pub max_path: usize,
@@ -38,7 +38,7 @@ struct TrellisItem {
 impl TrellisItem {
     pub fn new() -> TrellisItem {
         TrellisItem {
-            #[cfg(not(feature = "skip_cum"))]
+            #[cfg(feature = "comp_cum")]
             cum_prob: 0.0,
             max_prob: 0.0,
             max_path: 0,
@@ -86,7 +86,7 @@ impl HMM {
             let hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0]);
             // println!("-- {} {} {}", state, self.prob_start[state], self.prob_emiss_comp(state, observations[0]));
             trellis[0][state].max_prob = hop_prob;
-            #[cfg(not(feature = "skip_cum"))]
+            #[cfg(feature = "comp_cum")]
             {
                 trellis[0][state].cum_prob = hop_prob;
             }
@@ -105,14 +105,14 @@ impl HMM {
                     let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
                     trellis[time][state_b].max_prob *= prob_emiss_local;
 
-                    #[cfg(not(feature = "skip_cum"))]
+                    #[cfg(feature = "comp_cum")]
                     {
                         let hop_prob_cum =
                             trellis[time - 1][state_a].cum_prob * self.prob_trans[state_a][state_b];
                         trellis[time][state_b].cum_prob += hop_prob_cum;
                     }
                 }
-                #[cfg(not(feature = "skip_cum"))]
+                #[cfg(feature = "comp_cum")]
                 {
                     let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
                     trellis[time][state_b].cum_prob *= prob_emiss_local;
@@ -124,7 +124,7 @@ impl HMM {
             for state_i in 0..(self.count_state) {
                 trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / layer_total_max;
             }
-            #[cfg(not(feature = "skip_cum"))]
+            #[cfg(feature = "comp_cum")]
             {
                 let layer_total_cum: f64 = trellis[time].iter().map(|x| x.cum_prob).sum();
                 for state_i in 0..(self.count_state) {
@@ -172,7 +172,7 @@ impl HMM {
             println!();
         }
 
-        #[cfg(not(feature = "skip_cum"))]
+        #[cfg(feature = "comp_cum")]
         {
             let cum_path_prob : f64 = trellis[observations.len() - 1]
                 .iter()

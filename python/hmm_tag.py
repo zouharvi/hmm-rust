@@ -1,7 +1,5 @@
 from hmm import HMM
-
-PRINT_PRED = False
-PRINT_ACC = True
+import sys
 
 class HMMTag(HMM):
     def __init__(self, loader):
@@ -40,7 +38,7 @@ class HMMTag(HMM):
             for val in range(len(self.prob_emiss[key])):
                 self.prob_emiss[key][val] /= total
 
-    def eval_tag(self, loader):
+    def eval_tag(self, loader, gold_labels):
         total = 0
         correct = 0
         for sent in loader.data:
@@ -52,13 +50,21 @@ class HMMTag(HMM):
                 if sent.tokens[time][1] == max_path[time]:
                     correct += 1
 
-            if PRINT_PRED:
+            if 'print_pred' in sys.argv:
                 for time in range(len(max_path)):
-                    print(
-                        f"{loader.mapper_w.map_from[sent.tokens[time][0]]}\t{loader.mapper_t.map_from[max_path[time]]}\t{loader.mapper_t.map_from[sent.tokens[time][1]]}",
-                    )
+                    if gold_labels:
+                        print(
+                        f"{loader.mapper_w.map_from[sent.tokens[time][0]]}\t" +
+                        f"{loader.mapper_t.map_from[max_path[time]]}\t" +
+                        f"{loader.mapper_t.map_from[sent.tokens[time][1]]}",
+                        )
+                    else:
+                        print(
+                            f"{loader.mapper_w.map_from[sent.tokens[time][0]]}\t" +
+                            f"{loader.mapper_t.map_from[max_path[time]]}"
+                        )
                 print()
 
-        if PRINT_ACC:
+        if "print_acc" in sys.argv:
             acc = correct/total
             print(f"- Accuracy: {acc * 100:.2f}%")
