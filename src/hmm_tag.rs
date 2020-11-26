@@ -4,8 +4,8 @@ use crate::loader::Loader;
 impl HMM {
     pub fn hmm_tag(loader: &Loader) -> HMM {
         let mut hmm = HMM::zeroes(
-            loader.mapper_t.count().unwrap()+1,
-            loader.mapper_w.count().unwrap()+1,
+            loader.mapper_t.count().unwrap() + 1,
+            loader.mapper_w.count().unwrap() + 1,
         );
 
         println!("Start probabilities");
@@ -41,31 +41,32 @@ impl HMM {
                 hmm.prob_emiss[key][val] += 1.0;
             }
         }
-        // for key in 0..hmm.prob_emiss.len() {
-        //     let total: f32 = hmm.prob_emiss[key].iter().sum();
-        //     for val in 0..hmm.prob_emiss[key].len() {
-        //         hmm.prob_emiss[key][val] /= total;
-        //     }
-        // }
+
+        for key in 0..hmm.prob_emiss.len() {
+            let total: f32 = hmm.prob_emiss[key].iter().sum();
+            for val in 0..hmm.prob_emiss[key].len() {
+                hmm.prob_emiss[key][val] /= total;
+            }
+        }
 
         return hmm;
     }
 
     pub fn eval_tag(&mut self, loader: &Loader) {
         for sent in &loader.data {
-            let observations = sent.tokens.iter().map(|x| x.0).collect::<Vec::<usize>>();
-            let max_path = self.viterbi(observations, false);
-            print!("Pred: ");
-            for time in 0..max_path.len() {
-                print!("{}-", max_path[time]);
-            }
-            println!();
-            print!("True: ");
-            for time in 0..max_path.len() {
-                print!("{}-", sent.tokens[time].1);
-            }
-            println!();
-            return;
+            let observations = sent.tokens.iter().map(|x| x.0).collect::<Vec<usize>>();
+            let max_path = self.viterbi(observations, false, true);
+            // print!("Pred: ");
+            // for time in 0..max_path.len() {
+            //     print!("{}-", max_path[time]);
+            // }
+            // println!();
+            // print!("True: ");
+            // for time in 0..max_path.len() {
+            //     print!("{}-", sent.tokens[time].1);
+            // }
+            // println!();
+            // return;
         }
     }
 }

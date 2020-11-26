@@ -32,9 +32,9 @@ impl Mapper {
 
     pub fn count(&self) -> Option<usize> {
         if self.counter == 0 {
-            return None
+            return None;
         } else {
-            return Some(self.counter-1)
+            return Some(self.counter - 1);
         }
     }
 }
