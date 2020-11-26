@@ -153,7 +153,11 @@ impl HMM {
             .iter()
             .enumerate()
             .max_by(|(_, value0), (_, value1)| {
-                value0.max_prob.partial_cmp(&value1.max_prob).unwrap()
+                if let Some(val) = value0.max_prob.partial_cmp(&value1.max_prob) {
+                    return val
+                } else {
+                    return std::cmp::Ordering::Equal 
+                }
             })
             .map(|(idx, val)| (idx, val.max_prob))
             .unwrap();

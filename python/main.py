@@ -7,7 +7,11 @@ if __name__ == '__main__':
     sys.argv = [x.lower() for x in sys.argv]
 
     print("Loading data", file=sys.stderr)
-    data_train = Loader(None, "data/de-train.tt")
+    if 'new_train' in sys.argv:
+        data_train = Loader(None, "data/de-train-new.tt")
+    else:
+        data_train = Loader(None, "data/de-train.tt")
+
     print("Fitting the model", file=sys.stderr)
     model = HMMTag(data_train)
     

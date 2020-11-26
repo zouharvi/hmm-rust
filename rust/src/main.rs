@@ -6,22 +6,30 @@ use loader::Loader;
 
 fn main() {
     eprintln!("Loading data");
-    let data_train = Loader::load("data/de-train.tt").unwrap();
+    let data_train: Loader;
+    if cfg!(feature = "new_train") {
+        data_train = Loader::load("data/de-train-new.tt").unwrap();
+    } else {
+        data_train = Loader::load("data/de-train.tt").unwrap();
+    }
     eprintln!("Fitting the model");
     let mut model = hmm::HMM::hmm_tag(&data_train);
-    
-    #[cfg(feature = "comp_train")] {
+
+    #[cfg(feature = "comp_train")]
+    {
         eprintln!("Train dataset:");
         model.eval_tag(&data_train, true);
     }
 
-    #[cfg(feature = "comp_dev")] {
+    #[cfg(feature = "comp_dev")]
+    {
         eprintln!("Dev dataset:");
         let data_eval = Loader::load_from_loader(&data_train, "data/de-eval.tt").unwrap();
         model.eval_tag(&data_eval, true);
     }
-    
-    #[cfg(feature = "comp_test")] {
+
+    #[cfg(feature = "comp_test")]
+    {
         eprintln!("Test dataset:");
         let data_test = Loader::load_from_loader(&data_train, "data/de-test.t").unwrap();
         model.eval_tag(&data_test, false);
@@ -34,5 +42,5 @@ fn ice_example() {
     println!("-----");
     model.traverse(3);
     println!("-----");
-    model.viterbi(vec![1, 2, 0]);
+    model.viterbi(&vec![1, 2, 0]);
 }

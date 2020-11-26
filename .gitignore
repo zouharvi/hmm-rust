@@ -1,4 +1,4 @@
 rust/target
-data_measured/*
+data_measured/*-out
 **/__pycache__/
 eval.py
