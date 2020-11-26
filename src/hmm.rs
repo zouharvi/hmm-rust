@@ -4,9 +4,9 @@ use rand::Rng;
 pub struct HMM {
     count_state: usize,
     count_emiss: usize,
-    pub prob_start: Vec<f32>,
-    pub prob_trans: Vec<Vec<f32>>,
-    pub prob_emiss: Vec<Vec<f32>>,
+    pub prob_start: Vec<f64>,
+    pub prob_trans: Vec<Vec<f64>>,
+    pub prob_emiss: Vec<Vec<f64>>,
     state: usize,
 }
 
@@ -30,8 +30,8 @@ impl HMM {
 #[derive(Clone)]
 struct TrellisItem {
     #[cfg(not(feature = "skip_cum"))]
-    pub cum_prob: f32,
-    pub max_prob: f32,
+    pub cum_prob: f64,
+    pub max_prob: f64,
     pub max_path: usize,
 }
 
@@ -48,8 +48,8 @@ impl TrellisItem {
 
 impl HMM {
     #[allow(dead_code)]
-    fn vector_sample(probs: &Vec<f32>, mut rng: ThreadRng) -> Option<usize> {
-        let dice = rng.gen::<f32>();
+    fn vector_sample(probs: &Vec<f64>, mut rng: ThreadRng) -> Option<usize> {
+        let dice = rng.gen::<f64>();
         let mut cum = 0.0;
         for n in 0..(probs.len()) {
             cum += probs[n];
@@ -72,7 +72,7 @@ impl HMM {
         }
     }
 
-    fn prob_emiss_comp(&self, state: usize, observation: usize) -> f32 {
+    fn prob_emiss_comp(&self, state: usize, observation: usize) -> f64 {
         if observation >= self.prob_emiss[state].len() {
             return 1.0;
         } else {
@@ -84,6 +84,7 @@ impl HMM {
         let mut trellis = vec![vec![TrellisItem::new(); self.count_state]; observations.len()];
         for state in 0..(self.count_state) {
             let hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0]);
+            // println!("-- {} {} {}", state, self.prob_start[state], self.prob_emiss_comp(state, observations[0]));
             trellis[0][state].max_prob = hop_prob;
             #[cfg(not(feature = "skip_cum"))]
             {
@@ -95,26 +96,37 @@ impl HMM {
         for time in 1..observations.len() {
             for state_b in 0..(self.count_state) {
                 for state_a in 0..(self.count_state) {
-                    let hop_prob =
+                    let hop_prob_max =
                         trellis[time - 1][state_a].max_prob * self.prob_trans[state_a][state_b];
-                    if hop_prob > trellis[time][state_b].max_prob {
+                    if hop_prob_max > trellis[time][state_b].max_prob {
                         trellis[time][state_b].max_path = state_a;
-                        trellis[time][state_b].max_prob = hop_prob;
+                        trellis[time][state_b].max_prob = hop_prob_max;
                     }
                     let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
                     trellis[time][state_b].max_prob *= prob_emiss_local;
+
+                    #[cfg(not(feature = "skip_cum"))]
+                    {
+                        let hop_prob_cum =
+                            trellis[time - 1][state_a].cum_prob * self.prob_trans[state_a][state_b];
+                        trellis[time][state_b].cum_prob += hop_prob_cum;
+                    }
                 }
                 #[cfg(not(feature = "skip_cum"))]
                 {
-                    for state_a in 0..(self.count_state) {
-                        let hop_prob =
-                            trellis[time - 1][state_a].cum_prob * self.prob_trans[state_a][state_b];
-                        let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
-                        trellis[time][state_b].cum_prob += hop_prob * prob_emiss_local;
-                    }
+                    let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
+                    trellis[time][state_b].cum_prob *= prob_emiss_local;
                 }
             }
+
+            // normalize
+            let layer_total: f64 = trellis[time].iter().map(|x| x.max_prob).sum();
+            for state_i in 0..(self.count_state) {
+                trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / layer_total;
+            }
         }
+
+        // panic!("");
 
         #[cfg(feature = "trellis_print")]
         {
@@ -124,8 +136,7 @@ impl HMM {
                 for time in 0..observations.len() {
                     print!(
                         "({:.2}, {}) ",
-                        trellis[time][state].max_prob,
-                        trellis[time][state].max_path,
+                        trellis[time][state].max_prob, trellis[time][state].max_path,
                     );
                 }
                 println!();
