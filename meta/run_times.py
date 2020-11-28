@@ -20,7 +20,7 @@ for i in range(1,len(lines)//10000+2):
     with open('data/de-train-new.tt', 'w') as f:
         f.writelines(lines[:i*10000])
         start = time.time()
-        process = subprocess.Popen("./rust/target/release/hmm-rust".split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        process = subprocess.Popen("make r-run".split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
         output, _ = process.communicate()
         end = time.time()
 
@@ -34,7 +34,7 @@ for i in range(1,len(lines)//10000+2):
         output = output.decode('utf-8').replace('- Accuracy: ', '').replace('\n', ',').replace('%', '')
         output2 = f'{end-start},{output}'
 
-        with open('data_measured/r-time', 'a') as f:
+        with open('data_measured/time', 'a') as f:
             f.write(str(i*10000) + ',' + output1+output2+'\n')
 
 safe_rm('tmp-acc')
