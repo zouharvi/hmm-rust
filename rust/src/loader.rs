@@ -11,6 +11,8 @@ pub struct Mapper {
     counter: usize,
 }
 
+// maps between words/tags and numbers
+// for general case, this could be make generic over hashable types
 impl Mapper {
     pub fn empty() -> Mapper {
         Mapper {
@@ -22,20 +24,20 @@ impl Mapper {
 
     pub fn update(&mut self, tok: &str) -> usize {
         if let Some(val) = self.map_to.get(tok) {
-            return *val;
+            *val
         } else {
             self.map_to.insert(String::from(tok), self.counter);
             self.map_from.insert(self.counter, String::from(tok));
             self.counter += 1;
-            return self.counter - 1;
+            self.counter - 1
         }
     }
 
     pub fn count(&self) -> Option<usize> {
         if self.counter == 0 {
-            return None;
+            None
         } else {
-            return Some(self.counter);
+            Some(self.counter)
         }
     }
 }
@@ -65,6 +67,7 @@ pub struct Loader {
     pub mapper_t: Mapper,
 }
 
+#[allow(dead_code)]
 impl Loader {
     pub fn load_from_loader<'a>(loader: &Loader, path: &str) -> Result<Loader, &'a str> {
         Self::load_with_mappers(
@@ -74,6 +77,7 @@ impl Loader {
         )
     }
 
+    // parse the .tt/.t files
     pub fn load(path: &str) -> Result<Loader, &str> {
         Self::load_with_mappers(Mapper::empty(), Mapper::empty(), path)
     }
@@ -87,17 +91,17 @@ impl Loader {
             let mut contents = String::new();
             let result = file.read_to_string(&mut contents);
             if let Ok(_) = result {
-                let tokens = contents.split("\n").collect::<Vec<&str>>();
+                let tokens = contents.split('\n').collect::<Vec<&str>>();
                 let mut data = Vec::<Sentence>::new();
                 let mut sent = Sentence { tokens: vec![] };
                 for line in tokens {
                     if line == "" {
-                        if sent.tokens.len() != 0 {
+                        if !sent.tokens.is_empty() {
                             data.push(sent);
                             sent = Sentence { tokens: vec![] };
                         }
                     } else {
-                        let vals = line.split("\t").collect::<Vec<&str>>();
+                        let vals = line.split('\t').collect::<Vec<&str>>();
                         sent.tokens.push((
                             mapper_w.update(vals[0]),
                             if vals.len() == 1 {
@@ -111,13 +115,13 @@ impl Loader {
 
                 return Ok(Loader {
                     data,
-                    mapper_w: mapper_w,
-                    mapper_t: mapper_t,
+                    mapper_w,
+                    mapper_t,
                 });
             }
         }
 
-        return Err("Error loading test data");
+        Err("Error loading data")
     }
 
     #[allow(dead_code)]

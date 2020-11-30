@@ -21,9 +21,9 @@ fn main() {
         model.eval_tag(&data_train);
     }
 
-    #[cfg(feature = "comp_dev")]
+    #[cfg(feature = "comp_eval")]
     {
-        eprintln!("Dev dataset:");
+        eprintln!("Eval dataset:");
         let data_eval = Loader::load_from_loader(&data_train, "data/de-eval.tt").unwrap();
         model.eval_tag(&data_eval);
     }

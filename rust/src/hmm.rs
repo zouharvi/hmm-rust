@@ -3,7 +3,7 @@ use rand::Rng;
 
 pub struct HMM {
     count_state: usize,
-    count_emiss: usize,
+    _count_emiss: usize,
     pub prob_start: Vec<f64>,
     pub prob_trans: Vec<Vec<f64>>,
     pub prob_emiss: Vec<Vec<f64>>,
@@ -11,18 +11,33 @@ pub struct HMM {
 }
 
 impl HMM {
+    // initialize HMM parameters with either zeroes or smoothed probabilities
     pub fn zeroes(count_state: usize, count_emiss: usize) -> HMM {
-        let prob_start = vec![0.0; count_state];
-        let prob_trans = vec![vec![0.0; count_state]; count_state];
-        let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
-
-        HMM {
-            count_state,
-            count_emiss,
-            prob_start,
-            prob_trans,
-            prob_emiss,
-            state: 0,
+        #[cfg(feature = "smooth")] {
+            let prob_start = vec![96.0; count_state];
+            let prob_trans = vec![vec![-64.0; count_state]; count_state];
+            let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
+            HMM {
+                count_state,
+                count_emiss,
+                prob_start,
+                prob_trans,
+                prob_emiss,
+                state: 0,
+            }
+        }
+        #[cfg(not(feature = "smooth"))] {
+            let prob_start = vec![0.0; count_state];
+            let prob_trans = vec![vec![0.0; count_state]; count_state];
+            let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
+            HMM {
+                count_state,
+                _count_emiss: count_emiss,
+                prob_start,
+                prob_trans,
+                prob_emiss,
+                state: 0,
+            }
         }
     }
 }
@@ -46,21 +61,20 @@ impl TrellisItem {
     }
 }
 
+#[allow(dead_code)]
 impl HMM {
-    #[allow(dead_code)]
-    fn vector_sample(probs: &Vec<f64>, mut rng: ThreadRng) -> Option<usize> {
+    fn vector_sample(probs: &[f64], mut rng: ThreadRng) -> Option<usize> {
         let dice = rng.gen::<f64>();
         let mut cum = 0.0;
-        for n in 0..(probs.len()) {
-            cum += probs[n];
+        for (n, prob) in probs.iter().enumerate() {
+            cum += prob;
             if dice <= cum {
                 return Some(n);
             }
         }
-        return None;
+        None
     }
 
-    #[allow(dead_code)]
     pub fn traverse(&mut self, steps: usize) {
         let rng = rand::thread_rng();
         self.state = HMM::vector_sample(&self.prob_start, rng).unwrap();
@@ -74,14 +88,15 @@ impl HMM {
 
     fn prob_emiss_comp(&self, state: usize, observation: usize) -> f64 {
         if observation >= self.prob_emiss[state].len() {
-            return 1.0;
+            1.0
         } else {
-            return self.prob_emiss[state][observation];
+            self.prob_emiss[state][observation]
         }
     }
 
-    pub fn viterbi(&mut self, observations: &Vec<usize>) -> Vec<usize> {
+    pub fn viterbi(&mut self, observations: &[usize]) -> Vec<usize> {
         let mut trellis = vec![vec![TrellisItem::new(); self.count_state]; observations.len()];
+        // initial hop probability
         for state in 0..(self.count_state) {
             let hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0]);
             // println!("-- {} {} {}", state, self.prob_start[state], self.prob_emiss_comp(state, observations[0]));
@@ -92,7 +107,7 @@ impl HMM {
             }
         }
 
-        // Trellis computation
+        // trellis computation
         for time in 1..observations.len() {
             for state_b in 0..(self.count_state) {
                 for state_a in 0..(self.count_state) {
@@ -119,10 +134,10 @@ impl HMM {
                 }
             }
 
-            // normalize
+            // normalize layer
             let layer_total_max: f64 = trellis[time].iter().map(|x| x.max_prob).sum();
             for state_i in 0..(self.count_state) {
-                trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / layer_total_max;
+                trellis[time][state_i].max_prob /= layer_total_max;
             }
             #[cfg(feature = "comp_cum")]
             {
@@ -136,7 +151,7 @@ impl HMM {
 
         #[cfg(feature = "print_trellis")]
         {
-            // Trellis printing
+            // trellis printing
             println!("Trellis unit (max_prob, max_pointer)");
             for state in 0..self.count_state {
                 for time in 0..observations.len() {
@@ -149,14 +164,15 @@ impl HMM {
             }
         }
 
-        let (max_path_end, max_path_prob) = trellis[observations.len() - 1]
+        // compute the path that ends with max probability
+        let (max_path_end, _max_path_prob) = trellis[observations.len() - 1]
             .iter()
             .enumerate()
             .max_by(|(_, value0), (_, value1)| {
                 if let Some(val) = value0.max_prob.partial_cmp(&value1.max_prob) {
-                    return val
+                    val
                 } else {
-                    return std::cmp::Ordering::Equal 
+                    std::cmp::Ordering::Equal 
                 }
             })
             .map(|(idx, val)| (idx, val.max_prob))
@@ -188,6 +204,6 @@ impl HMM {
             }
         }
 
-        return max_path;
+        max_path
     }
 }

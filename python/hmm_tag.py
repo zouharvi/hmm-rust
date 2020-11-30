@@ -2,6 +2,7 @@ from hmm import HMM
 import sys
 
 class HMMTag(HMM):
+    # estimate HMM parameters given loaded corpus
     def __init__(self, loader):
         super().__init__(
             loader.mapper_t.count(),
@@ -38,6 +39,7 @@ class HMMTag(HMM):
             for val in range(len(self.prob_emiss[key])):
                 self.prob_emiss[key][val] /= total
 
+    # evaluate or print predictions
     def eval_tag(self, loader):
         total = 0
         correct = 0

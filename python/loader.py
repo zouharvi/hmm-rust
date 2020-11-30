@@ -1,3 +1,5 @@
+# maps between words/tags and numbers
+# for general case, this could be make generic over hashable types
 class Mapper:
     def __init__(self):
         self.map_to = {}
@@ -15,20 +17,22 @@ class Mapper:
         if tok in self.map_to:
             return self.map_to[tok]
         else:
-            self.map_to[tok] =  self.counter
+            self.map_to[tok] = self.counter
             self.map_from[self.counter] = tok
             self.counter += 1
             return self.counter - 1
-    
+
     def count(self):
         if self.counter == 0:
             return None
         else:
             return self.counter
 
+
 class Sentence:
     def __init__(self):
         self.tokens = []
+
 
 class Loader:
     def __init__(self, loader, path):
@@ -40,6 +44,7 @@ class Loader:
             self.mapper_w = loader.mapper_w.clone()
             self.mapper_t = loader.mapper_t.clone()
 
+        # parse the .tt/.t files
         with open(path, 'r') as f:
             sent = Sentence()
             for line in f:
@@ -50,4 +55,7 @@ class Loader:
                     sent = Sentence()
                 else:
                     vals = line.split("\t")
-                    sent.tokens.append((self.mapper_w.update(vals[0]), 0 if len(vals) == 1 else self.mapper_t.update(vals[1])))
+                    sent.tokens.append((
+                        self.mapper_w.update(vals[0]),
+                        0 if len(vals) == 1 else self.mapper_t.update(vals[1])
+                    ))

@@ -14,6 +14,6 @@ impl HMM {
         hmm.prob_emiss[0] = vec![0.2, 0.4, 0.4];
         hmm.prob_emiss[1] = vec![0.6, 0.5, 0.0];
 
-        return hmm;
+        hmm
     }
 }

@@ -1,13 +1,15 @@
 use crate::hmm::HMM;
 use crate::loader::Loader;
 
+#[allow(dead_code)]
 impl HMM {
+    // estimate HMM parameters given loaded corpus
     pub fn hmm_tag(loader: &Loader) -> HMM {
         let mut hmm = HMM::zeroes(
             loader.mapper_t.count().unwrap(),
             loader.mapper_w.count().unwrap(),
         );
-        let SCALE_FACTOR : f64 = 4096.0;
+        const SCALE_FACTOR : f64 = 4096.0;
         for sent in &loader.data {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
@@ -45,9 +47,10 @@ impl HMM {
             }
         }
 
-        return hmm;
+        hmm
     }
-
+    
+    // evaluate or print predictions
     pub fn eval_tag(&mut self, loader: &Loader) {
         let mut total = 0;
         let mut correct = 0;
