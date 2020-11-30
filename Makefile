@@ -13,7 +13,7 @@ r-build-test:
 r-run-test: r-build-test
 	@ ./rust/target/release/hmm-rust 1>data_measured/r-de-test.tt
 
-r-run: r-build-acc
+r-run:
 	@ ./rust/target/release/hmm-rust
 
 p-run-time:
