@@ -13,7 +13,7 @@ data/                  # not supplied, paste the files here for reproducibility
  - de-{eval,train}.tt  
  - de-test.t
 data_measured/
- - {r,p}-de-eval-{,smooth}.tt # model outputs 
+ - {r,p}-de-eval{,-smooth}.tt # model outputs 
  - time-{1,2,3}        # measured results for graphs
  - time-{1,2,3}.png    # exported graphs
 meta/                  # scripts for measuring performance and accuracy
@@ -85,7 +85,7 @@ Also both versions contain code for computing sequence observation probability i
 
 I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in constructor (class `HMM`) to some parameter `alpha` instead of zeroes. Since probabilities are scaled up by the factor of `4096`, it makes sense to use higher values.
 
-Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition probability to a negative number `-128` and the start probability to `64` resulted in the best results (I did not employ gridsearch, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.58%, 80.86%) and (81.72%, 73.98%) for Rust and Python respectively. This is an improvement of (+0.69%, +0.46%) and (+2.07%, +1.07%) for Rust and Python. The resulting inferences are stored in `data_measured/{p,r}-de-eval-{,smooth}.tt`.
+Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition probability to a negative number `-128` and the start probability to `64` resulted in the best results (I did not employ gridsearch, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.58%, 80.86%) and (81.72%, 73.98%) for Rust and Python respectively. This is an improvement of (+0.69%, +0.46%) and (+2.07%, +1.07%) for Rust and Python. The resulting inferences are stored in `data_measured/{p,r}-de-eval{,-smooth}.tt`.
 
 ### Ice cream
 

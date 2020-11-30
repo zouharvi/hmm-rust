@@ -7,7 +7,7 @@
  - de-{eval,train}.tt  
  - de-test.t
 data_measured/
- - {r,p}-de-eval-{,smooth}.tt # model outputs 
+ - {r,p}-de-eval{,-smooth}.tt # model outputs 
  - time-{1,2,3}        # measured results for graphs
  - time-{1,2,3}.png    # exported graphs
 meta/                  # scripts for measuring performance and accuracy
@@ -50,7 +50,7 @@ Makefile               # Makefile for common recipes</code></pre>
 <h2 id="additional">Additional</h2>
 <h3 id="smoothing">Smoothing</h3>
 <p>I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in constructor (class <code>HMM</code>) to some parameter <code>alpha</code> instead of zeroes. Since probabilities are scaled up by the factor of <code>4096</code>, it makes sense to use higher values.</p>
-<p>Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition probability to a negative number <code>-128</code> and the start probability to <code>64</code> resulted in the best results (I did not employ gridsearch, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.58%, 80.86%) and (81.72%, 73.98%) for Rust and Python respectively. This is an improvement of (+0.69%, +0.46%) and (+2.07%, +1.07%) for Rust and Python. The resulting inferences are stored in <code>data_measured/{p,r}-de-eval-{,smooth}.tt</code>.</p>
+<p>Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition probability to a negative number <code>-128</code> and the start probability to <code>64</code> resulted in the best results (I did not employ gridsearch, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.58%, 80.86%) and (81.72%, 73.98%) for Rust and Python respectively. This is an improvement of (+0.69%, +0.46%) and (+2.07%, +1.07%) for Rust and Python. The resulting inferences are stored in <code>data_measured/{p,r}-de-eval{,-smooth}.tt</code>.</p>
 <h3 id="ice-cream">Ice cream</h3>
 <p>The Rust code also contains the toy ice-cream X weather example. It can be run from the <code>rust</code> directory with <code>cargo test -- --nocapture</code>.</p>
 <h3 id="unknown-word-handling-by-subwords">Unknown word handling by subwords</h3>
