@@ -4,7 +4,7 @@ For this assignment I decided to focus on the model computational performance. S
 
 I understand that the task was to programm this in Python, which I hope I fulfilled. Yet I also hope that you will find these comparison interesting. 
 
-The Rust code is twice as large and took much longer to complete. The benefits are, however, that once it compiled, I was convinced of its functionality, which was not the case with Python.
+The Rust code is twice as large* and took much longer to complete. The benefits are, however, that once it compiled, I was convinced of its functionality, which was not the case with Python. *Running `grep -r -E "^\s*[{}]\s*$" rust/src/ | wc -l` reveals that more than 100 lines are just opening or closing brackets, so the code size is not that  significant.
 
 ## Project structure
 
@@ -13,12 +13,12 @@ data/                  # not supplied, paste the files here for reproducibility
  - de-{eval,train}.tt  
  - de-test.t
 data_measured/
- - {r,p}-de-test.tt    # test outputs 
- - time-{1,2,3}        # measured results
+ - {r,p}-de-eval-{,smooth}.tt # model outputs 
+ - time-{1,2,3}        # measured results for graphs
  - time-{1,2,3}.png    # exported graphs
 meta/                  # scripts for measuring performance and accuracy
  - graph.py            # produce graphs given logs time-{1,2,3} in data_measured
- - run_times.py        # measure performance from r-build-time and p-run-test recipes
+ - run_times.py        # measure performance from r-build-time and p-run-time recipes
 rust/                  # Rust source code
 python/                # Python source code
 Makefile               # Makefile for common recipes
@@ -26,7 +26,7 @@ Makefile               # Makefile for common recipes
 
 ## Makefile and reproducing results
 
-`make p-run-test` trains on the data and outputs the CONLL-U file to `data_measured/p-de-test.tt`, similarly `make r-run-test` produces `data_measured/r-de-test.tt` (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: `print_acc` self-reports the accuracy on anything it computes (`comp_test`, `comp_train` or `comp_eval`).
+`make r-print-eval` trains two models on the data and outputs the CONLL-U file to `data_measured/p-de-eval.tt` and `data_measured/p-de-eval-smooth.tt`, similarly `make r-print-eval` produces `data_measured/r-de-eval.tt` and `data_measured/r-de-eval-smooth.tt` (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: `print_acc` self-reports the accuracy on anything it computes (`comp_test`, `comp_train` or `comp_eval`).
 
 File paths are relative hardcoded, because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory thie `README.md` is in). If `print_pred` is present, the program outputs predictions to stdout. Progress is outputed to stderr.
 
@@ -42,7 +42,7 @@ I tried to use the same algorithmic steps in both solutions, so that they are co
 
 ## Log space
 
-Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cummulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, dev) accuracy, the new results in Rust were (89.16%, 78.96%) and in Python (66.67%, 66.98%).
+Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cummulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results in Rust were (89.16%, 78.96%) and in Python (66.67%, 66.98%).
 
 ## Code structure
 
@@ -81,9 +81,15 @@ Also both versions contain code for computing sequence observation probability i
 
 ## Additional
 
+### Smoothing
+
+I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in constructor (class `HMM`) to some parameter `alpha` instead of zeroes. Since probabilities are scaled up by the factor of `4096`, it makes sense to use higher values.
+
+Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition probability to a negative number `-128` and the start probability to `64` resulted in the best results (I did not employ gridsearch, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.58%, 80.86%) and (81.72%, 73.98%) for Rust and Python respectively. This is an improvement of (+0.69%, +0.46%) and (+2.07%, +1.07%) for Rust and Python. The resulting inferences are stored in `data_measured/{p,r}-de-eval-{,smooth}.tt`.
+
 ### Ice cream
 
-The Rust code also contains the toy ice-cream X weather example. It can be run with `cargo test --nocapture`.
+The Rust code also contains the toy ice-cream X weather example. It can be run from the `rust` directory with `cargo test -- --nocapture`.
 
 ### Unknown word handling by subwords
 

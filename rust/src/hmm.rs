@@ -3,7 +3,7 @@ use rand::Rng;
 
 pub struct HMM {
     count_state: usize,
-    _count_emiss: usize,
+    count_emiss: usize,
     pub prob_start: Vec<f64>,
     pub prob_trans: Vec<Vec<f64>>,
     pub prob_emiss: Vec<Vec<f64>>,
@@ -32,7 +32,7 @@ impl HMM {
             let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
             HMM {
                 count_state,
-                _count_emiss: count_emiss,
+                count_emiss,
                 prob_start,
                 prob_trans,
                 prob_emiss,

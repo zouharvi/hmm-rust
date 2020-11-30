@@ -1,23 +1,23 @@
 <h1 id="rust-python-hmm">Rust-Python HMM</h1>
 <p>For this assignment I decided to focus on the model computational performance. Specifically, I implemented the assignment also in <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a> to see what the performance gain will be. The reasons are that (1) I want to learn Rust but every class is Python + PyTorch and (2) current NLP research is all done by prototyping in Python, yet there is virtue in experience of programming usable deployable and fast solutions. Note: I don’t want to be mean to Python, it certainly has its place and advantages.</p>
 <p>I understand that the task was to programm this in Python, which I hope I fulfilled. Yet I also hope that you will find these comparison interesting.</p>
-<p>The Rust code is twice as large and took much longer to complete. The benefits are, however, that once it compiled, I was convinced of its functionality, which was not the case with Python.</p>
+<p>The Rust code is twice as large* and took much longer to complete. The benefits are, however, that once it compiled, I was convinced of its functionality, which was not the case with Python. *Running <code>grep -r -E "^\s*[{}]\s*$" rust/src/ | wc -l</code> reveals that more than 100 lines are just opening or closing brackets, so the code size is not that significant.</p>
 <h2 id="project-structure">Project structure</h2>
 <pre><code>data/                  # not supplied, paste the files here for reproducibility
  - de-{eval,train}.tt  
  - de-test.t
 data_measured/
- - {r,p}-de-test.tt    # test outputs 
- - time-{1,2,3}        # measured results
+ - {r,p}-de-eval-{,smooth}.tt # model outputs 
+ - time-{1,2,3}        # measured results for graphs
  - time-{1,2,3}.png    # exported graphs
 meta/                  # scripts for measuring performance and accuracy
  - graph.py            # produce graphs given logs time-{1,2,3} in data_measured
- - run_times.py        # measure performance from r-build-time and p-run-test recipes
+ - run_times.py        # measure performance from r-build-time and p-run-time recipes
 rust/                  # Rust source code
 python/                # Python source code
 Makefile               # Makefile for common recipes</code></pre>
 <h2 id="makefile-and-reproducing-results">Makefile and reproducing results</h2>
-<p><code>make p-run-test</code> trains on the data and outputs the CONLL-U file to <code>data_measured/p-de-test.tt</code>, similarly <code>make r-run-test</code> produces <code>data_measured/r-de-test.tt</code> (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: <code>print_acc</code> self-reports the accuracy on anything it computes (<code>comp_test</code>, <code>comp_train</code> or <code>comp_eval</code>).</p>
+<p><code>make r-print-eval</code> trains two models on the data and outputs the CONLL-U file to <code>data_measured/p-de-eval.tt</code> and <code>data_measured/p-de-eval-smooth.tt</code>, similarly <code>make r-print-eval</code> produces <code>data_measured/r-de-eval.tt</code> and <code>data_measured/r-de-eval-smooth.tt</code> (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: <code>print_acc</code> self-reports the accuracy on anything it computes (<code>comp_test</code>, <code>comp_train</code> or <code>comp_eval</code>).</p>
 <p>File paths are relative hardcoded, because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory thie <code>README.md</code> is in). If <code>print_pred</code> is present, the program outputs predictions to stdout. Progress is outputed to stderr.</p>
 <h2 id="correctness">Correctness</h2>
 <p>Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used (f32 vs f64). All parameters were multiplied by <code>4096</code> in both versions, because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). In trellis computation, the layers are all normalized to sum to one after every step.</p>
@@ -25,7 +25,7 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>Unseen tokens were dealt with by substituting the emission probability with 1, thus relying on the surrounding transition probabilities.</p>
 <p>I tried to use the same algorithmic steps in both solutions, so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same.</p>
 <h2 id="log-space">Log space</h2>
-<p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cummulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, dev) accuracy, the new results in Rust were (89.16%, 78.96%) and in Python (66.67%, 66.98%).</p>
+<p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cummulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results in Rust were (89.16%, 78.96%) and in Python (66.67%, 66.98%).</p>
 <h2 id="code-structure">Code structure</h2>
 <p>Structures in both versions follow the same naming scheme. The programs function as follows:</p>
 <ol type="1">
@@ -48,8 +48,11 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>One of the biggest performance boosts was gained by creating a hashmap mapping from string (both for words and for tags), convert everything to numbers (Rust version uses 8bytes, which is unnecesary), manipulate just these numbers and only when printing revert back. This is done by the <code>Loader</code> and <code>Mapper</code> classes in both versions.</p>
 <p>Also both versions contain code for computing sequence observation probability in trellis (<code>sum</code> instead of <code>max</code>), but is turned off in both versions. The Rust version gets an unfair advantage in this, because it is removed compile time, while in Python, the interpreter has a bit more work to do.</p>
 <h2 id="additional">Additional</h2>
+<h3 id="smoothing">Smoothing</h3>
+<p>I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in constructor (class <code>HMM</code>) to some parameter <code>alpha</code> instead of zeroes. Since probabilities are scaled up by the factor of <code>4096</code>, it makes sense to use higher values.</p>
+<p>Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition probability to a negative number <code>-128</code> and the start probability to <code>64</code> resulted in the best results (I did not employ gridsearch, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.58%, 80.86%) and (81.72%, 73.98%) for Rust and Python respectively. This is an improvement of (+0.69%, +0.46%) and (+2.07%, +1.07%) for Rust and Python. The resulting inferences are stored in <code>data_measured/{p,r}-de-eval-{,smooth}.tt</code>.</p>
 <h3 id="ice-cream">Ice cream</h3>
-<p>The Rust code also contains the toy ice-cream X weather example. It can be run with <code>cargo test --nocapture</code>.</p>
+<p>The Rust code also contains the toy ice-cream X weather example. It can be run from the <code>rust</code> directory with <code>cargo test -- --nocapture</code>.</p>
 <h3 id="unknown-word-handling-by-subwords">Unknown word handling by subwords</h3>
 <p>This is an idea beyond the scope of this homework, but I would nevertheless like to see it implemented (and especially to see the performance) or any comments that show the caviats of this approach.</p>
 <p>In order to better handle unknown word handling, all tokens could be split into subword units, e.g. by Byte Pair Encoding. This would allow the splitting to be trained not only on annotated data, but also on unanotated. The HMM parameters could be then estimated as follows:</p>
