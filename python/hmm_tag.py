@@ -38,7 +38,7 @@ class HMMTag(HMM):
             for val in range(len(self.prob_emiss[key])):
                 self.prob_emiss[key][val] /= total
 
-    def eval_tag(self, loader, gold_labels):
+    def eval_tag(self, loader):
         total = 0
         correct = 0
         for sent in loader.data:
@@ -52,17 +52,10 @@ class HMMTag(HMM):
 
             if 'print_pred' in sys.argv:
                 for time in range(len(max_path)):
-                    if gold_labels:
-                        print(
+                    print(
                         f"{loader.mapper_w.map_from[sent.tokens[time][0]]}\t" +
-                        f"{loader.mapper_t.map_from[max_path[time]]}\t" +
-                        f"{loader.mapper_t.map_from[sent.tokens[time][1]]}",
-                        )
-                    else:
-                        print(
-                            f"{loader.mapper_w.map_from[sent.tokens[time][0]]}\t" +
-                            f"{loader.mapper_t.map_from[max_path[time]]}"
-                        )
+                        f"{loader.mapper_t.map_from[max_path[time]]}"
+                    )
                 print()
 
         if "print_acc" in sys.argv:

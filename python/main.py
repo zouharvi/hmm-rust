@@ -17,12 +17,12 @@ if __name__ == '__main__':
     
     if 'comp_train' in sys.argv:
         print("Train dataset:", file=sys.stderr)
-        model.eval_tag(data_train, True)
+        model.eval_tag(data_train)
     if 'comp_dev' in sys.argv:
         print("Dev dataset:", file=sys.stderr)
         data_eval = Loader(data_train, "data/de-eval.tt")
-        model.eval_tag(data_eval, True)
+        model.eval_tag(data_eval)
     if 'comp_test' in sys.argv:
         print("Test dataset:", file=sys.stderr)
         data_test = Loader(data_train, "data/de-test.t")
-        model.eval_tag(data_test, False)
+        model.eval_tag(data_test)

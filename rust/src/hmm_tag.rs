@@ -48,7 +48,7 @@ impl HMM {
         return hmm;
     }
 
-    pub fn eval_tag(&mut self, loader: &Loader, gold_labels: bool) {
+    pub fn eval_tag(&mut self, loader: &Loader) {
         let mut total = 0;
         let mut correct = 0;
         for sent in &loader.data {
@@ -65,20 +65,11 @@ impl HMM {
             #[cfg(feature = "print_pred")]
             {
                 for time in 0..max_path.len() {
-                    if gold_labels {
-                        println!(
-                            "{}\t{}\t{}",
-                            loader.mapper_w.map_from.get(&sent.tokens[time].0).unwrap(),
-                            loader.mapper_t.map_from.get(&max_path[time]).unwrap(),
-                            loader.mapper_t.map_from.get(&sent.tokens[time].1).unwrap()
-                        );
-                    } else {
-                        println!(
-                            "{}\t{}",
-                            loader.mapper_w.map_from.get(&sent.tokens[time].0).unwrap(),
-                            loader.mapper_t.map_from.get(&max_path[time]).unwrap(),
-                        );
-                    }
+                    println!(
+                        "{}\t{}",
+                        loader.mapper_w.map_from.get(&sent.tokens[time].0).unwrap(),
+                        loader.mapper_t.map_from.get(&max_path[time]).unwrap(),
+                    );
                 }
                 println!();
             }
