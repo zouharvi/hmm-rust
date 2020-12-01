@@ -13,6 +13,7 @@ data_measured/
 meta/                  # scripts for measuring performance and accuracy
  - graph.py            # produce graphs given logs time-{1,2,3} in data_measured
  - run_times.py        # measure performance from r-build-time and p-run-time recipes
+ - eval.py             # computes metrics and prints table
 rust/                  # Rust source code
 python/                # Python source code
 Makefile               # Makefile for common recipes</code></pre>
@@ -61,3 +62,178 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>The emission probability function can be extended to convex interpolate between the standard and subword version: <code>E'''(c, s) = a * E''(c, s) + (1-a) * E(UNK, s)</code>. Here <code>a</code> is a parameter, which can be estimated from held-out data.</p>
 <h3 id="unknown-word-handling-by-stemming">Unknown word handling by Stemming</h3>
 <p>Completely another approach would be some sort of sensitive stemming, which would remove affixes that do not change the part of speech. This would reduce the amount of word forms while preserving correctness in the annotation.</p>
+<div style="height: 230px">
+
+</div>
+<h2 id="eval-results">Eval Results</h2>
+<p>Highest results from <code>r-eval-smooth.tt</code>, accuracy: 80.87%.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Tag</th>
+<th>Prec.</th>
+<th>Recall</th>
+<th>F1 score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DET</td>
+<td>0.8585</td>
+<td>0.9496</td>
+<td>0.9018</td>
+</tr>
+<tr class="even">
+<td>ADV</td>
+<td>0.4012</td>
+<td>0.8556</td>
+<td>0.5462</td>
+</tr>
+<tr class="odd">
+<td>NOUN</td>
+<td>0.8904</td>
+<td>0.7192</td>
+<td>0.7957</td>
+</tr>
+<tr class="even">
+<td>VERB</td>
+<td>0.9602</td>
+<td>0.8189</td>
+<td>0.8840</td>
+</tr>
+<tr class="odd">
+<td>ADP</td>
+<td>0.9573</td>
+<td>0.8059</td>
+<td>0.8751</td>
+</tr>
+<tr class="even">
+<td>.</td>
+<td>0.9912</td>
+<td>0.9903</td>
+<td>0.9908</td>
+</tr>
+<tr class="odd">
+<td>CONJ</td>
+<td>0.8796</td>
+<td>0.8055</td>
+<td>0.8409</td>
+</tr>
+<tr class="even">
+<td>PRON</td>
+<td>0.8666</td>
+<td>0.7063</td>
+<td>0.7783</td>
+</tr>
+<tr class="odd">
+<td>ADJ</td>
+<td>0.7140</td>
+<td>0.6504</td>
+<td>0.6807</td>
+</tr>
+<tr class="even">
+<td>NUM</td>
+<td>0.4486</td>
+<td>0.6630</td>
+<td>0.5351</td>
+</tr>
+<tr class="odd">
+<td>PRT</td>
+<td>0.8246</td>
+<td>0.7655</td>
+<td>0.7939</td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td>0.0800</td>
+<td>0.0909</td>
+<td>0.0851</td>
+</tr>
+</tbody>
+</table>
+<p>Python results <code>p-eval-smooth.tt</code>, accuracy: 73.98%.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Tag</th>
+<th>Prec.</th>
+<th>Recall</th>
+<th>F1 score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DET</td>
+<td>0.8446</td>
+<td>0.2812</td>
+<td>0.4219</td>
+</tr>
+<tr class="even">
+<td>NUM</td>
+<td>0.1568</td>
+<td>0.9148</td>
+<td>0.2678</td>
+</tr>
+<tr class="odd">
+<td>NOUN</td>
+<td>0.9134</td>
+<td>0.7094</td>
+<td>0.7985</td>
+</tr>
+<tr class="even">
+<td>VERB</td>
+<td>0.9401</td>
+<td>0.8281</td>
+<td>0.8805</td>
+</tr>
+<tr class="odd">
+<td>ADP</td>
+<td>0.9120</td>
+<td>0.8991</td>
+<td>0.9055</td>
+</tr>
+<tr class="even">
+<td>.</td>
+<td>0.9933</td>
+<td>0.9966</td>
+<td>0.9950</td>
+</tr>
+<tr class="odd">
+<td>CONJ</td>
+<td>0.4960</td>
+<td>0.9387</td>
+<td>0.6490</td>
+</tr>
+<tr class="even">
+<td>PRON</td>
+<td>0.5126</td>
+<td>0.8717</td>
+<td>0.6456</td>
+</tr>
+<tr class="odd">
+<td>ADV</td>
+<td>0.6667</td>
+<td>0.5399</td>
+<td>0.5966</td>
+</tr>
+<tr class="even">
+<td>ADJ</td>
+<td>0.7188</td>
+<td>0.5287</td>
+<td>0.6093</td>
+</tr>
+<tr class="odd">
+<td>PRT</td>
+<td>0.6850</td>
+<td>0.5668</td>
+<td>0.6203</td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td>0.0066</td>
+<td>0.0455</td>
+<td>0.0115</td>
+</tr>
+</tbody>
+</table>
+<p>(<code>eval.py</code> is included, because I changed it to produce markable tables)</p>

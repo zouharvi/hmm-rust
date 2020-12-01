@@ -19,6 +19,7 @@ data_measured/
 meta/                  # scripts for measuring performance and accuracy
  - graph.py            # produce graphs given logs time-{1,2,3} in data_measured
  - run_times.py        # measure performance from r-build-time and p-run-time recipes
+ - eval.py             # computes metrics and prints table
 rust/                  # Rust source code
 python/                # Python source code
 Makefile               # Makefile for common recipes
@@ -106,3 +107,43 @@ The emission probability function can be extended to convex interpolate between 
 ### Unknown word handling by Stemming
 
 Completely another approach would be some sort of sensitive stemming, which would remove affixes that do not change the part of speech. This would reduce the amount of word forms while preserving correctness in the annotation.
+
+<div style='height: 230px'></div>
+
+## Eval Results
+
+Highest results from `r-eval-smooth.tt`, accuracy: 80.87%.
+
+Tag | Prec. | Recall | F1 score
+-|-|-|-
+  DET | 0.8585 | 0.9496 | 0.9018
+  ADV | 0.4012 | 0.8556 | 0.5462
+ NOUN | 0.8904 | 0.7192 | 0.7957
+ VERB | 0.9602 | 0.8189 | 0.8840
+  ADP | 0.9573 | 0.8059 | 0.8751
+   .  | 0.9912 | 0.9903 | 0.9908
+ CONJ | 0.8796 | 0.8055 | 0.8409
+ PRON | 0.8666 | 0.7063 | 0.7783
+  ADJ | 0.7140 | 0.6504 | 0.6807
+  NUM | 0.4486 | 0.6630 | 0.5351
+  PRT | 0.8246 | 0.7655 | 0.7939
+ X    | 0.0800 | 0.0909 | 0.0851
+
+Python results `p-eval-smooth.tt`, accuracy: 73.98%.
+
+Tag | Prec. | Recall | F1 score
+-|-|-|-
+  DET | 0.8446 | 0.2812 | 0.4219
+  NUM | 0.1568 | 0.9148 | 0.2678
+ NOUN | 0.9134 | 0.7094 | 0.7985
+ VERB | 0.9401 | 0.8281 | 0.8805
+  ADP | 0.9120 | 0.8991 | 0.9055
+ .    | 0.9933 | 0.9966 | 0.9950
+ CONJ | 0.4960 | 0.9387 | 0.6490
+ PRON | 0.5126 | 0.8717 | 0.6456
+  ADV | 0.6667 | 0.5399 | 0.5966
+  ADJ | 0.7188 | 0.5287 | 0.6093
+  PRT | 0.6850 | 0.5668 | 0.6203
+ X    | 0.0066 | 0.0455 | 0.0115
+
+(`eval.py` is included, because I changed it to produce markable tables)
