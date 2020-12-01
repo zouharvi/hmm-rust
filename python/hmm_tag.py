@@ -1,6 +1,7 @@
 from hmm import HMM
 import sys
 
+
 class HMMTag(HMM):
     # estimate HMM parameters given loaded corpus
     def __init__(self, loader):

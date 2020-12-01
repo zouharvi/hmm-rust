@@ -10,7 +10,11 @@ def safe_rm(path):
 safe_rm('data/de-train-new.tt')
 safe_rm('data_measured/time')
 
-_, _ = subprocess.Popen("make r-build-time".split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).communicate()
+_, _ = subprocess.Popen(
+    "make r-build-time".split(),
+    stdout=subprocess.PIPE,
+    stderr=subprocess.DEVNULL
+).communicate()
 
 with open('data/de-train.tt', 'r') as f:
     lines = f.readlines()
