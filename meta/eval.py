@@ -45,7 +45,7 @@ overall = 0
 
 print("\nComparing gold file \"" +
       sys.argv[1] + "\" and system file \"" + sys.argv[2] + "\"")
-print("\nTag | Precision | Recall | F1 score")
+print("\nTag | Prec. | Recall | F1 score")
 print('-|-|-|-')
 
 for tag, counts in precision_recall.items():

@@ -112,6 +112,10 @@ Completely another approach would be some sort of sensitive stemming, which woul
 
 ## Eval Results
 
+This sections lists results of models in descending order. The file `eval.py` is included, because I changed it to produce markable tables.
+
+### Rust + scaling, smoothing
+
 Highest results from `r-eval-smooth.tt`, accuracy: 80.87%.
 
 Tag | Prec. | Recall | F1 score
@@ -129,7 +133,28 @@ Tag | Prec. | Recall | F1 score
   PRT | 0.8246 | 0.7655 | 0.7939
  X    | 0.0800 | 0.0909 | 0.0851
 
-Python results `p-eval-smooth.tt`, accuracy: 73.98%.
+### Rust + scaling
+
+File `r-eval.tt`, accuracy 80.40%.
+
+Tag | Prec. | Recall | F1 score
+-|-|-|-
+DET | 0.8462 | 0.9668 | 0.9025
+ADV | 0.4104 | 0.8532 | 0.5542
+NOUN | 0.8950 | 0.7199 | 0.7979
+VERB | 0.9607 | 0.8165 | 0.8827
+ADP | 0.9531 | 0.7307 | 0.8272
+. | 0.9920 | 0.9941 | 0.9931
+CONJ | 0.9003 | 0.8162 | 0.8562
+PRON | 0.8888 | 0.6905 | 0.7772
+ADJ | 0.7109 | 0.6523 | 0.6803
+NUM | 0.4500 | 0.7000 | 0.5478
+PRT | 0.5517 | 0.7818 | 0.6469
+X | 0.1622 | 0.2727 | 0.2034
+
+### Python + scaling, smoothing
+
+File `p-eval-smooth.tt`, accuracy: 73.98%.
 
 Tag | Prec. | Recall | F1 score
 -|-|-|-
@@ -146,4 +171,21 @@ Tag | Prec. | Recall | F1 score
   PRT | 0.6850 | 0.5668 | 0.6203
  X    | 0.0066 | 0.0455 | 0.0115
 
-(`eval.py` is included, because I changed it to produce markable tables)
+### Python + scaling
+
+File `p-eval-smooth.tt`, accuracy: 72.90%.
+
+Tag | Prec. | Recall | F1 score
+-|-|-|-
+DET | 0.8391 | 0.2871 | 0.4279
+X | 0.0059 | 0.5000 | 0.0117
+NOUN | 0.9174 | 0.7077 | 0.7990
+VERB | 0.9392 | 0.8082 | 0.8688
+ADP | 0.9175 | 0.8933 | 0.9052
+. | 0.9949 | 0.9836 | 0.9892
+CONJ | 0.5213 | 0.9173 | 0.6648
+PRON | 0.6044 | 0.8206 | 0.6961
+ADV | 0.6634 | 0.5320 | 0.5905
+ADJ | 0.7188 | 0.5287 | 0.6093
+NUM | 0.4932 | 0.8037 | 0.6113
+PRT | 0.6822 | 0.5733 | 0.6230

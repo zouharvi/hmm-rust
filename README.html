@@ -66,6 +66,8 @@ Makefile               # Makefile for common recipes</code></pre>
 
 </div>
 <h2 id="eval-results">Eval Results</h2>
+<p>This sections lists results of models in descending order. The file <code>eval.py</code> is included, because I changed it to produce markable tables.</p>
+<h3 id="rust-scaling-smoothing">Rust + scaling, smoothing</h3>
 <p>Highest results from <code>r-eval-smooth.tt</code>, accuracy: 80.87%.</p>
 <table>
 <thead>
@@ -151,7 +153,94 @@ Makefile               # Makefile for common recipes</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Python results <code>p-eval-smooth.tt</code>, accuracy: 73.98%.</p>
+<h3 id="rust-scaling">Rust + scaling</h3>
+<p>File <code>r-eval.tt</code>, accuracy 80.40%.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Tag</th>
+<th>Prec.</th>
+<th>Recall</th>
+<th>F1 score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DET</td>
+<td>0.8462</td>
+<td>0.9668</td>
+<td>0.9025</td>
+</tr>
+<tr class="even">
+<td>ADV</td>
+<td>0.4104</td>
+<td>0.8532</td>
+<td>0.5542</td>
+</tr>
+<tr class="odd">
+<td>NOUN</td>
+<td>0.8950</td>
+<td>0.7199</td>
+<td>0.7979</td>
+</tr>
+<tr class="even">
+<td>VERB</td>
+<td>0.9607</td>
+<td>0.8165</td>
+<td>0.8827</td>
+</tr>
+<tr class="odd">
+<td>ADP</td>
+<td>0.9531</td>
+<td>0.7307</td>
+<td>0.8272</td>
+</tr>
+<tr class="even">
+<td>.</td>
+<td>0.9920</td>
+<td>0.9941</td>
+<td>0.9931</td>
+</tr>
+<tr class="odd">
+<td>CONJ</td>
+<td>0.9003</td>
+<td>0.8162</td>
+<td>0.8562</td>
+</tr>
+<tr class="even">
+<td>PRON</td>
+<td>0.8888</td>
+<td>0.6905</td>
+<td>0.7772</td>
+</tr>
+<tr class="odd">
+<td>ADJ</td>
+<td>0.7109</td>
+<td>0.6523</td>
+<td>0.6803</td>
+</tr>
+<tr class="even">
+<td>NUM</td>
+<td>0.4500</td>
+<td>0.7000</td>
+<td>0.5478</td>
+</tr>
+<tr class="odd">
+<td>PRT</td>
+<td>0.5517</td>
+<td>0.7818</td>
+<td>0.6469</td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td>0.1622</td>
+<td>0.2727</td>
+<td>0.2034</td>
+</tr>
+</tbody>
+</table>
+<h3 id="python-scaling-smoothing">Python + scaling, smoothing</h3>
+<p>File <code>p-eval-smooth.tt</code>, accuracy: 73.98%.</p>
 <table>
 <thead>
 <tr class="header">
@@ -236,4 +325,89 @@ Makefile               # Makefile for common recipes</code></pre>
 </tr>
 </tbody>
 </table>
-<p>(<code>eval.py</code> is included, because I changed it to produce markable tables)</p>
+<h3 id="python-scaling">Python + scaling</h3>
+<p>File <code>p-eval-smooth.tt</code>, accuracy: 72.90%.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Tag</th>
+<th>Prec.</th>
+<th>Recall</th>
+<th>F1 score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DET</td>
+<td>0.8391</td>
+<td>0.2871</td>
+<td>0.4279</td>
+</tr>
+<tr class="even">
+<td>X</td>
+<td>0.0059</td>
+<td>0.5000</td>
+<td>0.0117</td>
+</tr>
+<tr class="odd">
+<td>NOUN</td>
+<td>0.9174</td>
+<td>0.7077</td>
+<td>0.7990</td>
+</tr>
+<tr class="even">
+<td>VERB</td>
+<td>0.9392</td>
+<td>0.8082</td>
+<td>0.8688</td>
+</tr>
+<tr class="odd">
+<td>ADP</td>
+<td>0.9175</td>
+<td>0.8933</td>
+<td>0.9052</td>
+</tr>
+<tr class="even">
+<td>.</td>
+<td>0.9949</td>
+<td>0.9836</td>
+<td>0.9892</td>
+</tr>
+<tr class="odd">
+<td>CONJ</td>
+<td>0.5213</td>
+<td>0.9173</td>
+<td>0.6648</td>
+</tr>
+<tr class="even">
+<td>PRON</td>
+<td>0.6044</td>
+<td>0.8206</td>
+<td>0.6961</td>
+</tr>
+<tr class="odd">
+<td>ADV</td>
+<td>0.6634</td>
+<td>0.5320</td>
+<td>0.5905</td>
+</tr>
+<tr class="even">
+<td>ADJ</td>
+<td>0.7188</td>
+<td>0.5287</td>
+<td>0.6093</td>
+</tr>
+<tr class="odd">
+<td>NUM</td>
+<td>0.4932</td>
+<td>0.8037</td>
+<td>0.6113</td>
+</tr>
+<tr class="even">
+<td>PRT</td>
+<td>0.6822</td>
+<td>0.5733</td>
+<td>0.6230</td>
+</tr>
+</tbody>
+</table>
