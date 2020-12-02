@@ -18,7 +18,6 @@ impl HMM {
         for key in 0..hmm.prob_start.len() {
             hmm.prob_start[key] /= total;
         }
-
         for sent in &loader.data {
             for pos in 1..sent.tokens.len() {
                 let key1 = sent.tokens[pos - 1].1;
@@ -27,7 +26,7 @@ impl HMM {
             }
         }
 
-        // skip normalizing 
+        // skip normalizing
         // for key1 in 0..hmm.prob_trans.len() {
         //     let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / SCALE_FACTOR;
         //     for key2 in 0..hmm.prob_trans[key1].len() {

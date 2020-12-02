@@ -1,7 +1,7 @@
 <h1 id="rust-python-hmm">Rust-Python HMM</h1>
 <p>For this assignment, I decided to focus on the model computational performance. Specifically, I implemented the assignment also in <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a> to see what the performance gain will be. The reasons are that (1) I want to learn Rust but every class is Python + PyTorch, and (2) current NLP research is all done by prototyping in Python, yet there is a virtue in the experience of programming usable deployable and fast solutions. Note: I don’t want to be mean to Python; it certainly has its place and advantages.</p>
 <p>I understand that the task was to program this in Python, which I hope I fulfilled. Yet I also hope that you will find this comparison interesting.</p>
-<p>The Rust code is twice as large* and took much longer to complete. The benefits are, however, that once it compiled, I was convinced of its functionality, which was not the case with Python. *Running <code>grep -r -E "^\s*[{}]\s*$" rust/src/ | wc -l</code> reveals that more than 100 lines are just opening or closing brackets, so the code size is not that significant. Also, strong typing allows for more finer tooling. An example would be clippy, which helped me discover multiple bad design patterns.</p>
+<p>The Rust code is twice as large* and took much longer to complete. *Running <code>grep -r -E "^\s*[{}]\s*$" rust/src/ | wc -l</code> reveals that more than 100 lines are just opening or closing brackets, so the code size is not that significant. Also, strong typing allows for more finer tooling. An example would be clippy, which helped me discover multiple bad design patterns.</p>
 <h2 id="project-structure">Project structure</h2>
 <pre><code>data/                  # not supplied, paste the files here for reproducibility
  - de-{eval,train}.tt  
@@ -22,11 +22,10 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>File paths are relative hardcoded because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory the <code>README.md</code> is in). If <code>print_pred</code> is present, the program outputs predictions to stdout. Progress is output to stderr.</p>
 <h2 id="correctness">Correctness</h2>
 <p>Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used (f32 vs f64). All parameters were multiplied by <code>1500</code> in both versions because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). In trellis computation, the layers are all normalized to sum to <code>1</code> after every step. Making the normalization to sum to something other than <code>1</code> did not affect the performance.</p>
-<p>Despite my best efforts, the two versions produce slightly different results. This may be due to different corner-case numeric handling in the two systems.</p>
 <p>Unseen tokens were dealt with by substituting the emission probability with 1, thus relying on the surrounding transition probabilities.</p>
-<p>I tried to use the same algorithmic steps in both solutions so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same.</p>
+<p>I tried to use the same algorithmic steps in both solutions so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same. The two versions produce almost the same outputs (they differ slightly in the smoothed version).</p>
 <h2 id="log-space">Log space</h2>
-<p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results in Rust were (89.16%, 78.96%) and in Python (66.67%, 66.98%).</p>
+<p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results were (89.16%, 78.96%).</p>
 <h2 id="code-structure">Code structure</h2>
 <p>Structures in both versions follow the same naming scheme. The programs function as follows:</p>
 <ol type="1">
@@ -38,20 +37,21 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>The <code>HMM</code> class contains code for initialization and Viterbi and can be used generically. <code>HMMTag</code> inherits from this class and adds specific functions for initialization from <code>Loader</code> and evaluation. Both implementations start with <code>main.{rs,py}</code>.</p>
 <h2 id="performance-graphs">Performance Graphs</h2>
 <p>The performance was measured with respect to changing training data size (steps of 10000 tokens). The task was (1) train, (2) train + evaluate on eval, (3) train + evaluate on train and eval. Accuracy of these models was also measured. The measured times are without writing to files. Rust version is compiled with the <code>--release</code> flag and Python is run with <code>-O</code>. Both versions use aforementioned smoothing.</p>
-<p>Figure 1 shows simply that in training, the Rust implementation seems to be faster by the factor of ~8.</p>
+<p>Figure 1 shows simply that in training, the Rust implementation seems to be faster by the factor of ~6.</p>
 <p><img src="data_measured/time-1.png" alt="Train only" width="500px"></p>
-<p>Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.56s and Rust on 0.18s (factor of ~14).</p>
+<p>Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.61s and Rust on 0.17s (factor of ~15).</p>
 <p><img src="data_measured/time-2.png" alt="Train + Compute Eval." width="500px"></p>
-<p>Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 28.08s, for Rust it is 0.36s (factor of ~78). The training accuracy is also decreasing (apart from the spike in Python) because the capacity of the model is getting shared with a larger amount of examples. Train accuracies were 92.16% and 81.63% for Rust and Python, respectively. Evaluation accuracies were 81.70% and 74.48%.</p>
+<p>Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 28.23s, for Rust it is 0.35s (factor of ~80). Train accuracy is 92.50%, evaluation accuracy 82.15%. One would expect the training accuracy to be decreasing because the capacity of the model is getting shared with a larger amount of examples. This is however not true in this case because of the smoothing, which is fine-tuned to maximize evaluation accuracy given all the training data.</p>
 <p><img src="data_measured/time-3.png" alt="Train + Compute Eval. + Compute Train" width="500px"></p>
+<p>A good question would be, why does the running time not increasy hyperlinearly, as the complexity suggests? An answer would be that the complexity is hyperlinear with respect to the state space and not observation count in total.</p>
 <h2 id="note-on-performance">Note on Performance</h2>
 <p>I did not try to especially optimize algorithmic performance. For example, the trellis is allocated and cleared for every sentence in the data. This could be done much more efficiently by creating one static one (the size of the longest sentence) and reusing that for the computation. It does not need to be cleared, because every cell is first written to and only then read.</p>
 <p>One of the biggest performance boosts was gained by creating a hashmap mapping from string (both for words and for tags), convert everything to numbers (Rust version uses 8bytes, which is unnecessary), manipulate just these numbers and only when printing revert back. This is done by the <code>Loader</code> and <code>Mapper</code> classes in both versions.</p>
 <p>Also, both versions contain code for computing sequence observation probability in trellis (<code>sum</code> instead of <code>max</code>), but is turned off in both versions. The Rust version gets an unfair advantage in this because it is removed compile-time, while in Python, the interpreter has a bit more work to do.</p>
 <h2 id="additional">Additional</h2>
 <h3 id="smoothing">Smoothing</h3>
-<p>I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in the constructor (class <code>HMM</code>) to some parameter <code>alpha</code> instead of zeroes. Since probabilities are scaled up by the factor of <code>4096</code>, it makes sense to use higher values.</p>
-<p>Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition count to a negative number <code>-32</code> and <code>-16</code> resulted in the best results (I did not employ grid-search, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.47%, 82.14%) and (81.63%, 74.48%) for Rust and Python respectively. This is an improvement of (+0.32%, +0.45%) and (+1.93%, +1.13%) for Rust and Python. The resulting inferences are stored in <code>data_measured/{p,r}-de-eval{,-smooth}.tt</code>.</p>
+<p>I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in the constructor (class <code>HMM</code>) to some parameter <code>alpha</code> instead of zeroes. Since probabilities are scaled up by the factor of <code>1500</code>, it makes sense to use higher values.</p>
+<p>Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition count to a negative number <code>-32</code> resulted in the best results (I did not employ grid-search, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.47%, 82.15%). This is an improvement of (+0.32%, +0.46%). The resulting inferences are stored in <code>data_measured/{p,r}-de-eval-smooth.tt</code>.</p>
 <h3 id="ice-cream">Ice cream</h3>
 <p>The Rust code also contains the toy ice-cream X weather example. It can be run from the <code>rust</code> directory with <code>cargo test -- --nocapture</code>.</p>
 <h3 id="unknown-word-handling-by-subwords">Unknown word handling by subwords</h3>
@@ -64,8 +64,8 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>Completely another approach would be some sort of sensitive stemming, which would remove affixes that do not change the part of speech. This would reduce the amount of word forms while preserving correctness in the annotation.</p>
 <h2 id="eval-results">Eval Results</h2>
 <p>This sections lists results of models in descending order. The file <code>eval.py</code> is included, because I changed it to produce markable tables.</p>
-<h3 id="rust-scaling-smoothing">Rust + scaling, smoothing</h3>
-<p>Highest results from <code>r-eval-smooth.tt</code>, accuracy: 82.14%.</p>
+<h3 id="scaling-normalization-smoothing">Scaling, normalization, smoothing</h3>
+<p>Highest results from <code>{r,p}-eval-smooth.tt</code>, accuracy: 82.15%.</p>
 <table>
 <thead>
 <tr class="header">
@@ -109,8 +109,8 @@ Makefile               # Makefile for common recipes</code></pre>
 <tr class="even">
 <td>.</td>
 <td>0.9921</td>
-<td>0.9979</td>
-<td>0.9950</td>
+<td>0.9983</td>
+<td>0.9952</td>
 </tr>
 <tr class="odd">
 <td>CONJ</td>
@@ -144,14 +144,14 @@ Makefile               # Makefile for common recipes</code></pre>
 </tr>
 <tr class="even">
 <td>X</td>
-<td>0.1538</td>
+<td>0.1667</td>
 <td>0.0909</td>
-<td>0.1143</td>
+<td>0.1176</td>
 </tr>
 </tbody>
 </table>
-<h3 id="rust-scaling">Rust + scaling</h3>
-<p>File <code>r-eval.tt</code>, accuracy 81.69%.</p>
+<h3 id="scaling-normalization">Scaling, normalization</h3>
+<p>File <code>{r,p}-eval.tt</code>, accuracy: 81.69%.</p>
 <table>
 <thead>
 <tr class="header">
@@ -236,8 +236,8 @@ Makefile               # Makefile for common recipes</code></pre>
 </tr>
 </tbody>
 </table>
-<h3 id="python-scaling-smoothing">Python + scaling, smoothing</h3>
-<p>File <code>p-eval-smooth.tt</code>, accuracy: 74.48%.</p>
+<h3 id="vanilla">Vanilla</h3>
+<p>Because in the first homework I was penalized for not sticking literally to the assignment (plotting top 100 most frequent words instead of all, because in the later case nothing could be infered - a deliberate decision), I do not trust that I would not be penalized also for not providing vanilla HMM POS tagger implementation in Python. Since the code would be too convoluted to parametrize also for vanilla implementation and I do not want to regress the performance of the main project, the code (duplicated with slight changes) is located in <code>python/vanilla/</code>. The resulting inference is in <code>data_measured/p-de-eval-vanilla.tt</code>. Accuracy: 67.77%.</p>
 <table>
 <thead>
 <tr class="header">
@@ -250,247 +250,75 @@ Makefile               # Makefile for common recipes</code></pre>
 <tbody>
 <tr class="odd">
 <td>DET</td>
-<td>0.8487</td>
-<td>0.2865</td>
-<td>0.4284</td>
+<td>0.8803</td>
+<td>0.3561</td>
+<td>0.5071</td>
 </tr>
 <tr class="even">
 <td>NUM</td>
-<td>0.1407</td>
-<td>0.9593</td>
-<td>0.2454</td>
+<td>0.1927</td>
+<td>0.7407</td>
+<td>0.3058</td>
 </tr>
 <tr class="odd">
 <td>NOUN</td>
-<td>0.9110</td>
-<td>0.7230</td>
-<td>0.8062</td>
+<td>0.9473</td>
+<td>0.6223</td>
+<td>0.7512</td>
 </tr>
 <tr class="even">
 <td>VERB</td>
-<td>0.9424</td>
-<td>0.8315</td>
-<td>0.8835</td>
+<td>0.9664</td>
+<td>0.7375</td>
+<td>0.8366</td>
 </tr>
 <tr class="odd">
 <td>ADP</td>
-<td>0.9106</td>
-<td>0.9030</td>
-<td>0.9067</td>
+<td>0.9383</td>
+<td>0.8406</td>
+<td>0.8868</td>
 </tr>
 <tr class="even">
 <td>.</td>
-<td>0.9925</td>
-<td>0.9975</td>
-<td>0.9950</td>
+<td>0.9671</td>
+<td>0.8408</td>
+<td>0.8995</td>
 </tr>
 <tr class="odd">
 <td>CONJ</td>
-<td>0.5172</td>
-<td>0.9433</td>
-<td>0.6681</td>
+<td>0.5759</td>
+<td>0.8361</td>
+<td>0.6821</td>
 </tr>
 <tr class="even">
 <td>PRON</td>
-<td>0.5374</td>
-<td>0.8755</td>
-<td>0.6660</td>
+<td>0.6956</td>
+<td>0.7965</td>
+<td>0.7426</td>
 </tr>
 <tr class="odd">
 <td>ADV</td>
-<td>0.7011</td>
-<td>0.5201</td>
-<td>0.5972</td>
+<td>0.3035</td>
+<td>0.5667</td>
+<td>0.3953</td>
 </tr>
 <tr class="even">
 <td>ADJ</td>
-<td>0.7225</td>
-<td>0.5287</td>
-<td>0.6106</td>
+<td>0.7590</td>
+<td>0.5067</td>
+<td>0.6077</td>
 </tr>
 <tr class="odd">
-<td>PRT</td>
-<td>0.7126</td>
-<td>0.5896</td>
-<td>0.6453</td>
-</tr>
-<tr class="even">
 <td>X</td>
-<td>0.5000</td>
-<td>0.0909</td>
-<td>0.1538</td>
-</tr>
-</tbody>
-</table>
-<h3 id="python-scaling">Python + scaling</h3>
-<p>File <code>p-eval.tt</code>, accuracy: 73.35%.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Tag</th>
-<th>Prec.</th>
-<th>Recall</th>
-<th>F1 score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>DET</td>
-<td>0.8487</td>
-<td>0.2865</td>
-<td>0.4284</td>
-</tr>
-<tr class="even">
-<td>X</td>
-<td>0.0059</td>
-<td>0.5000</td>
-<td>0.0117</td>
-</tr>
-<tr class="odd">
-<td>NOUN</td>
-<td>0.9121</td>
-<td>0.7227</td>
-<td>0.8064</td>
-</tr>
-<tr class="even">
-<td>VERB</td>
-<td>0.9405</td>
-<td>0.8121</td>
-<td>0.8716</td>
-</tr>
-<tr class="odd">
-<td>ADP</td>
-<td>0.9140</td>
-<td>0.9010</td>
-<td>0.9074</td>
-</tr>
-<tr class="even">
-<td>.</td>
-<td>0.9936</td>
-<td>0.9836</td>
-<td>0.9886</td>
-</tr>
-<tr class="odd">
-<td>CONJ</td>
-<td>0.5159</td>
-<td>0.9204</td>
-<td>0.6612</td>
-</tr>
-<tr class="even">
-<td>PRON</td>
-<td>0.6296</td>
-<td>0.8216</td>
-<td>0.7129</td>
-</tr>
-<tr class="odd">
-<td>ADV</td>
-<td>0.7034</td>
-<td>0.5185</td>
-<td>0.5970</td>
-</tr>
-<tr class="even">
-<td>ADJ</td>
-<td>0.7203</td>
-<td>0.5278</td>
-<td>0.6092</td>
-</tr>
-<tr class="odd">
-<td>NUM</td>
-<td>0.4717</td>
-<td>0.8037</td>
-<td>0.5945</td>
+<td>0.0092</td>
+<td>0.5455</td>
+<td>0.0181</td>
 </tr>
 <tr class="even">
 <td>PRT</td>
-<td>0.7109</td>
-<td>0.5928</td>
-<td>0.6465</td>
-</tr>
-</tbody>
-</table>
-<h3 id="python">Python</h3>
-<p>Because in the first homework I was penalized for not sticking literally to the assignment (plotting top 100 most frequent words instead of all, because in the later case nothing could be infered - a deliberate decision), I do not trust that I would not be penalized also for not providing vanilla HMM POS tagger implementation in Python. Since the code would be too convoluted to parametrize also for vanilla implementation and I do not want to regress the performance of the main project, the code (duplicated with slight changes) is located in <code>python/vanilla/</code>. The resulting inference is in <code>data_measured/p-de-eval-vanilla.tt</code>. Accuracy: 65.63%.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Tag</th>
-<th>Prec.</th>
-<th>Recall</th>
-<th>F1 score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>DET</td>
-<td>0.9191</td>
-<td>0.2487</td>
-<td>0.3914</td>
-</tr>
-<tr class="even">
-<td>NUM</td>
-<td>0.1213</td>
-<td>0.8778</td>
-<td>0.2131</td>
-</tr>
-<tr class="odd">
-<td>NOUN</td>
-<td>0.9163</td>
-<td>0.6168</td>
-<td>0.7373</td>
-</tr>
-<tr class="even">
-<td>VERB</td>
-<td>0.9395</td>
-<td>0.7443</td>
-<td>0.8306</td>
-</tr>
-<tr class="odd">
-<td>ADP</td>
-<td>0.9152</td>
-<td>0.8111</td>
-<td>0.8600</td>
-</tr>
-<tr class="even">
-<td>.</td>
-<td>0.9946</td>
-<td>0.8471</td>
-<td>0.9149</td>
-</tr>
-<tr class="odd">
-<td>CONJ</td>
-<td>0.4883</td>
-<td>0.8637</td>
-<td>0.6239</td>
-</tr>
-<tr class="even">
-<td>PRON</td>
-<td>0.5292</td>
-<td>0.8420</td>
-<td>0.6499</td>
-</tr>
-<tr class="odd">
-<td>ADV</td>
-<td>0.2546</td>
-<td>0.4594</td>
-<td>0.3276</td>
-</tr>
-<tr class="even">
-<td>ADJ</td>
-<td>0.7216</td>
-<td>0.4569</td>
-<td>0.5595</td>
-</tr>
-<tr class="odd">
-<td>PRT</td>
-<td>0.6716</td>
-<td>0.5863</td>
-<td>0.6261</td>
-</tr>
-<tr class="even">
-<td>X</td>
-<td>0.0625</td>
-<td>0.0909</td>
-<td>0.0741</td>
+<td>0.6610</td>
+<td>0.7622</td>
+<td>0.7080</td>
 </tr>
 </tbody>
 </table>

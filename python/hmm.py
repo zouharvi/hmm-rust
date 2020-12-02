@@ -16,7 +16,7 @@ class HMM:
         if "smooth" in sys.argv:
             self.prob_start = [0.0]*count_state
             self.prob_trans = [
-                [-16.0]*count_state for _ in range(count_state)
+                [-32.0]*count_state for _ in range(count_state)
             ]
             self.prob_emiss = [[0.0]*count_emiss for _ in range(count_state)]
         else:
@@ -86,28 +86,29 @@ class HMM:
         # trellis printing
         if "print_trellis" in sys.argv:
             print("Trellis unit (max_prob, max_pointer)")
-            for state in range(self.count_state):
-                for time in range(len(observations)):
+            for time in range(len(observations)):
+                for state in range(self.count_state):
                     print(
-                        f"{trellis[time][state].max_prob:.2f}, {trellis[time][state].max_path}")
+                        f"({state}, {trellis[time][state].max_prob:.8f}, {trellis[time][state].max_path})"
+                    )
                 print()
 
         # compute the path that ends with max probability
         max_path_end = np.argmax(
             [x.max_prob for x in trellis[len(observations)-1]]
         )
-        max_path_prob = trellis[len(observations)-1][max_path_end]
+        max_path_prob = trellis[len(observations)-1][max_path_end].max_prob
         max_path = [0]*len(observations)
         max_path[len(observations) - 1] = max_path_end
 
-        for time in range(len(observations)-1):
+        for time in range(len(observations)-2, -1, -1):
             max_path[time] = trellis[time + 1][max_path[time + 1]].max_path
 
         if "print_trellis" in sys.argv:
-            print("Most probable path probability: {max_path_prob:.4}")
-            print("Most probable path: ")
+            print(f"Most probable path probability: {max_path_prob:.4}")
+            print("Most probable path: ", end='')
             for time in range(len(observations)):
-                print("{max_path[time]}-")
+                print(f"{max_path[time]}-", end='')
             print()
 
         if "comp_cum" in sys.argv:

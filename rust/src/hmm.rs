@@ -154,10 +154,11 @@ impl HMM {
         {
             // trellis printing
             println!("Trellis unit (max_prob, max_pointer)");
-            for state in 0..self.count_state {
-                for time in 0..observations.len() {
-                    print!(
-                        "({:.2}, {}) ",
+            for time in 0..observations.len() {
+                for state in 0..self.count_state {
+                    println!(
+                        "({}, {:.8}, {}) ",
+                        state,
                         trellis[time][state].max_prob, trellis[time][state].max_path,
                     );
                 }
@@ -166,7 +167,7 @@ impl HMM {
         }
 
         // compute the path that ends with max probability
-        let (max_path_end, _max_path_prob) = trellis[observations.len() - 1]
+        let (max_path_end, max_path_prob) = trellis[observations.len() - 1]
             .iter()
             .enumerate()
             .max_by(|(_, value0), (_, value1)| {

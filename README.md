@@ -4,7 +4,7 @@ For this assignment, I decided to focus on the model computational performance. 
 
 I understand that the task was to program this in Python, which I hope I fulfilled. Yet I also hope that you will find this comparison interesting. 
 
-The Rust code is twice as large* and took much longer to complete. The benefits are, however, that once it compiled, I was convinced of its functionality, which was not the case with Python. *Running `grep -r -E "^\s*[{}]\s*$" rust/src/ | wc -l` reveals that more than 100 lines are just opening or closing brackets, so the code size is not that significant. Also, strong typing allows for more finer tooling. An example would be clippy, which helped me discover multiple bad design patterns.
+The Rust code is twice as large* and took much longer to complete. *Running `grep -r -E "^\s*[{}]\s*$" rust/src/ | wc -l` reveals that more than 100 lines are just opening or closing brackets, so the code size is not that significant. Also, strong typing allows for more finer tooling. An example would be clippy, which helped me discover multiple bad design patterns.
 
 ## Project structure
 
@@ -35,15 +35,13 @@ File paths are relative hardcoded because there are no plans to make this portab
 
 Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used (f32 vs f64). All parameters were multiplied by `1500` in both versions because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). In trellis computation, the layers are all normalized to sum to `1` after every step. Making the normalization to sum to something other than `1` did not affect the performance.
 
-Despite my best efforts, the two versions produce slightly different results. This may be due to different corner-case numeric handling in the two systems.
-
 Unseen tokens were dealt with by substituting the emission probability with 1, thus relying on the surrounding transition probabilities. 
 
-I tried to use the same algorithmic steps in both solutions so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same.
+I tried to use the same algorithmic steps in both solutions so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same. The two versions produce almost the same outputs (they differ slightly in the smoothed version).
 
 ## Log space
 
-Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results in Rust were (89.16%, 78.96%) and in Python (66.67%, 66.98%).
+Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results were (89.16%, 78.96%).
 
 ## Code structure
 
@@ -60,17 +58,19 @@ The `HMM` class contains code for initialization and Viterbi and can be used gen
 
 The performance was measured with respect to changing training data size (steps of 10000 tokens). The task was (1) train, (2) train + evaluate on eval, (3) train + evaluate on train and eval. Accuracy of these models was also measured. The measured times are without writing to files. Rust version is compiled with the `--release` flag and Python is run with `-O`. Both versions use aforementioned smoothing.
 
-Figure 1 shows simply that in training, the Rust implementation seems to be faster by the factor of ~8.
+Figure 1 shows simply that in training, the Rust implementation seems to be faster by the factor of ~6.
 
 <img src="data_measured/time-1.png" alt="Train only" width="500px">
 
-Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.56s and Rust on 0.18s (factor of ~14).
+Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.61s and Rust on 0.17s (factor of ~15).
 
 <img src="data_measured/time-2.png" alt="Train + Compute Eval." width="500px">
 
-Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 28.08s, for Rust it is 0.36s (factor of ~78). The training accuracy is also decreasing (apart from the spike in Python) because the capacity of the model is getting shared with a larger amount of examples. Train accuracies were 92.16% and 81.63% for Rust and Python, respectively. Evaluation accuracies were 81.70% and 74.48%. 
+Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 28.23s, for Rust it is 0.35s (factor of ~80). Train accuracy is 92.50%, evaluation accuracy 82.15%. One would expect the training accuracy to be decreasing because the capacity of the model is getting shared with a larger amount of examples. This is however not true in this case because of the smoothing, which is fine-tuned to maximize evaluation accuracy given all the training data.
 
 <img src="data_measured/time-3.png" alt="Train + Compute Eval. + Compute Train" width="500px">
+
+A good question would be, why does the running time not increasy hyperlinearly, as the complexity suggests? An answer would be that the complexity is hyperlinear with respect to the state space and not observation count in total.
 
 ## Note on Performance
 
@@ -84,9 +84,9 @@ Also, both versions contain code for computing sequence observation probability 
 
 ### Smoothing
 
-I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in the constructor (class `HMM`) to some parameter `alpha` instead of zeroes. Since probabilities are scaled up by the factor of `4096`, it makes sense to use higher values.
+I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in the constructor (class `HMM`) to some parameter `alpha` instead of zeroes. Since probabilities are scaled up by the factor of `1500`, it makes sense to use higher values.
 
-Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition count to a negative number `-32` and `-16` resulted in the best results (I did not employ grid-search, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.47%, 82.14%) and (81.63%, 74.48%) for Rust and Python respectively. This is an improvement of (+0.32%, +0.45%) and (+1.93%, +1.13%) for Rust and Python. The resulting inferences are stored in `data_measured/{p,r}-de-eval{,-smooth}.tt`.
+Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition count to a negative number `-32` resulted in the best results (I did not employ grid-search, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.47%, 82.15%). This is an improvement of (+0.32%, +0.46%). The resulting inferences are stored in `data_measured/{p,r}-de-eval-smooth.tt`.
 
 ### Ice cream
 
@@ -112,9 +112,9 @@ Completely another approach would be some sort of sensitive stemming, which woul
 
 This sections lists results of models in descending order. The file `eval.py` is included, because I changed it to produce markable tables.
 
-### Rust + scaling, smoothing
+### Scaling, normalization, smoothing
 
-Highest results from `r-eval-smooth.tt`, accuracy: 82.14%.
+Highest results from `{r,p}-eval-smooth.tt`, accuracy: 82.15%.
 
 Tag | Prec. | Recall | F1 score
 -|-|-|-
@@ -123,17 +123,17 @@ ADV | 0.4454 | 0.8374 | 0.5815
 NOUN | 0.8882 | 0.7526 | 0.8148
 VERB | 0.9609 | 0.8213 | 0.8856
 ADP | 0.9296 | 0.8316 | 0.8779
-. | 0.9921 | 0.9979 | 0.9950
+. | 0.9921 | 0.9983 | 0.9952
 CONJ | 0.8953 | 0.8254 | 0.8590
 PRON | 0.8998 | 0.7258 | 0.8035
 ADJ | 0.7517 | 0.6264 | 0.6834
 NUM | 0.3877 | 0.7222 | 0.5045
 PRT | 0.7359 | 0.8078 | 0.7702
-X | 0.1538 | 0.0909 | 0.1143
+X | 0.1667 | 0.0909 | 0.1176
 
-### Rust + scaling
+### Scaling, normalization
 
-File `r-eval.tt`, accuracy 81.69%.
+File `{r,p}-eval.tt`, accuracy: 81.69%.
 
 Tag | Prec. | Recall | F1 score
 -|-|-|-
@@ -150,61 +150,23 @@ NUM | 0.3816 | 0.7222 | 0.4994
 PRT | 0.6410 | 0.8143 | 0.7174
 X | 0.1714 | 0.2727 | 0.2105
 
-### Python + scaling, smoothing
+### Vanilla
 
-File `p-eval-smooth.tt`, accuracy: 74.48%.
-
-Tag | Prec. | Recall | F1 score
--|-|-|-
-DET | 0.8487 | 0.2865 | 0.4284
-NUM | 0.1407 | 0.9593 | 0.2454
-NOUN | 0.9110 | 0.7230 | 0.8062
-VERB | 0.9424 | 0.8315 | 0.8835
-ADP | 0.9106 | 0.9030 | 0.9067
-. | 0.9925 | 0.9975 | 0.9950
-CONJ | 0.5172 | 0.9433 | 0.6681
-PRON | 0.5374 | 0.8755 | 0.6660
-ADV | 0.7011 | 0.5201 | 0.5972
-ADJ | 0.7225 | 0.5287 | 0.6106
-PRT | 0.7126 | 0.5896 | 0.6453
-X | 0.5000 | 0.0909 | 0.1538
-
-### Python + scaling
-
-File `p-eval.tt`, accuracy: 73.35%.
+Because in the first homework I was penalized for not sticking literally to the assignment (plotting top 100 most frequent words instead of all, because in the later case nothing could be infered - a deliberate decision), I do not trust that I would not be penalized also for not providing vanilla HMM POS tagger implementation in Python. Since the code would be too convoluted to parametrize also for vanilla implementation and I do not want to regress the performance of the main project, the code (duplicated with slight changes) is located in `python/vanilla/`. The resulting inference is in `data_measured/p-de-eval-vanilla.tt`. Accuracy: 67.77%.
 
 Tag | Prec. | Recall | F1 score
 -|-|-|-
-DET | 0.8487 | 0.2865 | 0.4284
-X | 0.0059 | 0.5000 | 0.0117
-NOUN | 0.9121 | 0.7227 | 0.8064
-VERB | 0.9405 | 0.8121 | 0.8716
-ADP | 0.9140 | 0.9010 | 0.9074
-. | 0.9936 | 0.9836 | 0.9886
-CONJ | 0.5159 | 0.9204 | 0.6612
-PRON | 0.6296 | 0.8216 | 0.7129
-ADV | 0.7034 | 0.5185 | 0.5970
-ADJ | 0.7203 | 0.5278 | 0.6092
-NUM | 0.4717 | 0.8037 | 0.5945
-PRT | 0.7109 | 0.5928 | 0.6465
-
-### Python
-
-Because in the first homework I was penalized for not sticking literally to the assignment (plotting top 100 most frequent words instead of all, because in the later case nothing could be infered - a deliberate decision), I do not trust that I would not be penalized also for not providing vanilla HMM POS tagger implementation in Python. Since the code would be too convoluted to parametrize also for vanilla implementation and I do not want to regress the performance of the main project, the code (duplicated with slight changes) is located in `python/vanilla/`. The resulting inference is in `data_measured/p-de-eval-vanilla.tt`. Accuracy: 65.63%.
-
-Tag | Prec. | Recall | F1 score
--|-|-|-
-DET | 0.9191 | 0.2487 | 0.3914
-NUM | 0.1213 | 0.8778 | 0.2131
-NOUN | 0.9163 | 0.6168 | 0.7373
-VERB | 0.9395 | 0.7443 | 0.8306
-ADP | 0.9152 | 0.8111 | 0.8600
-. | 0.9946 | 0.8471 | 0.9149
-CONJ | 0.4883 | 0.8637 | 0.6239
-PRON | 0.5292 | 0.8420 | 0.6499
-ADV | 0.2546 | 0.4594 | 0.3276
-ADJ | 0.7216 | 0.4569 | 0.5595
-PRT | 0.6716 | 0.5863 | 0.6261
-X | 0.0625 | 0.0909 | 0.0741
+DET | 0.8803 | 0.3561 | 0.5071
+NUM | 0.1927 | 0.7407 | 0.3058
+NOUN | 0.9473 | 0.6223 | 0.7512
+VERB | 0.9664 | 0.7375 | 0.8366
+ADP | 0.9383 | 0.8406 | 0.8868
+. | 0.9671 | 0.8408 | 0.8995
+CONJ | 0.5759 | 0.8361 | 0.6821
+PRON | 0.6956 | 0.7965 | 0.7426
+ADV | 0.3035 | 0.5667 | 0.3953
+ADJ | 0.7590 | 0.5067 | 0.6077
+X | 0.0092 | 0.5455 | 0.0181
+PRT | 0.6610 | 0.7622 | 0.7080
 
 I also did not provide any comment for the `alpha=0.9` parameter in matplotlib function call in `graph.py`, because that seems just absurd and commenting every other line reduces readability.
