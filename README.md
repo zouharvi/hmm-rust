@@ -43,6 +43,22 @@ I tried to use the same algorithmic steps in both solutions so that they are com
 
 Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed). It did not however affect the model performance and for simplicity reasons I left it out.
 
+## Lowercasing
+
+Lowercasing the input led to decrease in train and eval accuracy by 0.57% and 0.16%.
+
+## Number stemming
+
+Words which represented numbers could be stemmed into one group by the following processing:
+
+```
+tok = tok.strip('.')
+if re.match('\d+.?', tok):
+    tok = '<DIGIT>'
+```
+
+This resulted in train and eval accuracy of 97.30% and 91.23%.
+
 ## Normalization
 
 Trellis layer normalization (so that it sums up to 1) had no effect on the output, but still can be turned off by `no_normalize`. It would have an effect in case of longer sentences. Making the normalization to sum to something other than 1 did not affect the accuracy.

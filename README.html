@@ -26,6 +26,14 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>I tried to use the same algorithmic steps in both solutions so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same. The two versions produce almost the same outputs (they differ slightly in the smoothed version).</p>
 <h2 id="log-space">Log space</h2>
 <p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed). It did not however affect the model performance and for simplicity reasons I left it out.</p>
+<h2 id="lowercasing">Lowercasing</h2>
+<p>Lowercasing the input led to decrease in train and eval accuracy by 0.57% and 0.16%.</p>
+<h2 id="number-stemming">Number stemming</h2>
+<p>Words which represented numbers could be stemmed into one group by the following processing:</p>
+<pre><code>tok = tok.strip(&#39;.&#39;)
+if re.match(&#39;\d+.?&#39;, tok):
+    tok = &#39;&lt;DIGIT&gt;&#39;</code></pre>
+<p>This resulted in train and eval accuracy of 97.30% and 91.23%.</p>
 <h2 id="normalization">Normalization</h2>
 <p>Trellis layer normalization (so that it sums up to 1) had no effect on the output, but still can be turned off by <code>no_normalize</code>. It would have an effect in case of longer sentences. Making the normalization to sum to something other than 1 did not affect the accuracy.</p>
 <h2 id="code-structure">Code structure</h2>
