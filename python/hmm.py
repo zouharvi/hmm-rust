@@ -11,18 +11,11 @@ class TrellisItem:
 
 
 class HMM:
-    # initialize HMM parameters with either zeroes or smoothed probabilities
+    # initialize HMM parameters with zeroes
     def __init__(self, count_state, count_emiss):
-        if "smooth" in sys.argv:
-            self.prob_start = [0.0]*count_state
-            self.prob_trans = [
-                [-32.0]*count_state for _ in range(count_state)
-            ]
-            self.prob_emiss = [[0.0]*count_emiss for _ in range(count_state)]
-        else:
-            self.prob_start = [0.0]*count_state
-            self.prob_trans = [[0.0]*count_state for _ in range(count_state)]
-            self.prob_emiss = [[0.0]*count_emiss for _ in range(count_state)]
+        self.prob_start = [0.0]*count_state
+        self.prob_trans = [[0.0]*count_state for _ in range(count_state)]
+        self.prob_emiss = [[0.0]*count_emiss for _ in range(count_state)]
         self.state = 0
         self.count_state = count_state
         self.count_emiss = count_emiss
@@ -39,8 +32,7 @@ class HMM:
 
         # initial hop probability
         for state in range(self.count_state):
-            hop_prob = self.prob_start[state] * \
-                self.prob_emiss_comp(state, observations[0])
+            hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0])
             trellis[0][state].max_prob = hop_prob
             if "comp_cum" in sys.argv:
                 trellis[0][state].cum_prob = hop_prob
@@ -49,20 +41,17 @@ class HMM:
         for time in range(1, len(observations)):
             for state_b in range(self.count_state):
                 for state_a in range(self.count_state):
-                    hop_prob_max = trellis[time - 1][state_a].max_prob * \
-                        self.prob_trans[state_a][state_b]
+                    hop_prob_max = trellis[time - 1][state_a].max_prob * self.prob_trans[state_a][state_b]
                     if hop_prob_max > trellis[time][state_b].max_prob:
                         trellis[time][state_b].max_path = state_a
                         trellis[time][state_b].max_prob = hop_prob_max
 
-                    prob_emiss_local = self.prob_emiss_comp(
-                        state_b, observations[time])
-                    trellis[time][state_b].max_prob *= prob_emiss_local
-
                     if "comp_cum" in sys.argv:
-                        hop_prob_cum = trellis[time - 1][state_a].cum_prob * \
-                            self.prob_trans[state_a][state_b]
+                        hop_prob_cum = trellis[time - 1][state_a].cum_prob * self.prob_trans[state_a][state_b]
                         trellis[time][state_b].cum_prob += hop_prob_cum
+                        
+                prob_emiss_local = self.prob_emiss_comp(state_b, observations[time])
+                trellis[time][state_b].max_prob *= prob_emiss_local
 
                 if "comp_cum" in sys.argv:
                     prob_emiss_local = self.prob_emiss_comp(
@@ -73,15 +62,13 @@ class HMM:
             layer_total_max = sum([x.max_prob for x in trellis[time]])
             for state_i in range(self.count_state):
                 if layer_total_max != 0:
-                    trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / \
-                        layer_total_max
+                    trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / layer_total_max
                 else:
                     trellis[time][state_i].max_prob = 1
             if "comp_cum" in sys.argv:
                 layer_total_cum = sum([x.cum_prob for x in trellis[time]])
                 for state_i in range(self.count_state):
-                    trellis[time][state_i].cum_prob = trellis[time][state_i].cum_prob / \
-                        layer_total_cum
+                    trellis[time][state_i].cum_prob = trellis[time][state_i].cum_prob / layer_total_cum
 
         # trellis printing
         if "print_trellis" in sys.argv:

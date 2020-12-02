@@ -9,12 +9,11 @@ impl HMM {
             loader.mapper_t.count().unwrap(),
             loader.mapper_w.count().unwrap(),
         );
-        const SCALE_FACTOR: f64 = 1500.0;
         for sent in &loader.data {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
         }
-        let total: f64 = hmm.prob_start.iter().sum::<f64>() / SCALE_FACTOR;
+        let total: f64 = hmm.prob_start.iter().sum::<f64>();
         for key in 0..hmm.prob_start.len() {
             hmm.prob_start[key] /= total;
         }
@@ -26,13 +25,22 @@ impl HMM {
             }
         }
 
-        // skip normalizing
-        // for key1 in 0..hmm.prob_trans.len() {
-        //     let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / SCALE_FACTOR;
-        //     for key2 in 0..hmm.prob_trans[key1].len() {
-        //         hmm.prob_trans[key1][key2] /= total;
-        //     }
-        // }
+        for key1 in 0..hmm.prob_trans.len() {
+            let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>();
+            for key2 in 0..hmm.prob_trans[key1].len() {
+                hmm.prob_trans[key1][key2] /= total;
+            }
+        }
+
+        #[cfg(feature = "smooth")]
+        {
+            for key1 in 0..hmm.prob_trans.len() {
+                let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>();
+                for key2 in 0..hmm.prob_trans[key1].len() {
+                    hmm.prob_trans[key1][key2] += 0.001;
+                }
+            }
+        }
 
         for sent in &loader.data {
             for pos in 0..sent.tokens.len() {
@@ -42,7 +50,7 @@ impl HMM {
             }
         }
         for key in 0..hmm.prob_emiss.len() {
-            let total: f64 = hmm.prob_emiss[key].iter().sum::<f64>() / SCALE_FACTOR;
+            let total: f64 = hmm.prob_emiss[key].iter().sum::<f64>();
             for val in 0..hmm.prob_emiss[key].len() {
                 hmm.prob_emiss[key][val] /= total;
             }

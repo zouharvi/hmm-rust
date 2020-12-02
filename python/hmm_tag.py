@@ -9,12 +9,11 @@ class HMMTag(HMM):
             loader.mapper_t.count(),
             loader.mapper_w.count()
         )
-        self.SCALE_FACTOR = 1500.0
         for sent in loader.data:
             key = sent.tokens[0][1]
             self.prob_start[key] += 1.0
 
-        total = sum(self.prob_start) / self.SCALE_FACTOR
+        total = sum(self.prob_start)
         for key in range(len(self.prob_start)):
             self.prob_start[key] /= total
 
@@ -24,11 +23,10 @@ class HMMTag(HMM):
                 key2 = sent.tokens[pos][1]
                 self.prob_trans[key1][key2] += 1.0
 
-        # skip normalizing transition probabilities
-        # for key1 in range(len(self.prob_trans)):
-        #     total = sum(self.prob_trans[key1]) / self.SCALE_FACTOR
-        #     for key2 in range(len(self.prob_trans[key1])):
-        #         self.prob_trans[key1][key2] /= total
+        for key1 in range(len(self.prob_trans)):
+            total = sum(self.prob_trans[key1])
+            for key2 in range(len(self.prob_trans[key1])):
+                self.prob_trans[key1][key2] /= total
 
         for sent in loader.data:
             for pos in range(len(sent.tokens)):
@@ -36,8 +34,14 @@ class HMMTag(HMM):
                 key = sent.tokens[pos][1]
                 self.prob_emiss[key][val] += 1.0
 
+        # add partial count to everything, so that there are no zero probabilities
+        if "smooth" in sys.argv:
+            for key in range(len(self.prob_emiss)):
+                total = sum(self.prob_emiss[key])
+                self.prob_emiss[key] = [v+0.0001 for v in self.prob_emiss[key]]
+
         for key in range(len(self.prob_emiss)):
-            total = sum(self.prob_emiss[key]) / self.SCALE_FACTOR
+            total = sum(self.prob_emiss[key])
             for val in range(len(self.prob_emiss[key])):
                 self.prob_emiss[key][val] /= total
 

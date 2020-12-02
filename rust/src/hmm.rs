@@ -11,35 +11,18 @@ pub struct HMM {
 }
 
 impl HMM {
-    // initialize HMM parameters with either zeroes or smoothed probabilities
+    // initialize HMM parameters with zeroes
     pub fn zeroes(count_state: usize, count_emiss: usize) -> HMM {
-        #[cfg(feature = "smooth")]
-        {
-            let prob_start = vec![0.0; count_state];
-            let prob_trans = vec![vec![-32.0; count_state]; count_state];
-            let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
-            HMM {
-                count_state,
-                count_emiss,
-                prob_start,
-                prob_trans,
-                prob_emiss,
-                state: 0,
-            }
-        }
-        #[cfg(not(feature = "smooth"))]
-        {
-            let prob_start = vec![0.0; count_state];
-            let prob_trans = vec![vec![0.0; count_state]; count_state];
-            let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
-            HMM {
-                count_state,
-                count_emiss,
-                prob_start,
-                prob_trans,
-                prob_emiss,
-                state: 0,
-            }
+        let prob_start = vec![0.0; count_state];
+        let prob_trans = vec![vec![0.0; count_state]; count_state];
+        let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
+        HMM {
+            count_state,
+            count_emiss,
+            prob_start,
+            prob_trans,
+            prob_emiss,
+            state: 0,
         }
     }
 }
@@ -118,9 +101,6 @@ impl HMM {
                         trellis[time][state_b].max_path = state_a;
                         trellis[time][state_b].max_prob = hop_prob_max;
                     }
-                    let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
-                    trellis[time][state_b].max_prob *= prob_emiss_local;
-
                     #[cfg(feature = "comp_cum")]
                     {
                         let hop_prob_cum =
@@ -128,6 +108,8 @@ impl HMM {
                         trellis[time][state_b].cum_prob += hop_prob_cum;
                     }
                 }
+                let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
+                trellis[time][state_b].max_prob *= prob_emiss_local;
                 #[cfg(feature = "comp_cum")]
                 {
                     let prob_emiss_local = self.prob_emiss_comp(state_b, observations[time]);
@@ -158,8 +140,7 @@ impl HMM {
                 for state in 0..self.count_state {
                     println!(
                         "({}, {:.8}, {}) ",
-                        state,
-                        trellis[time][state].max_prob, trellis[time][state].max_path,
+                        state, trellis[time][state].max_prob, trellis[time][state].max_path,
                     );
                 }
                 println!();

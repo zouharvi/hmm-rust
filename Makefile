@@ -4,13 +4,13 @@ r-build-time:
 	@ # cargo build --release --features="new_train smooth"
 	@ # cargo build --release --features="new_train comp_eval print_acc smooth"
 
-r-build-acc:
+r-build:
 	@ cd rust; \
 	cargo build --release --features="comp_train comp_eval print_acc"
 
 r-build-smooth:
 	@ cd rust; \
-	cargo build --release --features="comp_train comp_eval smooth print_acc"
+	cargo build --release --features="comp_train comp_eval print_acc smooth"
 
 r-build-print-eval:
 	@ cd rust; \
@@ -35,7 +35,7 @@ p-run-time:
 	@ # python3 -O python/main.py new_train comp_eval print_acc smooth
 
 p-run-acc:
-	@ python3 -O python/main.py comp_train comp_eval print_acc
+	@ python3 -O python/main.py comp_eval print_acc smooth
 
 p-run-smooth:
 	@ python3 -O python/main.py comp_train comp_eval print_acc smooth
