@@ -132,7 +132,7 @@ This sections lists results of models in descending order. The file `eval.py` is
 
 ### Smoothing, normalization
 
-Highest results from `{r,p}-eval-smooth.tt`, accuracy: 90.95%.
+Highest results from `{r,p}-eval-smooth.tt`, accuracy: 90.96%.
 
 Tag | Prec. | Recall | F1
 -|-|-|-
