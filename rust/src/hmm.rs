@@ -15,8 +15,8 @@ impl HMM {
     pub fn zeroes(count_state: usize, count_emiss: usize) -> HMM {
         #[cfg(feature = "smooth")]
         {
-            let prob_start = vec![96.0; count_state];
-            let prob_trans = vec![vec![-64.0; count_state]; count_state];
+            let prob_start = vec![0.0; count_state];
+            let prob_trans = vec![vec![-32.0; count_state]; count_state];
             let prob_emiss = vec![vec![0.0; count_emiss]; count_state];
             HMM {
                 count_state,
@@ -101,7 +101,6 @@ impl HMM {
         // initial hop probability
         for state in 0..(self.count_state) {
             let hop_prob = self.prob_start[state] * self.prob_emiss_comp(state, observations[0]);
-            // println!("-- {} {} {}", state, self.prob_start[state], self.prob_emiss_comp(state, observations[0]));
             trellis[0][state].max_prob = hop_prob;
             #[cfg(feature = "comp_cum")]
             {

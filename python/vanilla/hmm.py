@@ -70,18 +70,18 @@ class HMM:
                     trellis[time][state_b].cum_prob *= prob_emiss_local
 
             # normalize layer
-            layer_total_max = sum([x.max_prob for x in trellis[time]])
-            for state_i in range(self.count_state):
-                if layer_total_max != 0:
-                    trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / \
-                        layer_total_max
-                else:
-                    trellis[time][state_i].max_prob = 1
-            if "comp_cum" in sys.argv:
-                layer_total_cum = sum([x.cum_prob for x in trellis[time]])
-                for state_i in range(self.count_state):
-                    trellis[time][state_i].cum_prob = trellis[time][state_i].cum_prob / \
-                        layer_total_cum
+            # layer_total_max = sum([x.max_prob for x in trellis[time]])
+            # for state_i in range(self.count_state):
+            #     if layer_total_max != 0:
+            #         trellis[time][state_i].max_prob = trellis[time][state_i].max_prob / \
+            #             layer_total_max
+            #     else:
+            #         trellis[time][state_i].max_prob = 1
+            # if "comp_cum" in sys.argv:
+            #     layer_total_cum = sum([x.cum_prob for x in trellis[time]])
+            #     for state_i in range(self.count_state):
+            #         trellis[time][state_i].cum_prob = trellis[time][state_i].cum_prob / \
+            #             layer_total_cum
 
         # trellis printing
         if "print_trellis" in sys.argv:

@@ -52,13 +52,13 @@ v_run_r = [float(x[1]) for x in data]
 v_run_rea = [float(x[2])/100 for x in data]
 v_run_p = [float(x[3]) for x in data]
 v_run_pea = [float(x[4])/100 for x in data]
-a_p, = ax1.plot(v_size, v_run_p, color='green', linestyle='--')
-a_r, = ax1.plot(v_size, v_run_r, color='orange', linestyle='--')
+a_p, = ax1.plot(v_size, v_run_p, color='green', linestyle='--', alpha=0.9)
+a_r, = ax1.plot(v_size, v_run_r, color='orange', linestyle='--', alpha=0.9)
 
 ax2 = ax1.twinx()
 
-a_pea, = ax2.plot(v_size, v_run_pea, color='green', linestyle=':')
-a_rea, = ax2.plot(v_size, v_run_rea, color='orange', linestyle=':')
+a_pea, = ax2.plot(v_size, v_run_pea, color='green', linestyle=':', alpha=0.9)
+a_rea, = ax2.plot(v_size, v_run_rea, color='orange', linestyle=':', alpha=0.9)
 
 plt.legend(
     [a_pea, a_rea, a_p, a_r],

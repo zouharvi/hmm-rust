@@ -61,7 +61,7 @@ Welcher	NUM
 Kollege	NOUN
 hat	VERB
 Ihnen	PRON
-denn	ADV
+denn	CONJ
 99	NUM
 gesagt	VERB
 ?	.
@@ -75,7 +75,7 @@ und	CONJ
 Herren	NOUN
 des	PRON
 besagten	ADJ
-Mobilfunkanbieters	CONJ
+Mobilfunkanbieters	NUM
 bin	VERB
 ich	PRON
 im	ADP
@@ -104,13 +104,13 @@ vielversprechender	NUM
 10	NUM
 Euro	NOUN
 günstiger	ADJ
-selbst	ADV
+selbst	PRON
 hätte	VERB
 kaufen	VERB
 können	VERB
 .	.
 
-17.45	X
+17.45	NUM
 Uhr	NOUN
 hatte	CONJ
 ich	PRON
@@ -126,7 +126,7 @@ sich	PRON
 in	ADP
 näherer	ADJ
 Zukunft	NOUN
-abspielt	VERB
+abspielt	NUM
 ....	.
 
 Aber	ADV
@@ -163,7 +163,7 @@ Gottes	NOUN
 interessierte	VERB
 Personen	NOUN
 sind	VERB
-herzlich	PRON
+herzlich	.
 eingelanden	NUM
 ,	.
 Gottesdienst	NOUN
@@ -304,7 +304,7 @@ Vodafone	NUM
 -	.
 Seite	NOUN
 das	DET
-Update	NOUN
+Update	NUM
 für	ADP
 den	DET
 Schneeleoparden	NUM
@@ -448,7 +448,7 @@ Zeit	NOUN
 und	CONJ
 zeichnet	VERB
 alles	PRON
-genaustens	ADV
+genaustens	ADP
 vor	ADP
 ,	.
 so	CONJ
@@ -496,7 +496,7 @@ gerne	ADV
 ,	.
 kann	VERB
 ich	PRON
-nur	ADV
+nur	CONJ
 sagen	VERB
 ,	.
 die	PRON
@@ -589,14 +589,14 @@ des	DET
 Verkäufers	NUM
 in	ADP
 15	NUM
-minuten	VERB
+minuten	NOUN
 freigeschalten	NUM
 sein	DET
 .	.
 
 Außenplätze	NOUN
 ,	.
-separates	PRON
+separates	NOUN
 Kinderspielzimmer	NUM
 und	CONJ
 ein	DET
@@ -656,7 +656,7 @@ Bei	ADP
 unserem	PRON
 nächsten	NOUN
 Aufenthalt	NOUN
-auf	PRT
+auf	ADP
 Sylt	NUM
 werden	VERB
 wir	PRON
@@ -684,11 +684,11 @@ dazu	ADV
 Bester	NOUN
 Kaffee	NOUN
 im	ADP
-Veedel	NOUN
+Veedel	NUM
 sowieso	ADV
 .	.
 
-biene	PRON
+biene	NOUN
 maja	NOUN
 tanzt	ADV
 .	.
@@ -783,13 +783,13 @@ Ergebnis	NOUN
 .	.
 
 Bin	VERB
-via	PRON
+via	VERB
 Zeitungsannonce	NUM
 im	ADP
 Stadtanzeiger	NUM
 und	CONJ
 Guller	NUM
-auf	PRT
+auf	ADP
 Lasting	NUM
 Beauty	NOUN
 aufmerksam	PRT
@@ -959,7 +959,7 @@ Dank	ADP
 ihm	PRON
 sind	VERB
 unsere	PRON
-Rechtsstreitigkeiten	ADP
+Rechtsstreitigkeiten	NUM
 positiv	ADJ
 verlaufen	VERB
 .	.
@@ -967,7 +967,7 @@ verlaufen	VERB
 Danke	NOUN
 Rosemarie	NOUN
 !	.
-:-)	.
+:-)	X
 
 Dann	ADV
 habe	VERB
@@ -1036,7 +1036,7 @@ Hotelstandard	ADV
 
 Das	CONJ
 einzige	ADJ
-was	VERB
+was	PRON
 nervt	NUM
 ist	VERB
 ,	.
@@ -1101,7 +1101,7 @@ ist	VERB
 immer	ADV
 eine	NUM
 schöne	ADJ
-Einleitung	CONJ
+Einleitung	NUM
 ins	ADP
 Wochenende	NOUN
 ,	.
@@ -1146,7 +1146,7 @@ deshalb	ADV
 gibt	VERB
 es	PRON
 einen	DET
-Kaktus	NOUN
+Kaktus	NUM
 für	ADP
 die	PRON
 Angestellten	NOUN
@@ -1224,7 +1224,7 @@ geholfen	VERB
 werden	VERB
 .	.
 
-Das	PRON
+Das	DET
 Musikhaus	NUM
 Thomann	NOUN
 hat	VERB
@@ -1249,7 +1249,7 @@ Logistik	ADV
 Das	CONJ
 nennt	VERB
 man	PRON
-Kundennähe	ADV
+Kundennähe	NOUN
 ...	.
 
 Das	CONJ
@@ -1285,7 +1285,7 @@ zu	ADP
 sein	VERB
 .	.
 
-Das	PRON
+Das	DET
 R2	NUM
 in	ADP
 Jena	NOUN
@@ -1304,7 +1304,7 @@ befindet	VERB
 Das	CONJ
 ragt	VERB
 mal	ADV
-angenhem	ADV
+angenhem	ADP
 heraus	PRT
 aus	ADP
 dem	DET
@@ -1342,14 +1342,14 @@ ausgestattet	VERB
 mit	ADP
 den	CONJ
 neuesten	ADJ
-TechnoGym	CONJ
+TechnoGym	NUM
 -	.
 Geräten	NOUN
 und	CONJ
 verfügt	VERB
 über	ADP
 saubere	ADJ
-Umkleiden	CONJ
+Umkleiden	NUM
 ,	.
 Duschen	NUM
 ,	.
@@ -1390,7 +1390,7 @@ Handwerk	NOUN
 verstehen	VERB
 .	.
 
-DasFahren	X
+DasFahren	NUM
 wir	PRON
 jetzt	ADV
 seit	CONJ
@@ -1413,7 +1413,7 @@ Restaurant	NOUN
 Plätze	NOUN
 mit	ADP
 Snacks	NOUN
-reserevieren	ADV
+reserevieren	NOUN
 lassen	VERB
 
 Dazu	PRON
@@ -1422,7 +1422,7 @@ man	PRON
 sagen	VERB
 ,	.
 dass	CONJ
-besagter	PRON
+besagter	NOUN
 ServiceMA	ADV
 gerade	ADJ
 alle	PRON
@@ -1565,7 +1565,7 @@ entspannt	ADV
 Deswegen	ADV
 für	ADP
 mich	PRON
-und	NOUN
+und	CONJ
 viele	PRON
 andere	PRON
 die	DET
@@ -1675,7 +1675,7 @@ hat	VERB
 in	ADP
 den	CONJ
 vergangenen	ADJ
-3	NOUN
+3	NUM
 Jahren	NOUN
 einige	PRON
 Leistungen	NOUN
@@ -1689,7 +1689,7 @@ Die	DET
 Gläser	NUM
 hatten	VERB
 kleine	ADJ
-Kratzer	CONJ
+Kratzer	NUM
 in	ADP
 der	PRON
 Mitte	NOUN
@@ -1726,7 +1726,7 @@ auch	ADV
 
 Die	PRON
 kleinen	ADJ
-Probierstände	CONJ
+Probierstände	NUM
 sind	VERB
 immer	ADV
 recht	ADV
@@ -1743,7 +1743,7 @@ ist	VERB
 gut	NOUN
 ,	.
 wenn	CONJ
-nicht	PRON
+nicht	PRT
 der	PRON
 Koch	NOUN
 ,	.
@@ -1847,7 +1847,7 @@ Diese	PRON
 Firma	NOUN
 gibt	VERB
 es	PRON
-seit	ADP
+seit	CONJ
 1989	NUM
 nicht	NOUN
 mehr	ADV
@@ -1941,7 +1941,7 @@ Gericht	NOUN
 genießen	VERB
 .	.
 
-Duchsen	X
+Duchsen	NUM
 war	VERB
 nur	CONJ
 in	ADP
@@ -1960,7 +1960,7 @@ hier	ADV
 mich	PRON
 .	.
 
-Ebensowenig	X
+Ebensowenig	NUM
 habe	VERB
 ich	PRON
 eine	NUM
@@ -2044,7 +2044,7 @@ Fressnapf	ADV
 .	.
 
 Eine	DET
-Bereicherung	NOUN
+Bereicherung	NUM
 für	ADP
 den	DET
 Yoga	NUM
@@ -2099,9 +2099,9 @@ Wildpark	NOUN
 hat	VERB
 .	.
 
-Ekelerregent	X
+Ekelerregent	NUM
 und	CONJ
-wahnsinning	PRON
+wahnsinning	NOUN
 unerhört	NUM
 !	.
 !	.
@@ -2141,7 +2141,7 @@ habe	VERB
 in	ADP
 so	CONJ
 ein	DET
-Stresslokal	ADV
+Stresslokal	NOUN
 zu	ADP
 essen	VERB
 UND	NUM
@@ -2149,14 +2149,14 @@ das	CONJ
 er	PRON
 die	PRON
 15	NUM
-Eurocent	ADV
+Eurocent	NOUN
 als	ADP
 Trinkgeld	NUM
 behalten	VERB
 kann	VERB
 weil	CONJ
 er	PRON
-für	ADV
+für	ADP
 so	ADV
 viel	PRON
 Spass	NOUN
@@ -2199,7 +2199,7 @@ ist	VERB
 im	ADP
 höchstem	NUM
 Maße	NOUN
-weiter	ADV
+weiter	PRT
 zu	ADP
 empfehlen	VERB
 .	.
@@ -2348,7 +2348,7 @@ nur	CONJ
 Tage	NOUN
 !	.
 
-F4M	X
+F4M	NUM
 --	.
 eine	NUM
 moderne	ADJ
@@ -2357,7 +2357,7 @@ Band	NOUN
 die	DET
 sehr	ADV
 genau	PRT
-auf	PRT
+auf	ADP
 Kundenwünsche	NUM
 eingehen	VERB
 kann	VERB
@@ -2398,7 +2398,7 @@ darauf	PRON
 schließen	VERB
 .	.
 
-Fettabsaugung	X
+Fettabsaugung	NUM
 im	ADP
 Prevention	NUM
 Center	NOUN
@@ -2406,7 +2406,7 @@ in	ADP
 Zürich	NOUN
 .	.
 
-Fr	X
+Fr	ADV
 .	.
 Dr.	NOUN
 Berndt	NOUN
@@ -2489,7 +2489,7 @@ ab	PRT
 Uhr	NOUN
 .	.
 
-Fuer	X
+Fuer	NUM
 ein	NUM
 3	NUM
 -	.
@@ -2562,14 +2562,14 @@ diesem	PRON
 Laden	NOUN
 .	.
 
-Ganz	ADV
+Ganz	NOUN
 anders	ADV
 als	CONJ
 in	ADP
 Zepernick	ADV
 .	.
 
-Ganz	X
+Ganz	NUM
 große	NOUN
 Klasse	NOUN
 ,	.
@@ -2578,7 +2578,7 @@ für	ADP
 Familien	NOUN
 .	.
 
-Ganz	X
+Ganz	NUM
 im	ADP
 Gegenteil	NOUN
 ,	.
@@ -2620,13 +2620,13 @@ herzlich	NUM
 willkommen	ADJ
 .	.
 
-Gelernt	X
+Gelernt	NUM
 haben	VERB
 wir	PRON
 auf	ADP
 den	CONJ
 einfachen	ADJ
-Galeonen	CONJ
+Galeonen	NUM
 ,	.
 Sail	NUM
 &amp;	NOUN
@@ -2640,7 +2640,7 @@ Segelbooten	NUM
 --	.
 von	ADP
 der	DET
-Gleitjolle	ADV
+Gleitjolle	NOUN
 bis	CONJ
 zur	ADP
 Regattajacht	NUM
@@ -2659,7 +2659,7 @@ super	NOUN
 präsentiert	VERB
 .	.
 
-Ging	X
+Ging	NUM
 alles	PRON
 sehr	ADV
 schnell	ADJ
@@ -2668,7 +2668,7 @@ kundenfreundlich	NOUN
 
 Glas	NOUN
 und	CONJ
-Display	PRON
+Display	NOUN
 austauschen	NUM
 kostet	VERB
 99	NUM
@@ -2676,7 +2676,7 @@ Euro	NOUN
 .	.
 "	.
 
-Gottlob	X
+Gottlob	NUM
 ist	VERB
 unsere	PRON
 Werkstatt	NOUN
@@ -2746,7 +2746,7 @@ mehr	PRON
 Haare	NOUN
 auf	ADP
 den	DET
-Zähnen	ADV
+Zähnen	NOUN
 als	CONJ
 ein	NUM
 ganzes	ADJ
@@ -2756,7 +2756,7 @@ dem	PRON
 Rücken	NOUN
 !	.
 
-Hallo	X
+Hallo	ADV
 G	NOUN
 &amp;	NOUN
 W	NOUN
@@ -2773,7 +2773,7 @@ kompetente	ADJ
 Bürovermietung	ADV
 .	.
 
-Hallo	X
+Hallo	ADV
 Herr	NOUN
 Mark	NOUN
 ,	.
@@ -2783,18 +2783,18 @@ Sie	PRON
 jezt	ADV
 so	CONJ
 und	CONJ
-nicht	PRON
+nicht	PRT
 mit	ADP
 ihrem	PRON
 richtigen	NOUN
 Namen	NOUN
 .	.
 
-Hallo	X
+Hallo	ADV
 zusammen	ADV
 .	.
 
-Hallo	X
+Hallo	ADV
 ,	.
 lorenz	NUM
 -	.
@@ -2827,18 +2827,18 @@ Mitgliedern	NOUN
 testen	VERB
 .	.
 
-Hauskauf	X
+Hauskauf	NUM
 ist	VERB
 Vertrauenssache	ADV
 .	.
 
-Hervorzuheben	X
+Hervorzuheben	NUM
 sind	VERB
 ,	.
 die	PRON
 gute	NOUN
 Beratung	NOUN
-verbunden	ADJ
+verbunden	VERB
 mit	ADP
 konstruktiven	NUM
 Vorschlägen	NOUN
@@ -2850,7 +2850,7 @@ die	DET
 übersichtlichen	NUM
 und	CONJ
 verständlichen	ADJ
-Kostenvoranschläge	CONJ
+Kostenvoranschläge	NUM
 ,	.
 die	PRON
 qualitativ	ADJ
@@ -2859,7 +2859,7 @@ Ausführung	NOUN
 des	PRON
 Auftrages	NOUN
 sowie	CONJ
-das	PRON
+das	CONJ
 freundliche	ADJ
 Auftreten	NOUN
 aller	PRON
@@ -2903,7 +2903,7 @@ einkaufen	VERB
 Ich	PRON
 fühl	NUM
 mich	PRON
-schön	ADV
+schön	ADJ
 mit	ADP
 Lasting	NUM
 Beauty	NOUN
@@ -2949,7 +2949,7 @@ abgefertigt	NUM
 gefühlt	VERB
 auch	CONJ
 wenn	CONJ
-alle	ADJ
+alle	PRON
 dort	ADV
 sehr	ADV
 nett	ADJ
@@ -3130,7 +3130,7 @@ zufrieden	ADJ
 und	CONJ
 kann	VERB
 es	PRON
-nur	ADV
+nur	CONJ
 weiterempfehlen	VERB
 .	.
 
@@ -3260,7 +3260,7 @@ dauerhaft	ADJ
 entfernt	ADJ
 .	.
 
-Ideal	ADV
+Ideal	NOUN
 für	ADP
 den	CONJ
 Kaffee	NOUN
@@ -3315,7 +3315,7 @@ Gespräch	NOUN
 Im	ADP
 Sand	NOUN
 ist	VERB
-erstens	PRON
+erstens	CONJ
 sowieso	ADV
 Selbstbedienung	NUM
 und	CONJ
@@ -3328,7 +3328,7 @@ werden	VERB
 wieso	ADV
 dann	CONJ
 nicht	PRT
-1/2h	VERB
+1/2h	CONJ
 früher	ADJ
 öffnen	VERB
 ...	.
@@ -3360,7 +3360,7 @@ Im	ADP
 Termin	NOUN
 lief	VERB
 alles	PRON
-wie	ADP
+wie	CONJ
 besprochen	VERB
 .	.
 
@@ -3404,7 +3404,7 @@ entsprechend	ADV
 Insgesamt	ADV
 ist	VERB
 das	DET
-R2	ADV
+R2	NOUN
 wirklich	ADJ
 eine	DET
 sehr	ADV
@@ -3498,7 +3498,7 @@ wieder	PRT
 !	.
 !	.
 
-Jedesmal	X
+Jedesmal	NUM
 war	VERB
 ein	NUM
 anderer	PRON
@@ -3512,7 +3512,7 @@ unpersönlich	NUM
 finde	VERB
 .	.
 
-Jugendherbergen	X
+Jugendherbergen	NUM
 haben	VERB
 mehr	ADV
 zu	ADP
@@ -3582,7 +3582,7 @@ endtäuscht	NUM
 worden	VERB
 .	.
 
-Leihwagen	X
+Leihwagen	NUM
 und	CONJ
 so	CONJ
 war	VERB
@@ -3590,8 +3590,8 @@ alles	PRON
 klar	ADJ
 .	.
 
-Letztendlich	PRON
-bezahlten	X
+Letztendlich	NOUN
+bezahlten	NUM
 wir	PRON
 für	ADP
 die	DET
@@ -3614,7 +3614,7 @@ so	ADV
 Man	PRON
 beginnt	VERB
 mit	ADP
-Grundtechniken	ADV
+Grundtechniken	NOUN
 wie	CONJ
 Jabs	NUM
 ,	.
@@ -3622,7 +3622,7 @@ Punches	NUM
 ,	.
 Haken	NUM
 ,	.
-etc.	ADV
+etc.	X
 
 Man	PRON
 hat	VERB
@@ -3664,7 +3664,7 @@ Gottes	NOUN
 
 Mehrere	PRON
 kleine	ADJ
-Schrauben	CONJ
+Schrauben	NUM
 waren	VERB
 nun	ADV
 nicht	PRT
@@ -3675,7 +3675,7 @@ Mutter	NOUN
 festgezogen	NUM
 ,	.
 sondern	CONJ
-geklebt	NOUN
+geklebt	VERB
 ..	.
 
 Mein	PRON
@@ -3731,7 +3731,7 @@ Service	NOUN
 nach	CONJ
 Abwicklung	NOUN
 des	DET
-Geschäftes	ADV
+Geschäftes	NOUN
 weiterhin	ADV
 gut	NOUN
 und	CONJ
@@ -3755,14 +3755,14 @@ Praxis	NOUN
 ,	.
 habe	VERB
 ihn	PRON
-aber	ADV
+aber	CONJ
 persönlich	ADV
 nie	ADV
 dort	ADV
 gesehen	ADJ
 .	.
 
-Mitten	X
+Mitten	NUM
 im	ADP
 Wald	NOUN
 ,	.
@@ -3816,7 +3816,7 @@ nicht	PRT
 .	.
 
 Nachfolgend	ADJ
-ein	PRT
+ein	NUM
 kurzer	ADJ
 Bericht	NOUN
 meiner	PRON
@@ -3861,7 +3861,7 @@ Dienstleistung	NOUN
 den	CONJ
 Regeln	NOUN
 der	DET
-Zwischenmenschlichkeit	ADV
+Zwischenmenschlichkeit	NOUN
 zu	ADP
 folgen	VERB
 und	CONJ
@@ -3921,15 +3921,15 @@ vorkommen	VERB
 müssen	VERB
 .	.
 
-Perfekte	PRON
-Handwerksarbeit	X
+Perfekte	NOUN
+Handwerksarbeit	NUM
 und	CONJ
 eine	NUM
 schnelle	ADJ
 Auftragsausführung	ADV
 .	.
 
-PRO	X
+PRO	NUM
 :	.
 Brille	NOUN
 Top	NOUN
@@ -4013,7 +4013,7 @@ Grüße	NUM
 Mare	NOUN
 .	.
 
-Schöner	X
+Schöner	NUM
 Park	NOUN
 für	ADP
 Familien	NOUN
@@ -4117,7 +4117,7 @@ Onlineapotheke	NUM
 eingerichtet	ADJ
 .	.
 
-Sicherlich	X
+Sicherlich	NUM
 gibt	VERB
 es	PRON
 viele	PRON
@@ -4129,7 +4129,7 @@ Konzepte	NOUN
 zu	ADP
 Finanzen	NOUN
 ,	.
-KOnten	PRON
+KOnten	NOUN
 uvm	NUM
 anbieten	VERB
 ,	.
@@ -4200,10 +4200,10 @@ uns	PRON
 So	NOUN
 muss	VERB
 das	CONJ
-sein	VERB
+sein	DET
 !	.
 
-Sorry	X
+Sorry	NUM
 ,	.
 dass	CONJ
 sie	PRON
@@ -4222,7 +4222,7 @@ warten	VERB
 mussten	VERB
 .	.
 
-Sue	X
+Sue	NUM
 und	CONJ
 Andy	NOUN
 sind	VERB
@@ -4267,7 +4267,7 @@ wohnen	VERB
 bleiben	VERB
 :-)	.
 
-Toll	X
+Toll	NUM
 ,	.
 mein	PRON
 Name	NOUN
@@ -4321,11 +4321,11 @@ kostet	VERB
 1,24	NUM
 Euro	NOUN
 /	ADP
-Min	ADV
+Min	X
 .	.
 
 Und	CONJ
-gleich	ADJ
+gleich	PRT
 beim	ADP
 ersten	NOUN
 Besuch	NOUN
@@ -4337,7 +4337,7 @@ positiv	ADJ
 überrascht	ADJ
 .	.
 
-Unkompliziert	X
+Unkompliziert	NUM
 ,	.
 schnell	ADJ
 (	.
@@ -4391,13 +4391,13 @@ das	CONJ
 nächste	ADJ
 Mal	NOUN
 beim	ADP
-Kochkurs	ADV
+Kochkurs	NOUN
 mit	ADP
 dabei	PRT
 sein	DET
 .	.
 
-Verständlicher	X
+Verständlicher	NUM
 Weise	NOUN
 bei	ADP
 der	PRON
@@ -4417,7 +4417,7 @@ Dank	ADP
 für	ADP
 den	DET
 wunderbaren	NOUN
-Grillkochkurs	.
+Grillkochkurs	CONJ
 vor	ADP
 2	NUM
 Wochen	NOUN
@@ -4482,10 +4482,10 @@ Mal	NOUN
 hier	ADV
 und	CONJ
 einen	DET
-Gutschein	NOUN
+Gutschein	NUM
 für	ADP
 eine	DET
-Kosmetikbehandlung	NOUN
+Kosmetikbehandlung	NUM
 für	ADP
 Mutti	NUM
 habe	VERB
@@ -4514,7 +4514,7 @@ macht	VERB
 
 Wenn	CONJ
 ich	PRON
-so	DET
+so	CONJ
 arbeiten	VERB
 würde	VERB
 ,	.
@@ -4617,7 +4617,7 @@ erhalten	ADJ
 Wir	PRON
 haben	VERB
 verschiedene	ADJ
-Tapas	CONJ
+Tapas	NUM
 gegessen	VERB
 ,	.
 die	PRON
@@ -4703,7 +4703,7 @@ schmuddelig	NUM
 ,	.
 vor	ADP
 allem	PRON
-das	PRON
+das	CONJ
 Bad	NOUN
 ist	VERB
 runtergewirtschaftet	NUM
@@ -4768,7 +4768,7 @@ Elbe	NOUN
 .	.
 
 Zum	ADP
-zusammensitzen	ADV
+zusammensitzen	NOUN
 mit	ADP
 Freunden	NOUN
 wie	CONJ
@@ -4778,14 +4778,14 @@ geschaffen	VERB
 Zusätzlich	ADJ
 bekam	VERB
 man	PRON
-Kopfschmerzen	ADV
+Kopfschmerzen	NOUN
 nach	CONJ
 einer	NUM
 kurzen	ADJ
 Zeit	NOUN
 .	.
 
-Zwischenstopp	ADV
+Zwischenstopp	ADP
 dringend	ADJ
 empfohlen	VERB
 !	.
@@ -4962,7 +4962,7 @@ alle	PRON
 Erfahrungen	NOUN
 der	PRON
 letzten	ADJ
-30	NOUN
+30	NUM
 Jahre	NOUN
 über	ADP
 Bord	NOUN
@@ -4973,7 +4973,7 @@ werfen	VERB
 "	.
 Kein	PRON
 einziger	ADJ
-Neuankömmling	CONJ
+Neuankömmling	NUM
 ,	.
 ''	.
 meldete	VERB
@@ -4999,7 +4999,7 @@ des	DET
 Ausnahmezustandes	NUM
 gelang	VERB
 es	PRON
-den	PRON
+den	CONJ
 lokalen	ADJ
 Machthabern	NOUN
 ,	.
@@ -5090,7 +5090,7 @@ Zusammenarbeit	NOUN
 und	CONJ
 Entwicklung	NOUN
 ,	.
-Wighard	PRON
+Wighard	NOUN
 Härdtl	NUM
 ,	.
 versuchte	VERB
@@ -5105,7 +5105,7 @@ die	PRON
 Wiederaufnahme	NOUN
 der	PRON
 1988	NUM
-unterbrochenen	CONJ
+unterbrochenen	NUM
 Hilfe	NOUN
 zu	PRT
 erkunden	NUM
@@ -5168,7 +5168,7 @@ der	PRON
 Schaden	NOUN
 --	.
 und	CONJ
-Unfallzweige	ADV
+Unfallzweige	NOUN
 mit	ADP
 minus	NUM
 38	NUM
@@ -5221,7 +5221,7 @@ das	CONJ
 Verfahren	NOUN
 527-1	NUM
 /	ADP
-95	NUM
+95	NOUN
 dennoch	ADV
 .	.
 
@@ -5260,7 +5260,7 @@ hinzu	PRT
 .	.
 ''	.
 
-Abfälliges	X
+Abfälliges	NUM
 ist	VERB
 über	ADP
 den	DET
@@ -5295,7 +5295,7 @@ Debatten	NUM
 flogen	NUM
 die	DET
 Fetzen	NUM
-auf	PRT
+auf	ADP
 niedrigstem	NUM
 Niveau	NOUN
 .	.
@@ -5312,7 +5312,7 @@ hat	VERB
 mit	ADP
 dem	PRON
 amerikanischen	ADJ
-EDV	CONJ
+EDV	NUM
 --	.
 Dienstleister	NOUN
 Electronic	NOUN
@@ -5441,8 +5441,8 @@ Rüttgers	NOUN
 haben	VERB
 seither	ADV
 55	NUM
-000	ADV
-Gesellen	X
+000	NUM
+Gesellen	NUM
 ,	.
 Facharbeiter	NUM
 und	CONJ
@@ -5462,7 +5462,7 @@ Techniker	NOUN
 oder	CONJ
 für	ADP
 vergleichbare	ADJ
-Qualifikationen	CONJ
+Qualifikationen	NUM
 gestellt	VERB
 .	.
 
@@ -5474,7 +5474,7 @@ Europäischen	NOUN
 Gemeinschaft	NOUN
 rund	ADJ
 vier	NUM
-Millionen	NOUN
+Millionen	NUM
 Mark	NOUN
 zur	ADP
 Vorbereitung	NOUN
@@ -5530,7 +5530,7 @@ ihrer	PRON
 Meinung	NOUN
 nach	ADP
 unberechenbarer	NOUN
-Elektriker	ADV
+Elektriker	NOUN
 mit	ADP
 ungeschliffener	NUM
 Sprache	NOUN
@@ -5570,7 +5570,7 @@ neuen	ADJ
 Ländern	NOUN
 bereits	ADV
 zu	PRT
-Nachteilen	VERB
+Nachteilen	CONJ
 für	ADP
 Arbeitnehmer	NOUN
 geführt	VERB
@@ -5651,7 +5651,7 @@ rund	ADJ
 Experten	NOUN
 mit	ADP
 vier	NUM
-Themenkomplexen	CONJ
+Themenkomplexen	NUM
 befassen	VERB
 :	.
 Demokratie	NOUN
@@ -5661,7 +5661,7 @@ und	CONJ
 Islam	NOUN
 ,	.
 islamische	ADJ
-Wirtschaftsstrategien	CONJ
+Wirtschaftsstrategien	NUM
 ,	.
 gemeinsame	ADJ
 Bemühungen	NOUN
@@ -5721,7 +5721,7 @@ in	ADP
 Wetten	NOUN
 ,	.
 daß	CONJ
-''	X
+''	.
 im	ADP
 ZDF	NOUN
 am	ADP
@@ -5790,8 +5790,8 @@ getroffen	VERB
 habe	VERB
 .	.
 
-BAU	PRON
-propagiert	X
+BAU	NOUN
+propagiert	NUM
 ``	.
 Bündnis	NOUN
 Arbeit	NOUN
@@ -5799,12 +5799,12 @@ und	CONJ
 Natur	NOUN
 ''	.
 
-Bereitschaftspolizei	X
+Bereitschaftspolizei	NUM
 rückte	VERB
 an	ADP
 mehreren	PRON
 zentralen	ADJ
-Sperren	CONJ
+Sperren	NUM
 massiv	ADJ
 und	CONJ
 mit	ADP
@@ -5851,15 +5851,15 @@ und	CONJ
 Nachteile	NOUN
 .	.
 
-Blickpunkt	X
+Blickpunkt	NUM
 :	.
 Die	DET
 Kurilen	NUM
 --	.
 Inseln	NOUN
 
-Bonns	PRON
-Zukunftsminister	X
+Bonns	NOUN
+Zukunftsminister	NUM
 Jürgen	NOUN
 Rüttgers	NOUN
 hält	VERB
@@ -5914,7 +5914,7 @@ etwa	ADV
 Menschen	NOUN
 .	.
 
-Bundesbahn	X
+Bundesbahn	NUM
 teilte	VERB
 am	ADP
 Sonntag	NOUN
@@ -5935,12 +5935,12 @@ südfranzösisch	NUM
 --	.
 spanischen	ADJ
 Grenze	NOUN
-falle	ADV
+falle	VERB
 vorerst	ADV
 aus	PRT
 .	.
 
-Bundesdelegiertentag	X
+Bundesdelegiertentag	NUM
 war	VERB
 auch	CONJ
 in	ADP
@@ -5950,16 +5950,16 @@ eine	NUM
 einzige	ADJ
 Demonstration	NOUN
 der	DET
-Geschlossenheit	ADJ
+Geschlossenheit	NOUN
 :	.
 
-Bundespolizei	X
+Bundespolizei	NUM
 erhielt	VERB
 Informationen	NOUN
 ,	.
 denen	PRON
 zufolge	ADP
-das	PRON
+das	CONJ
 Trio	NOUN
 ``	.
 dabeigewesen	VERB
@@ -6027,7 +6027,7 @@ ebenso	ADV
 gescheitert	VERB
 zu	ADP
 sein	VERB
-wie	ADV
+wie	CONJ
 mit	ADP
 seiner	PRON
 Stahl	NOUN
@@ -6070,8 +6070,8 @@ Kultur	NOUN
 vereinbaren	VERB
 .	.
 
-Computerbauer	PRON
-SNI	X
+Computerbauer	NOUN
+SNI	NUM
 hatte	VERB
 schon	ADV
 vor	ADP
@@ -6152,7 +6152,7 @@ gleich	PRT
 
 Darstellung	NOUN
 Dokos	VERB
-rücken	PRON
+rücken	VERB
 bosnische	NUM
 und	CONJ
 kroatische	ADJ
@@ -6289,7 +6289,7 @@ bezahlen	VERB
 .	.
 
 deutscher	ADJ
-Touristin	CONJ
+Touristin	NUM
 muß	VERB
 lebenslang	NUM
 in	ADP
@@ -6298,7 +6298,7 @@ Haft	NOUN
 Dezember	NOUN
 soll	VERB
 das	DET
-Europaparlament	ADV
+Europaparlament	NOUN
 über	ADP
 die	PRON
 Verwirklichung	NOUN
@@ -6355,7 +6355,7 @@ brauchen	VERB
 doch	ADV
 auch	CONJ
 privat	ADJ
-ein	PRT
+ein	NUM
 Dach	NOUN
 über	ADP
 dem	PRON
@@ -6444,7 +6444,7 @@ Annuss	ADV
 .	.
 
 Diese	PRON
-und	NOUN
+und	CONJ
 andere	PRON
 Argumente	NOUN
 kamen	VERB
@@ -6508,7 +6508,7 @@ unverändert	ADJ
 groß	ADJ
 :	.
 
-EGB	X
+EGB	NUM
 hebt	VERB
 besonders	ADV
 hervor	PRT
@@ -6535,7 +6535,7 @@ handle	VERB
 das	CONJ
 den	CONJ
 Anspruch	NOUN
-auf	PRT
+auf	ADP
 Mutterschaftsurlaub	NUM
 unberührt	ADJ
 lasse	VERB
@@ -6593,7 +6593,7 @@ sein	DET
 Entscheidung	NOUN
 der	PRON
 nigerianischen	ADJ
-Militärregierung	CONJ
+Militärregierung	NUM
 ,	.
 die	PRON
 Todesurteile	NOUN
@@ -6618,7 +6618,7 @@ gestoßen	VERB
 Entwurf	NOUN
 einer	NUM
 neuen	ADJ
-Datenschutzrichtlinie	CONJ
+Datenschutzrichtlinie	NUM
 verbot	VERB
 es	PRON
 ,	.
@@ -6693,7 +6693,7 @@ einmal	ADV
 um	CONJ
 die	PRON
 falsche	ADJ
-Fragestellung	CONJ
+Fragestellung	NUM
 ,	.
 ''	.
 moniert	NUM
@@ -6708,7 +6708,7 @@ ein	DET
 Bohren	NUM
 von	ADP
 dicken	ADJ
-Brettern	CONJ
+Brettern	NUM
 ,	.
 ''	.
 sagte	VERB
@@ -6717,7 +6717,7 @@ Manfred	NOUN
 Bauer	NOUN
 ,	.
 einer	NUM
-der	PRON
+der	DET
 Väter	NUM
 der	DET
 Sozialpsychiatrie	NUM
@@ -6764,7 +6764,7 @@ können	VERB
 ,	.
 um	CONJ
 den	DET
-Alterungsprozeß	ADV
+Alterungsprozeß	NOUN
 zu	PRT
 verlangsamen	ADV
 .	.
@@ -6772,7 +6772,7 @@ verlangsamen	ADV
 Es	PRON
 zog	VERB
 sie	PRON
-den	PRON
+den	CONJ
 ganzen	ADJ
 Sommer	NOUN
 schon	ADV
@@ -6837,7 +6837,7 @@ kandidieren	ADV
 
 externe	ADJ
 Liberalisierung	NOUN
-auf	PRT
+auf	ADP
 Weltmarktebene	NUM
 mußte	VERB
 aber	CONJ
@@ -6848,7 +6848,7 @@ zur	ADP
 internen	NUM
 Liberalisierung	NOUN
 beziehungsweise	CONJ
-Deregulierung	PRON
+Deregulierung	NUM
 innerhalb	ADP
 der	DET
 Nationalstaaten	NUM
@@ -6857,11 +6857,11 @@ verstärken	VERB
 
 Falls	NOUN
 die	DET
-Anwälte	ADV
+Anwälte	NOUN
 weiter	ADV
 so	ADV
 taktieren	ADV
-wie	ADV
+wie	CONJ
 bisher	ADV
 ,	.
 könnte	VERB
@@ -6915,8 +6915,8 @@ aufrecht	ADJ
 weil	CONJ
 er	PRON
 grundsätzlich	ADJ
-jedes	ADV
-Strafpunktesystem	ADV
+jedes	PRON
+Strafpunktesystem	NOUN
 mit	ADP
 Führerscheinentzug	NOUN
 ablehnt	ADV
@@ -6931,7 +6931,7 @@ gesichert	VERB
 sein	DET
 .	.
 
-Finanzriese	X
+Finanzriese	NUM
 Christiania	NOUN
 scheitert	VERB
 nur	ADV
@@ -6995,7 +6995,7 @@ seine	PRON
 Firma	NOUN
 Bernard	NOUN
 Tapie	VERB
-Finance	PRON
+Finance	VERB
 Mehrheitsgesellschafter	NUM
 des	DET
 nordbayerischen	NUM
@@ -7004,7 +7004,7 @@ ist	VERB
 ,	.
 ging	VERB
 auf	ADP
-die	DET
+die	PRON
 angeblich	ADJ
 mit	ADP
 einer	NUM
@@ -7052,7 +7052,7 @@ begrenzten	ADJ
 Erfolg	NOUN
 .	.
 
-Friedensabkommen	X
+Friedensabkommen	NUM
 sei	VERB
 nur	ADV
 noch	CONJ
@@ -7155,9 +7155,9 @@ Dur	NOUN
 ''	.
 .	.
 
-Gesamtbetriebsratsvorsitzende	PRON
+Gesamtbetriebsratsvorsitzende	NOUN
 Ingrid	NOUN
-Lüllmann	X
+Lüllmann	NUM
 bestätigte	VERB
 ,	.
 daß	CONJ
@@ -7172,7 +7172,7 @@ Vorstand	NOUN
 an	ADP
 den	CONJ
 wesentlichen	ADJ
-Standpunkten	CONJ
+Standpunkten	NUM
 beider	PRON
 Seiten	NOUN
 nichts	PRON
@@ -7204,7 +7204,7 @@ Sterne	NOUN
 Hotel	NOUN
 von	ADP
 Steigenberger	NOUN
-feierten	NOUN
+feierten	CONJ
 kürzlich	ADV
 Richtfest	ADV
 .	.
@@ -7215,7 +7215,7 @@ Soziale	NOUN
 Psychiatrie	NOUN
 diskutierte	ADJ
 langsame	ADJ
-Fortschritte	CONJ
+Fortschritte	NUM
 bei	ADP
 gemeindenaher	NUM
 Versorgung	NOUN
@@ -7263,7 +7263,7 @@ anschließen	VERB
 werden	VERB
 .	.
 
-Großbauern	X
+Großbauern	NUM
 streichen	VERB
 viel	PRON
 ein	NUM
@@ -7327,7 +7327,7 @@ der	PRON
 Landesgrenze	NOUN
 auf	ADP
 österreichischem	ADJ
-Hoheitsgebiet	CONJ
+Hoheitsgebiet	NUM
 seit	CONJ
 Jahrzehnten	VERB
 Pachtland	NOUN
@@ -7374,7 +7374,7 @@ furchtbare	NUM
 Verbrechen	NOUN
 an	ADP
 einem	NUM
-der	PRON
+der	DET
 tapferen	NUM
 Führer	NOUN
 Israels	NOUN
@@ -7393,7 +7393,7 @@ die	PRON
 jetzige	ADJ
 Situation	NOUN
 nicht	PRT
-weiter	ADV
+weiter	PRT
 andauern	NUM
 kann	VERB
 ,	.
@@ -7415,7 +7415,7 @@ so	ADV
 stark	ADJ
 wie	ADV
 nur	ADV
-irgend	ADP
+irgend	NUM
 möglich	ADJ
 zu	ADP
 sein	VERB
@@ -7444,7 +7444,7 @@ operativer	NUM
 Gewinn	NOUN
 und	CONJ
 1999	NUM
-wieder	ADV
+wieder	PRT
 eine	DET
 Dividende	NOUN
 herausspringen	ADV
@@ -7576,13 +7576,13 @@ Str	NUM
 .	.
 9	NUM
 ,	.
-88299	PRON
+88299	NOUN
 Leutkirch	NUM
 ,	.
 Tel	NOUN
 .	.
 und	CONJ
-Fax	PRON
+Fax	NOUN
 07561	NUM
 /	.
 3128	ADV
@@ -7606,7 +7606,7 @@ schön	ADJ
 dünne	ADJ
 ,	.
 wenn	CONJ
-mal	ADV
+mal	ADP
 was	PRON
 in	ADP
 Asien	NOUN
@@ -7629,7 +7629,7 @@ Dienstag	NOUN
 aus	ADP
 der	PRON
 umkämpften	ADJ
-Tamilen	CONJ
+Tamilen	NUM
 --	.
 Hochburg	NOUN
 Jaffna	NUM
@@ -7763,7 +7763,7 @@ möglich	ADJ
 ist	VERB
 .	.
 
-Johannesburger	X
+Johannesburger	NUM
 Tageszeitung	NOUN
 Beeld	NUM
 berichtete	VERB
@@ -7787,7 +7787,7 @@ weil	CONJ
 Frau	NOUN
 Mandela	NOUN
 die	DET
-Zinsen	NOUN
+Zinsen	NUM
 für	ADP
 die	DET
 Hypothek	NUM
@@ -7797,13 +7797,13 @@ zahlen	VERB
 konnte	VERB
 .	.
 
-Jugoslawiens	X
+Jugoslawiens	NUM
 neuer	ADJ
 Ministerpräsident	NOUN
 ist	VERB
 ein	NUM
 alter	ADJ
-Bekannter	CONJ
+Bekannter	NUM
 der	PRON
 U.S.	NOUN
 --	.
@@ -7827,7 +7827,7 @@ in	ADP
 der	PRON
 Stichwahl	NOUN
 zwischen	ADP
-den	PRON
+den	CONJ
 beiden	PRON
 Spitzenreitern	NUM
 des	PRON
@@ -7843,7 +7843,7 @@ drei	NUM
 Gruppen	NOUN
 wurde	VERB
 in	ADP
-Niedrigenergiebauweise	ADV
+Niedrigenergiebauweise	NOUN
 als	ADP
 kompaktes	NUM
 Gebäude	NOUN
@@ -7871,10 +7871,10 @@ Sonne	NOUN
 öffnet	VERB
 .	.
 
-Kleinaktionäre	X
+Kleinaktionäre	NUM
 sollen	VERB
 als	ADP
-Abfindung	PRON
+Abfindung	NUM
 für	ADP
 ein	DET
 Boge	NUM
@@ -7891,13 +7891,13 @@ Mark	NOUN
 bekommen	VERB
 .	.
 
-Klerk	PRON
-versuche	X
-die	X
+Klerk	NOUN
+versuche	NUM
+die	PRON
 Gewalt	NOUN
 in	ADP
 den	DET
-Schwarzensiedlungen	ADV
+Schwarzensiedlungen	NOUN
 als	ADP
 internen	NUM
 Machtkampf	NOUN
@@ -7930,7 +7930,7 @@ Opfer	NOUN
 fielen	VERB
 .	.
 
-Kompanien	X
+Kompanien	NUM
 der	DET
 Bereitschaftspolizei	NOUN
 CRS	NUM
@@ -7939,7 +7939,7 @@ ausgerüstet	ADJ
 mit	ADP
 Schutzschilden	NUM
 und	CONJ
-Tränengasgranaten	PRON
+Tränengasgranaten	NOUN
 marschierten	NUM
 auf	PRT
 .	.
@@ -7978,7 +7978,7 @@ Abräumfahrzeuge	NUM
 anbieten	VERB
 .	.
 
-korrupter	X
+korrupter	NUM
 Richter	NOUN
 in	ADP
 Brasilien	NOUN
@@ -7994,7 +7994,7 @@ Freilassung	NUM
 von	ADP
 drei	NUM
 brasilianischen	ADJ
-Goldsuchern	CONJ
+Goldsuchern	NUM
 angeordnet	VERB
 ,	.
 die	PRON
@@ -8012,7 +8012,7 @@ worden	VERB
 waren	VERB
 .	.
 
-KRAUSE	X
+KRAUSE	NUM
 ,	.
 ostdeutscher	ADJ
 CDU	NOUN
@@ -8036,7 +8036,7 @@ Ländern	NOUN
 befürwortet	VERB
 .	.
 
-Laß	X
+Laß	NUM
 die	DET
 erst	ADV
 mal	ADP
@@ -8045,8 +8045,8 @@ Klingel	NUM
 suchen	VERB
 .	.
 
-Lastwagenkolonne	X
-wurde	X
+Lastwagenkolonne	NUM
+wurde	VERB
 von	ADP
 rund	ADJ
 zehn	NUM
@@ -8062,8 +8062,8 @@ Tokio	NOUN
 eskortiert	VERB
 .	.
 
-Lehmann	PRON
-beleuchtete	NOUN
+Lehmann	NOUN
+beleuchtete	CONJ
 vor	ADP
 einem	NUM
 zweifelnden	ADJ
@@ -8077,7 +8077,7 @@ Protestantischer	NUM
 Ethik	NOUN
 ;	.
 
-Lira	X
+Lira	NUM
 ,	.
 die	DET
 derzeit	ADV
@@ -8095,9 +8095,9 @@ bereits	ADV
 seit	CONJ
 dem	PRON
 dänischen	ADJ
-Volksentscheid	CONJ
+Volksentscheid	NUM
 gegen	ADP
-den	PRON
+den	CONJ
 Vertrag	NOUN
 von	ADP
 Maastricht	NOUN
@@ -8119,7 +8119,7 @@ Projekts	NOUN
 aus	PRT
 .	.
 
-Madigan	X
+Madigan	NUM
 und	CONJ
 ihr	PRON
 Forschungsteam	NUM
@@ -8162,7 +8162,7 @@ Grades	NOUN
 
 Make	NOUN
 --	.
-ups	PRON
+ups	NOUN
 changieren	NUM
 zwischen	ADP
 dezent	NUM
@@ -8231,7 +8231,7 @@ schlechten	ADJ
 und	CONJ
 etwas	PRON
 besseren	ADJ
-Motiven	ADV
+Motiven	NOUN
 zu	ADP
 einer	NUM
 ``	.
@@ -8243,7 +8243,7 @@ abzüglich	NUM
 der	DET
 offenkundig	ADV
 nachbarschaftlich	VERB
-befangenen	PRON
+befangenen	NOUN
 Skandinavier	NUM
 --	.
 zu	PRT
@@ -8255,7 +8255,7 @@ freilich	ADV
 ,	.
 die	PRON
 Rechnung	NOUN
-auf	PRT
+auf	ADP
 stoffelige	NUM
 Weise	NOUN
 ohne	CONJ
@@ -8265,7 +8265,7 @@ zu	ADP
 machen	VERB
 .	.
 
-Misere	X
+Misere	NUM
 wird	VERB
 nach	CONJ
 Ansicht	NOUN
@@ -8274,7 +8274,7 @@ Branchenvertretern	NUM
 von	ADP
 den	CONJ
 zunehmenden	ADJ
-Freizeitaktivitäten	ADV
+Freizeitaktivitäten	NOUN
 wie	CONJ
 Sport	NOUN
 ,	.
@@ -8300,10 +8300,10 @@ entscheiden	VERB
 ob	CONJ
 er	PRON
 günstige	ADJ
-Teilzeitkräfte	CONJ
+Teilzeitkräfte	NUM
 oder	CONJ
 längere	ADJ
-Öffnungszeiten	CONJ
+Öffnungszeiten	NUM
 wolle	VERB
 .	.
 
@@ -8345,7 +8345,7 @@ entscheiden	VERB
 .	.
 
 Nationalbühne	ADV
-wie	X
+wie	CONJ
 das	CONJ
 Burgtheater	NOUN
 kann	VERB
@@ -8374,7 +8374,7 @@ wir	PRON
 auf	ADP
 Dauer	NOUN
 nicht	PRT
-uns	CONJ
+uns	PRON
 abspeisen	NUM
 ''	.
 .	.
@@ -8385,7 +8385,7 @@ Produktion	NOUN
 in	ADP
 Sichtweite	NOUN
 
-Nitschmann	X
+Nitschmann	NUM
 wird	VERB
 mit	ADP
 dieser	PRON
@@ -8469,13 +8469,13 @@ Eurocom	VERB
 prangerte	NUM
 die	PRON
 ``	.
-intellektuelle	PRON
+intellektuelle	NOUN
 Unredlichkeit	NUM
 ''	.
 der	PRON
 ``	.
 falschen	ADJ
-Versprechungen	CONJ
+Versprechungen	NUM
 ''	.
 durch	ADP
 die	PRON
@@ -8488,7 +8488,7 @@ Sozialabbau	NUM
 und	CONJ
 Schließung	NOUN
 ganzer	ADJ
-Industrien	CONJ
+Industrien	NUM
 in	ADP
 Osteuropa	NOUN
 als	CONJ
@@ -8522,7 +8522,7 @@ März	NOUN
 Gruppe	NOUN
 eine	NUM
 anstehende	ADJ
-Paketbeteiligung	CONJ
+Paketbeteiligung	NUM
 von	ADP
 einem	NUM
 Drittel	NOUN
@@ -8536,7 +8536,7 @@ angekündigt	VERB
 hatte	VERB
 .	.
 
-Parlamentarische	X
+Parlamentarische	NUM
 Staatssekretär	NOUN
 im	ADP
 Bundesarbeitsministerium	NUM
@@ -8591,7 +8591,7 @@ in	ADP
 seiner	PRON
 Rede	NOUN
 nicht	PRT
-den	VERB
+den	DET
 ganz	ADJ
 großen	VERB
 Hammer	NOUN
@@ -8600,7 +8600,7 @@ geschwungen	ADV
 
 PDS	NOUN
 --	.
-Bundestagsgruppenchef	PRON
+Bundestagsgruppenchef	NOUN
 Gysi	NUM
 kündigte	VERB
 an	ADP
@@ -8668,7 +8668,7 @@ umschlägt	ADV
 
 Post	NOUN
 baut	VERB
-angeblich	ADV
+angeblich	ADJ
 Perosnal	ADV
 ab	PRT
 
@@ -8693,7 +8693,7 @@ für	ADP
 die	PRON
 Präsidentschaftswahl	NOUN
 1996	NUM
-aufstellen	CONJ
+aufstellen	NUM
 lassen	VERB
 .	.
 
@@ -8718,7 +8718,7 @@ und	CONJ
 England	NOUN
 .	.
 
-Rätselraten	X
+Rätselraten	NUM
 um	CONJ
 die	PRON
 in	ADP
@@ -8744,7 +8744,7 @@ Europäischen	NOUN
 Gemeinschaft	NOUN
 rund	ADJ
 vier	NUM
-Millionen	NOUN
+Millionen	NUM
 Mark	NOUN
 zur	ADP
 Vorbereitung	NOUN
@@ -8776,7 +8776,7 @@ bilaterale	NUM
 Studien	NOUN
 der	PRON
 chinesischen	ADJ
-Infrastrukturentwicklung	CONJ
+Infrastrukturentwicklung	NUM
 ,	.
 über	ADP
 Export	NOUN
@@ -8834,7 +8834,7 @@ werde	VERB
 oder	CONJ
 bei	ADP
 dem	DET
-Tackling	ADV
+Tackling	NOUN
 überhaupt	ADV
 kein	PRON
 Ball	NOUN
@@ -8855,7 +8855,7 @@ noch	ADV
 Schlimmeres	ADV
 .	.
 
-Romancier	X
+Romancier	NUM
 ,	.
 Journalist	NOUN
 und	CONJ
@@ -8866,13 +8866,13 @@ sieben	NUM
 Romanen	NOUN
 und	CONJ
 vier	NUM
-Sachbüchern	CONJ
+Sachbüchern	NUM
 beschrieb	VERB
 Jose	NOUN
 Yglesias	NOUN
 vor	ADP
 allem	PRON
-das	PRON
+das	CONJ
 Leben	NOUN
 mittel	NUM
 --	.
@@ -8897,7 +8897,7 @@ Schatzmeister	NOUN
 der	PRON
 beiden	PRON
 Parteien	NOUN
-protestierten	ADV
+protestierten	NOUN
 dagegen	PRON
 und	CONJ
 kündigten	VERB
@@ -8988,12 +8988,12 @@ in	ADP
 Hongkong	NOUN
 und	CONJ
 leichte	ADJ
-Beunruhigung	CONJ
+Beunruhigung	NUM
 in	ADP
 Peking	NOUN
 .	.
 
-Seitenhieb	X
+Seitenhieb	NUM
 auf	ADP
 seine	PRON
 DDR	NOUN
@@ -9109,7 +9109,7 @@ jüdische	ADJ
 Totengebet	ADV
 .	.
 
-Soyinka	X
+Soyinka	NUM
 bringt	VERB
 gern	ADV
 Festbräuche	NUM
@@ -9249,7 +9249,7 @@ Regierungschefs	NOUN
 der	PRON
 sieben	NUM
 führenden	ADJ
-Industrienationen	CONJ
+Industrienationen	NUM
 (	.
 G7	NOUN
 )	.
@@ -9290,7 +9290,7 @@ Madrid	NOUN
 die	DET
 Eckpunkte	NUM
 eines	DET
-Szenarios	NOUN
+Szenarios	NUM
 für	ADP
 den	CONJ
 Übergang	NOUN
@@ -9375,7 +9375,7 @@ vereinen	NUM
 könnten	VERB
 :	.
 
-Strafverfolger	X
+Strafverfolger	NUM
 in	ADP
 Hannover	NOUN
 sehen	VERB
@@ -9394,7 +9394,7 @@ Institut	NOUN
 glaubt	VERB
 an	ADP
 die	DET
-Neulinge	ADJ
+Neulinge	NOUN
 :	.
 
 Student	NOUN
@@ -9402,7 +9402,7 @@ aus	ADP
 Sofia	NOUN
 ,	.
 der	PRON
-die	PRON
+die	DET
 Kulturstätten	NUM
 Europas	NOUN
 mit	ADP
@@ -9421,7 +9421,7 @@ ja	ADV
 kaum	ADJ
 die	PRON
 vorgeschriebene	ADJ
-Geldsumme	CONJ
+Geldsumme	NUM
 vorweisen	VERB
 .	.
 
@@ -9454,7 +9454,7 @@ Flak	NOUN
 --	.
 Granaten	NUM
 und	CONJ
-Panzerfäuste	PRON
+Panzerfäuste	NOUN
 gespült	ADV
 .	.
 
@@ -9486,7 +9486,7 @@ von	ADP
 den	DET
 Jungsozialisten	NUM
 geforderte	ADJ
-Lehrstellenumlage	CONJ
+Lehrstellenumlage	NUM
 ``	.
 (	.
 Wer	PRON
@@ -9507,7 +9507,7 @@ Todesurteile	NOUN
 gegen	ADP
 die	PRON
 neun	NUM
-Angeklagte	CONJ
+Angeklagte	NUM
 und	CONJ
 ihre	PRON
 Hinrichtung	NOUN
@@ -9546,7 +9546,7 @@ Staatschef	NOUN
 Sani	VERB
 Abacha	NUM
 ,	.
-Hawalu	PRON
+Hawalu	NOUN
 Yadudu	NUM
 ,	.
 nach	CONJ
@@ -9560,7 +9560,7 @@ in	ADP
 Abuja	ADV
 .	.
 
-Unabdingbare	X
+Unabdingbare	NUM
 Voraussetzung	NOUN
 ,	.
 ''	.
@@ -9593,7 +9593,7 @@ und	CONJ
 im	ADP
 Westjordanland	NOUN
 geplanten	ADJ
-neun	X
+neun	NUM
 Industrieparks	NOUN
 .	.
 
@@ -9645,7 +9645,7 @@ Nigeria	NOUN
 ab	PRT
 .	.
 
-Verantwortlichen	X
+Verantwortlichen	NUM
 mußten	VERB
 sich	PRON
 am	ADP
@@ -9658,7 +9658,7 @@ ein	DET
 rechtsgerichteter	NOUN
 Jude	NUM
 am	ADP
-Vorabend	ADV
+Vorabend	NOUN
 mit	ADP
 solcher	PRON
 Leichtigkeit	NOUN
@@ -9682,8 +9682,8 @@ sind	VERB
 Verlagerung	NOUN
 von	ADP
 80	NUM
-000	ADV
-Arbeitsplätzen	X
+000	NUM
+Arbeitsplätzen	NUM
 ins	ADP
 Ausland	NOUN
 während	CONJ
@@ -9716,7 +9716,7 @@ Verletzungen	NOUN
 können	VERB
 Zahlungen	NUM
 und	CONJ
-Handelserleichterungen	PRON
+Handelserleichterungen	NUM
 künftig	ADJ
 ausgesetzt	VERB
 werden	VERB
@@ -9758,7 +9758,7 @@ dauern	VERB
 
 Vertrag	NOUN
 läuft	VERB
-offiziell	ADV
+offiziell	ADJ
 bis	CONJ
 zum	ADP
 31	NUM
@@ -9791,9 +9791,9 @@ worden	VERB
 sei	VERB
 .	.
 
-Volontäre	X
+Volontäre	NUM
 wohnen	VERB
-zusammen	ADV
+zusammen	PRT
 mit	ADP
 dem	PRON
 wissenschaftlichen	ADJ
@@ -9836,7 +9836,7 @@ gleichem	NUM
 Einsatz	NOUN
 mehr	ADV
 Quartiere	VERB
-herausspringen	ADV
+herausspringen	NOUN
 als	CONJ
 im	ADP
 herkömmlichen	ADJ
@@ -9844,9 +9844,9 @@ sozialen	ADJ
 Wohnungsbau	NOUN
 .	.
 
-Vorzüge	X
+Vorzüge	NUM
 verloren	PRT
-mittags	VERB
+mittags	CONJ
 innerhalb	ADP
 kurzer	ADJ
 Zeit	NOUN
@@ -9873,7 +9873,7 @@ etwa	ADV
 Prozent	NOUN
 .	.
 
-Wahlmöglichkeit	X
+Wahlmöglichkeit	NUM
 besteht	VERB
 zunächst	ADV
 beim	ADP
@@ -9894,7 +9894,7 @@ gleichen	ADJ
 Unternehmen	NOUN
 .	.
 
-während	CONJ
+während	ADP
 DRV	NUM
 --	.
 Präsident	NOUN
@@ -9930,7 +9930,7 @@ lassen	VERB
 .	.
 
 Wenn	CONJ
-das	PRON
+das	CONJ
 Commonwealth	NOUN
 nichts	PRON
 unternimmt	NUM
@@ -10052,12 +10052,12 @@ hatte	VERB
 aus	ADP
 dem	PRON
 ``	.
-translated	PRON
+translated	NOUN
 Bottom	NUM
 ''	.
 einen	NUM
 ``	.
-transferierten	PRON
+transferierten	NOUN
 Zettel	NUM
 ''	.
 gemacht	VERB
@@ -10122,7 +10122,7 @@ Wirtschaft	NOUN
 lernen	VERB
 von	ADP
 eurer	ADJ
-Erniedrigung	CONJ
+Erniedrigung	NUM
 und	CONJ
 von	ADP
 euren	NOUN
@@ -10203,7 +10203,7 @@ klagt	VERB
 über	ADP
 die	PRON
 hohen	ADJ
-Umweltstandards	CONJ
+Umweltstandards	NUM
 ,	.
 die	DET
 zu	ADP
@@ -10220,7 +10220,7 @@ Länder	NOUN
 begünstigten	ADV
 .	.
 
-Wirtschaftsräume	X
+Wirtschaftsräume	NUM
 können	VERB
 indessen	ADV
 nur	ADV
@@ -10236,7 +10236,7 @@ kulturelles	ADJ
 ,	.
 soziales	ADJ
 und	CONJ
-ökologisches	PRON
+ökologisches	NOUN
 Entwicklungsmodell	NUM
 verfolgen	VERB
 ,	.
@@ -10274,17 +10274,17 @@ Repliken	NOUN
 .	.
 )	.
 
-Wollt	X
+Wollt	NUM
 ihr	PRON
-den	PRON
+den	CONJ
 Bruch	NOUN
 mit	ADP
 dem	PRON
 System	NOUN
 ?	.
 
-Yard	PRON
-schwieg	X
+Yard	NOUN
+schwieg	NUM
 sich	PRON
 über	ADP
 deren	PRON
@@ -10308,7 +10308,7 @@ soziale	NOUN
 Gerechtigkeit	NOUN
 .	.
 
-Zorn	X
+Zorn	NUM
 des	DET
 Zyprioten	NUM
 galt	VERB
@@ -10329,7 +10329,7 @@ lassen	VERB
 ,	.
 um	CONJ
 sich	PRON
-darüber	ADV
+darüber	PRON
 öffentlich	ADJ
 erregen	VERB
 zu	ADP
@@ -10406,7 +10406,7 @@ Beschluß	NOUN
 über	ADP
 die	PRON
 erleichterte	ADJ
-Einbürgerung	ADV
+Einbürgerung	NOUN
 zu	ADP
 formulieren	VERB
 .	.
@@ -10526,13 +10526,13 @@ Das	CONJ
 Engagement	NOUN
 ,	.
 das	CONJ
-der	PRON
+der	DET
 inzwischen	ADV
 von	ADP
 seinem	PRON
 Amt	NOUN
 entbundene	VERB
-Vizedirektor	PRON
+Vizedirektor	VERB
 Jesper	VERB
 Hansen	NUM
 eingegangen	VERB
@@ -10628,7 +10628,7 @@ Meinungsumfragen	NUM
 liegt	VERB
 der	PRON
 parteilose	ADJ
-Selfmademan	ADV
+Selfmademan	NOUN
 gut	NOUN
 im	ADP
 Rennen	NOUN
@@ -10691,7 +10691,7 @@ der	DET
 niederländisch	NUM
 --	.
 britische	ADJ
-Erdölkonzern	CONJ
+Erdölkonzern	NUM
 Shell	NOUN
 mit	ADP
 der	PRON
@@ -10702,7 +10702,7 @@ Konzernen	NOUN
 eine	NUM
 Erdgas	NOUN
 --	.
-Pipeline	ADV
+Pipeline	CONJ
 quer	ADJ
 durch	ADP
 das	DET
@@ -10925,7 +10925,7 @@ Partei	NOUN
 genutzt	VERB
 .	.
 
-Rühe	X
+Rühe	NUM
 forderte	VERB
 ,	.
 die	DET
@@ -11001,7 +11001,7 @@ gebeten	VERB
 hatte	VERB
 .	.
 
-Detektive	X
+Detektive	NUM
 und	CONJ
 kostspielige	ADJ
 Elektronik	NOUN
@@ -11046,7 +11046,7 @@ Wirtschaft	NOUN
 lernen	VERB
 von	ADP
 eurer	ADJ
-Erniedrigung	CONJ
+Erniedrigung	NUM
 und	CONJ
 von	ADP
 euren	NOUN
@@ -11092,7 +11092,7 @@ Das	CONJ
 Kartellamt	NOUN
 ist	VERB
 grundsätzlich	ADJ
-reaktiv	CONJ
+reaktiv	NUM
 ,	.
 ''	.
 argumentiert	VERB
@@ -11214,7 +11214,7 @@ zu	ADP
 machen	VERB
 .	.
 
-Wechselspiel	X
+Wechselspiel	NUM
 von	ADP
 Dramatisierung	NUM
 und	CONJ
@@ -11302,8 +11302,8 @@ die	PRON
 Polizei	NOUN
 .	.
 
-Ungefähr	X
-die	X
+Ungefähr	NUM
+die	PRON
 Hälfte	NOUN
 des	PRON
 Schadens	NOUN
@@ -11317,7 +11317,7 @@ sein	DET
 Nachdem	CONJ
 sich	PRON
 sein	VERB
-übereifriger	PRON
+übereifriger	NOUN
 Sportkumpel	NUM
 beharrlich	ADJ
 weigerte	VERB
@@ -11331,7 +11331,7 @@ Ausgleich	NOUN
 für	ADP
 den	CONJ
 erlittenen	ADJ
-Verdienstausfall	ADV
+Verdienstausfall	NOUN
 zu	ADP
 zahlen	VERB
 ,	.
@@ -11347,7 +11347,7 @@ verlor	VERB
 
 Einem	DET
 diplomatischen	ADJ
-Notenwechsel	CONJ
+Notenwechsel	NUM
 zwischen	ADP
 der	PRON
 Schweizer	NOUN
@@ -11359,7 +11359,7 @@ dem	PRON
 österreichischen	ADJ
 Außenministerium	NOUN
 zufolge	ADP
-geschieht	X
+geschieht	VERB
 dies	PRON
 alles	PRON
 ``	.
@@ -11377,7 +11377,7 @@ geschützt	VERB
 und	CONJ
 diese	PRON
 vor	PRT
-unzumutbaren	VERB
+unzumutbaren	NOUN
 Belästigungen	NUM
 verschont	ADJ
 würden	VERB
@@ -11432,13 +11432,13 @@ dann	CONJ
 von	ADP
 den	CONJ
 Bewohnern	NOUN
-sozial	ADV
+sozial	ADJ
 flexible	NUM
 Preise	NOUN
 kassieren	ADV
 .	.
 
-Zehntausende	X
+Zehntausende	NUM
 Demonstranten	NOUN
 trugen	VERB
 die	DET
@@ -11475,7 +11475,7 @@ zusammengerafft	NUM
 ,	.
 von	ADP
 dem	PRON
-die	PRON
+die	DET
 Schahminister	NUM
 ,	.
 deren	DET
@@ -11490,7 +11490,7 @@ konnten	VERB
 
 Die	PRON
 langen	ADJ
-Gefängnisstrafen	CONJ
+Gefängnisstrafen	NUM
 ,	.
 Auspeitschungen	NUM
 und	CONJ
@@ -11528,7 +11528,7 @@ in	ADP
 den	CONJ
 übrig	PRT
 gelassenen	ADJ
-Zeitlücken	CONJ
+Zeitlücken	NUM
 der	DET
 beruflich	ADJ
 flexibilisierten	NUM
@@ -11552,7 +11552,7 @@ die	PRON
 sich	PRON
 über	ADP
 männlich	ADJ
-dominierte	CONJ
+dominierte	NUM
 Gruppen	NOUN
 in	ADP
 der	PRON
@@ -11564,16 +11564,16 @@ solchen	PRON
 ,	.
 eher	ADV
 psychischen	ADJ
-Gewaltformen	CONJ
+Gewaltformen	NUM
 ,	.
 die	DET
 als	ADP
-Einzelaktivität	ADV
+Einzelaktivität	NOUN
 eher	ADV
 mit	ADP
 einem	NUM
 hohen	ADJ
-Bildungsgrad	CONJ
+Bildungsgrad	NUM
 verbunden	VERB
 sind	VERB
 .	.
@@ -11591,11 +11591,11 @@ darf	VERB
 ein	NUM
 Professor	NOUN
 nicht	PRT
-mehr	ADV
+mehr	PRON
 lehren	VERB
 
 Wenn	CONJ
-auch	ADV
+auch	CONJ
 viele	PRON
 Kubaner	NUM
 ihre	PRON
@@ -11607,8 +11607,8 @@ konnten	VERB
 ,	.
 so	CONJ
 wurde	VERB
-Violeta	PRON
-Romeros	PRON
+Violeta	.
+Romeros	NOUN
 hartnäckige	NUM
 Ablehnung	NOUN
 letztlich	ADV
@@ -11627,7 +11627,7 @@ Ehemann	NOUN
 
 Während	CONJ
 manche	PRON
-Suspendierung	ADV
+Suspendierung	NOUN
 mit	ADP
 einer	DET
 Weiterzahlung	NUM
@@ -11637,7 +11637,7 @@ einhergeht	NUM
 ,	.
 wurde	VERB
 ihm	PRON
-auch	ADV
+auch	CONJ
 das	DET
 gestrichen	ADV
 .	.
@@ -11649,7 +11649,7 @@ den	DET
 8.	NUM
 Mai	NOUN
 1945	NUM
-nicht	NOUN
+nicht	PRT
 als	CONJ
 Kapitulation	NOUN
 sondern	CONJ
@@ -11765,7 +11765,7 @@ Handvoll	NUM
 Arbeitskräfte	NOUN
 :	.
 
-Bisher	X
+Bisher	NUM
 gibt	VERB
 es	PRON
 in	ADP
@@ -11800,7 +11800,7 @@ in	ADP
 Ostdeutschland	NOUN
 eine	NUM
 dramatische	ADJ
-Flächenzersplitterung	CONJ
+Flächenzersplitterung	NUM
 ,	.
 denn	CONJ
 viele	PRON
@@ -11817,7 +11817,7 @@ Entscheidend	ADJ
 ist	VERB
 das	CONJ
 bessere	ADJ
-Betriebskonzept	CONJ
+Betriebskonzept	NUM
 --	.
 und	CONJ
 das	CONJ
@@ -11841,7 +11841,7 @@ hiesigen	ADJ
 Markt	NOUN
 dürfte	VERB
 1992	NUM
-acht	NOUN
+acht	NUM
 Milliarden	NOUN
 Mark	NOUN
 erreichen	VERB
@@ -11917,7 +11917,7 @@ lassen	VERB
 Mit	ADP
 allabendlich	NUM
 ausgestrahlten	ADJ
-Fernsehspots	ADV
+Fernsehspots	NOUN
 wie	CONJ
 diesem	PRON
 sucht	VERB
@@ -11938,7 +11938,7 @@ die	DET
 Vorzüge	NUM
 seines	DET
 Privatisierungsprogramms	NOUN
-nahezubringen	ADV
+nahezubringen	NOUN
 :	.
 
 So	NOUN
@@ -11972,7 +11972,7 @@ aber	CONJ
 nicht	PRT
 einmal	ADV
 hundert	NUM
-Millionen	NOUN
+Millionen	NUM
 Mark	NOUN
 in	ADP
 die	PRON
@@ -11984,7 +11984,7 @@ den	CONJ
 Banken	NOUN
 gelang	VERB
 es	PRON
-während	ADP
+während	CONJ
 der	PRON
 vergangenen	ADJ
 Monate	NOUN
@@ -11996,7 +11996,7 @@ zu	ADP
 veräußern	VERB
 .	.
 
-Elsner	X
+Elsner	NUM
 nimmt	VERB
 Bezug	NOUN
 auf	ADP
@@ -12022,7 +12022,7 @@ angestellt	VERB
 wurde	VERB
 .	.
 
-Verschärft	X
+Verschärft	NUM
 stellen	VERB
 sich	PRON
 die	PRON
@@ -12040,7 +12040,7 @@ gehen	VERB
 ``	.
 ,	.
 weil	CONJ
-das	PRON
+das	CONJ
 familiär	ADJ
 für	ADP
 mich	PRON
@@ -12101,7 +12101,7 @@ kommentiere	NUM
 aber	ADV
 :	.
 
-Bedächtige	X
+Bedächtige	NUM
 japanische	ADJ
 Politker	NOUN
 warnten	NUM
@@ -12208,7 +12208,7 @@ angepaßt	NUM
 .	.
 ''	.
 
-Für	NOUN
+Für	ADP
 nach	CONJ
 1986	NUM
 gebaute	ADJ
@@ -12219,7 +12219,7 @@ entfällt	VERB
 der	PRON
 Ansatz	NOUN
 eines	DET
-Mietwertes	NOUN
+Mietwertes	NUM
 für	ADP
 die	PRON
 eigene	ADJ
@@ -12240,9 +12240,9 @@ britischen	ADJ
 Fernsehgesellschaft	ADV
 .	.
 
-RIO	PRON
+RIO	NOUN
 DE	NOUN
-JANEIRO	X
+JANEIRO	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12251,14 +12251,14 @@ dpa	NUM
 )	.
 .	.
 
-Rappe	X
+Rappe	NUM
 sprach	VERB
 sich	PRON
 dafür	ADV
 aus	ADP
 ,	.
 daß	CONJ
-nicht	NOUN
+nicht	PRT
 nur	CONJ
 Arbeitgeber	NOUN
 und	CONJ
@@ -12285,7 +12285,7 @@ Lösung	NOUN
 des	PRON
 Konflikts	NOUN
 in	ADP
-Moldawien	NOUN
+Moldawien	NUM
 aus	PRT
 .	.
 
@@ -12304,7 +12304,7 @@ Jelzins	ADV
 In	ADP
 dem	PRON
 gemeinsamen	ADJ
-Kommuniqué	CONJ
+Kommuniqué	NUM
 werden	VERB
 auch	CONJ
 verschiedene	ADJ
@@ -12332,7 +12332,7 @@ Industriellen	NOUN
 -	.
 Vereinigung	NOUN
 ,	.
-Dov	PRON
+Dov	NOUN
 Lautman	NUM
 ,	.
 hat	VERB
@@ -12353,7 +12353,7 @@ zu	ADP
 fördern	VERB
 .	.
 
-BEIRUT	X
+BEIRUT	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12362,7 +12362,7 @@ AP	NUM
 )	.
 .	.
 
-ALGIER	X
+ALGIER	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12375,7 +12375,7 @@ Reuter	NUM
 )	.
 .	.
 
-BERLIN	X
+BERLIN	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12402,7 +12402,7 @@ gepflanzt	VERB
 werden	VERB
 .	.
 
-Ifo	X
+Ifo	NUM
 :	.
 Konjunktur	NUM
 springt	VERB
@@ -12411,7 +12411,7 @@ Westeuropa	NOUN
 1993	NUM
 an	ADP
 
-NÜRNBERG	X
+NÜRNBERG	NUM
 (	.
 dpa	NUM
 /	.
@@ -12437,7 +12437,7 @@ Hauptstadt	NOUN
 Gabarone	NUM
 zum	ADP
 sofortigen	ADJ
-Waffenstillstand	CONJ
+Waffenstillstand	NUM
 bereit	ADJ
 .	.
 
@@ -12461,21 +12461,21 @@ worden	VERB
 ,	.
 nachdem	CONJ
 eine	DET
-Kaufverpflichtung	NOUN
+Kaufverpflichtung	NUM
 für	ADP
 Bankaktien	NUM
 in	ADP
 Höhe	NOUN
 von	ADP
 288	NUM
-Millionen	NOUN
+Millionen	NUM
 Kronen	NOUN
 bekannt	PRT
 geworden	VERB
 war	VERB
 .	.
 
-Bundesluftwaffe	X
+Bundesluftwaffe	NUM
 brachte	VERB
 Hilfsgüter	NUM
 ins	ADP
@@ -12509,16 +12509,16 @@ ihre	PRON
 Blockaden	NOUN
 .	.
 
-Als	CONJ
+Als	ADP
 Reiseziel	NUM
 wurde	VERB
 Nord	NOUN
 -	.
 Korea	NOUN
-genannt	ADJ
+genannt	VERB
 .	.
 
-TOKIO	X
+TOKIO	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12580,7 +12580,7 @@ Partei	NOUN
 ausgeschlossen	ADJ
 .	.
 
-Herausgegeben	X
+Herausgegeben	NUM
 würden	VERB
 sie	PRON
 von	ADP
@@ -12591,7 +12591,7 @@ Norman	NOUN
 Stone	NOUN
 .	.
 
-Hekmatyar	X
+Hekmatyar	NUM
 hatte	CONJ
 sich	PRON
 geweigert	VERB
@@ -12608,7 +12608,7 @@ Rückzug	NOUN
 aller	PRON
 schwer	ADJ
 bewaffneten	ADJ
-Mudjaheddin	CONJ
+Mudjaheddin	NUM
 -	.
 Kämpfer	NOUN
 aus	PRT
@@ -12623,7 +12623,7 @@ hatten	VERB
 Spekulationen	NOUN
 über	ADP
 die	DET
-Lira	ADV
+Lira	NOUN
 zu	ADP
 Spannungen	NOUN
 innerhalb	ADP
@@ -12635,20 +12635,20 @@ EWS	NOUN
 )	.
 geführt	VERB
 und	CONJ
-Notenbankinterventionen	PRON
+Notenbankinterventionen	NOUN
 veranlaßt	ADV
 .	.
 
 Eine	NUM
 vollständige	ADJ
-Zahlungsaussetzung	CONJ
+Zahlungsaussetzung	NUM
 sei	VERB
 jedoch	CONJ
 nicht	PRT
 beabsichtigt	ADV
 .	.
 
-Hader	ADV
+Hader	NOUN
 mit	ADP
 der	DET
 Börsenaufsicht	NOUN
@@ -12662,13 +12662,13 @@ Rußland	NOUN
 und	CONJ
 Polen	NOUN
 ähnliche	ADJ
-Joint	CONJ
+Joint	NUM
 -	.
 ventures	NUM
 gegründet	VERB
 .	.
 
-Wie	ADV
+Wie	ADP
 aus	ADP
 Hannover	NOUN
 verlautet	NUM
@@ -12727,23 +12727,23 @@ Zumutung	NUM
 ,	.
 ''	.
 befand	VERB
-Rauf	PRON
+Rauf	.
 Denktasch	NUM
 ,	.
 Chef	NOUN
 der	PRON
 türkischen	ADJ
-Volksgruppe	CONJ
+Volksgruppe	NUM
 im	ADP
 Norden	NOUN
 Zyperns	NOUN
 .	.
 
-die	X
+die	PRON
 Behörden	NOUN
 seiner	PRON
 1983	NUM
-einseitig	CONJ
+einseitig	NUM
 ausgerufenen	ADJ
 ``	.
 Türkischen	NUM
@@ -12753,7 +12753,7 @@ Nordzypern	NUM
 geben	VERB
 nun	ADV
 eilig	VERB
-Besitzzertifikate	PRON
+Besitzzertifikate	NUM
 für	ADP
 das	CONJ
 1974	NUM
@@ -12763,7 +12763,7 @@ jetzt	ADV
 teils	ADV
 von	ADP
 türkischen	ADJ
-Zyprioten	CONJ
+Zyprioten	NUM
 ,	.
 teils	ADV
 von	ADP
@@ -12806,13 +12806,13 @@ immer	ADV
 wenn	CONJ
 Manfred	NOUN
 Stolpe	NUM
-auf	PRT
+auf	ADP
 Kreisbereisung	NOUN
 unterwegs	PRT
 ist	VERB
 .	.
 
-Zeitverlust	X
+Zeitverlust	NUM
 geht	VERB
 auf	ADP
 Kosten	NOUN
@@ -12859,8 +12859,8 @@ allein	PRT
 im	ADP
 Regen	NOUN
 
-Eröffnet	X
-wird	X
+Eröffnet	NUM
+wird	VERB
 der	DET
 18.	NOUN
 Wirtschaftsgipfel	NUM
@@ -12873,7 +12873,7 @@ CDU	NOUN
 )	.
 .	.
 
-PEKING	X
+PEKING	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12909,7 +12909,7 @@ gönnen	VERB
 
 Kuhn	NOUN
 zufolge	ADP
-ist	NOUN
+ist	VERB
 indessen	ADV
 die	PRON
 verbreitete	ADJ
@@ -12935,7 +12935,7 @@ Jura	NOUN
 Dozentin	NUM
 gilt	VERB
 als	ADP
-Spezialistin	PRON
+Spezialistin	NUM
 für	ADP
 Verfassungsrecht	NUM
 und	CONJ
@@ -12943,7 +12943,7 @@ nationale	NOUN
 Minderheiten	NOUN
 .	.
 
-BONN	X
+BONN	NUM
 ,	.
 5.	NUM
 Juli	NOUN
@@ -12965,12 +12965,12 @@ bester	ADJ
 Ordnung	NOUN
 .	.
 
-Meldeten	X
+Meldeten	NUM
 sich	PRON
 in	ADP
 Zeiten	NOUN
 der	DET
-Visumsfreiheit	NOUN
+Visumsfreiheit	NUM
 durchschnittlich	ADJ
 500	NUM
 Flüchtlinge	NOUN
@@ -13010,7 +13010,7 @@ Weltbank	NUM
 ,	.
 IWF	NUM
 und	CONJ
-nicht	NOUN
+nicht	PRT
 zuletzt	ADV
 des	PRON
 G	NOUN
@@ -13050,7 +13050,7 @@ Der	PRON
 japanische	ADJ
 Premier	NOUN
 Kiichi	VERB
-Miyazawa	ADV
+Miyazawa	NOUN
 wiederum	ADV
 ,	.
 der	DET
@@ -13113,7 +13113,7 @@ der	PRON
 Umgestaltung	NOUN
 der	PRON
 untergegangenen	ADJ
-Befehlswirtschaft	ADV
+Befehlswirtschaft	NOUN
 insgesamt	ADV
 .	.
 
@@ -13132,7 +13132,7 @@ eigentlich	ADJ
 ein	NUM
 Witz	NOUN
 und	CONJ
-nicht	NOUN
+nicht	PRT
 zu	ADP
 verstehen	VERB
 ,	.
@@ -13195,9 +13195,9 @@ dafür	CONJ
 verantwortlich	ADJ
 .	.
 
-SARAJEWO	X
+SARAJEWO	NUM
 /	.
-HELSINKI	X
+HELSINKI	NUM
 ,	.
 6.	NUM
 Juli	NOUN
@@ -13250,12 +13250,12 @@ Südafrika	NOUN
 
 ``	.
 Begrüßungszeremonie	NUM
-auf	PRT
-bayerisch	ADV
+auf	ADP
+bayerisch	NOUN
 mit	ADP
 Blasmusik	NUM
 und	CONJ
-Polizeigriff	ADV
+Polizeigriff	NOUN
 ''	.
 
 Kämpfe	NOUN
@@ -13264,7 +13264,7 @@ GUS	NOUN
 -	.
 Republiken	NOUN
 
-BRÜSSEL	X
+BRÜSSEL	NUM
 ,	.
 6.	NUM
 Juli	NOUN
@@ -13277,7 +13277,7 @@ Der	PRON
 Präsident	NOUN
 Aserbaidschans	NUM
 ,	.
-Abulfas	PRON
+Abulfas	NOUN
 Eltschibej	NUM
 ,	.
 blieb	VERB
@@ -13288,7 +13288,7 @@ Moskau	NOUN
 fern	PRT
 .	.
 
-Rulewski	X
+Rulewski	NUM
 teilte	VERB
 danach	ADV
 mit	ADP
@@ -13375,7 +13375,7 @@ und	CONJ
 die	PRON
 ``	.
 völlige	ADJ
-Hilflosigkeit	CONJ
+Hilflosigkeit	NUM
 ''	.
 bei	ADP
 der	PRON
@@ -13389,7 +13389,7 @@ ihre	PRON
 gemeinsame	ADJ
 Aktion	NOUN
 eines	DET
-Bürgerbegehrens	NOUN
+Bürgerbegehrens	NUM
 für	ADP
 eine	NUM
 Einschränkung	NOUN
@@ -13414,7 +13414,7 @@ Politikerin	NOUN
 Hildegard	NUM
 Hamm	NOUN
 -	.
-Brücher	ADV
+Brücher	NOUN
 nach	CONJ
 eigenen	NOUN
 Angaben	NOUN
@@ -13422,7 +13422,7 @@ bislang	ADV
 rund	ADJ
 25	NUM
 000	NUM
-Unterschriften	CONJ
+Unterschriften	NUM
 gesammelt	VERB
 .	.
 
@@ -13454,15 +13454,15 @@ zu	ADP
 gewährleisten	VERB
 .	.
 
-Waffenschmidt	PRON
-versicherte	X
+Waffenschmidt	NOUN
+versicherte	NUM
 ,	.
 daß	CONJ
 der	PRON
 russische	ADJ
 Regierungschef	NOUN
 ,	.
-Jegor	PRON
+Jegor	NOUN
 Gaidar	NUM
 ,	.
 einer	DET
@@ -13505,14 +13505,14 @@ gravierend	ADJ
 sei	VERB
 .	.
 
-Ausländische	X
+Ausländische	NUM
 Experten	NOUN
 wurden	VERB
 aufgerufen	VERB
 ,	.
 bei	ADP
 der	DET
-Schadensbeseitigung	ADV
+Schadensbeseitigung	NOUN
 zu	ADP
 helfen	VERB
 .	.
@@ -13608,9 +13608,9 @@ ein	NUM
 Händler	NOUN
 .	.
 
-Illegal	PRON
+Illegal	NOUN
 eingereiste	NOUN
-Ayslbewerber	X
+Ayslbewerber	NUM
 sollten	VERB
 umgehend	ADJ
 ausgewiesen	VERB
@@ -13667,7 +13667,7 @@ dann	ADV
 weggezogen	ADV
 .	.
 
-Nazli	X
+Nazli	NUM
 Top	NOUN
 erinnert	VERB
 sich	PRON
@@ -13684,7 +13684,7 @@ sonst	ADV
 .	.
 
 Aber	ADV
-Ercan	PRON
+Ercan	NOUN
 Kanar	NUM
 zieht	VERB
 eine	DET
@@ -13692,7 +13692,7 @@ ernüchternde	NUM
 Bilanz	NOUN
 :	.
 
-Überall	X
+Überall	NUM
 in	ADP
 unserer	PRON
 Gesellschaft	NOUN
@@ -13740,7 +13740,7 @@ Länder	NOUN
 KMK	NUM
 ,	.
 )	.
-Diether	PRON
+Diether	NOUN
 Breitenbach	NUM
 (	.
 SPD	NOUN
@@ -13748,7 +13748,7 @@ SPD	NOUN
 )	.
 mit	ADP
 ``	.
-falscher	PRON
+falscher	NOUN
 Sparpolitik	NUM
 ''	.
 den	CONJ
@@ -13757,7 +13757,7 @@ Ausbau	NOUN
 der	DET
 mit	ADP
 1,8	NUM
-Millionen	NOUN
+Millionen	NUM
 Studenten	NOUN
 überfüllten	NUM
 Hochschulen	NOUN
@@ -13804,7 +13804,7 @@ das	DET
 Schadensniveau	ADV
 .	.
 
-Fürwahr	X
+Fürwahr	NUM
 ein	DET
 stolzes	NUM
 Sortiment	NOUN
@@ -13819,7 +13819,7 @@ hätte	VERB
 ,	.
 ein	NUM
 Stück	NOUN
-Gleichheit	.
+Gleichheit	CONJ
 vor	ADP
 dem	PRON
 Recht	NOUN
@@ -13838,14 +13838,14 @@ diese	PRON
 Wundertaten	NUM
 während	CONJ
 einer	NUM
-der	PRON
+der	DET
 Strafprozeßordnung	NUM
 folgenden	ADJ
 Hauptverhandlung	NOUN
 vollbringt	NUM
 ,	.
 wenn	CONJ
-...	ADV
+...	.
 .	.
 
 Nachdem	CONJ
@@ -13873,9 +13873,9 @@ Kroaten	NOUN
 nach	ADV
 .	.
 
-Kroatische	PRON
+Kroatische	NOUN
 Militäreinheiten	NOUN
-beherrschen	X
+beherrschen	NUM
 das	CONJ
 Land	NOUN
 .	.
@@ -13951,7 +13951,7 @@ des	PRON
 Münchner	NOUN
 Wirtschaftsgipfels	.
 
-Hunderte	X
+Hunderte	NUM
 Beamte	NOUN
 drängten	VERB
 die	PRON
@@ -13960,7 +13960,7 @@ zum	ADP
 Teil	NOUN
 mit	ADP
 ``	.
-unmittelbarem	PRON
+unmittelbarem	NOUN
 Zwang	NUM
 ,	.
 ''	.
@@ -14020,7 +14020,7 @@ finanziert	VERB
 worden	VERB
 .	.
 
-Offenbar	X
+Offenbar	NUM
 versprechen	VERB
 sie	PRON
 sich	PRON
@@ -14052,10 +14052,10 @@ haben	VERB
 möchte	VERB
 .	.
 
-Eisenbahner	X
+Eisenbahner	NUM
 und	CONJ
-Fluglotsen	DET
-streiken	NOUN
+Fluglotsen	NOUN
+streiken	.
 
 Während	CONJ
 Premierminister	NOUN
@@ -14098,7 +14098,7 @@ in	ADP
 London	NOUN
 Verteidigungsminister	NOUN
 Malcolm	NOUN
-Rifkind	ADV
+Rifkind	NOUN
 mit	ADP
 seinem	PRON
 deutschen	ADJ
@@ -14141,12 +14141,12 @@ die	PRON
 Organisation	NOUN
 ,	.
 daß	CONJ
-bis	ADP
+bis	CONJ
 Ende	NOUN
 1999	NUM
 insgesamt	ADV
 58	NUM
-500	NOUN
+500	NUM
 Arbeitsplätze	NOUN
 zur	ADP
 Disposition	NOUN
@@ -14207,7 +14207,7 @@ bis	CONJ
 in	ADP
 die	PRON
 frühen	ADJ
-Morgenstunden	CONJ
+Morgenstunden	NUM
 dauern	VERB
 ,	.
 bis	CONJ
@@ -14215,7 +14215,7 @@ die	PRON
 Fahrer	NOUN
 und	CONJ
 zahlreichen	ADJ
-Schaulustige	CONJ
+Schaulustige	NUM
 in	ADP
 den	DET
 Genuß	NUM
@@ -14299,7 +14299,7 @@ ihrer	PRON
 Energie	NOUN
 .	.
 
-Höchste	X
+Höchste	NUM
 Zeit	NOUN
 ,	.
 denn	CONJ
@@ -14341,15 +14341,15 @@ zu	ADP
 Jahr	NOUN
 in	ADP
 zunehmend	ADJ
-bombastischem	CONJ
+bombastischem	NUM
 Rahmen	NOUN
 und	CONJ
 mit	ADV
 immer	ADV
 größerem	ADJ
-Sicherheitsaufgebot	CONJ
+Sicherheitsaufgebot	NUM
 laufenden	ADJ
-Wirtschaftsgipfel	CONJ
+Wirtschaftsgipfel	NUM
 sind	VERB
 der	PRON
 Versuch	NOUN
@@ -14377,7 +14377,7 @@ finden	VERB
 
 Die	PRON
 kroatische	ADJ
-Staatsbildung	CONJ
+Staatsbildung	NUM
 in	ADP
 der	PRON
 Herzegowina	NOUN
@@ -14402,7 +14402,7 @@ dies	PRON
 durch	ADP
 das	CONJ
 taktische	ADJ
-muslimisch	CONJ
+muslimisch	NUM
 -	.
 kroatische	ADJ
 Zusammengehen	NOUN
@@ -14423,7 +14423,7 @@ werden	VERB
 mit	ADP
 dem	PRON
 persönlichen	ADJ
-Einkommensteuersatz	CONJ
+Einkommensteuersatz	NUM
 von	ADP
 maximal	ADJ
 53	NUM
@@ -14530,7 +14530,7 @@ eingekesselten	NUM
 Städte	NOUN
 Odzak	NUM
 und	CONJ
-Gradacac	PRON
+Gradacac	NUM
 unmittelbar	ADJ
 vor	ADP
 der	PRON
@@ -14554,13 +14554,13 @@ Die	PRON
 Polizei	NOUN
 gab	VERB
 mehrere	PRON
-Warnschüsse	ADP
+Warnschüsse	NUM
 ab	PRT
 .	.
 
 Drei	NUM
 afrikanische	ADJ
-Asylbewerber	CONJ
+Asylbewerber	NUM
 ,	.
 die	PRON
 in	ADP
@@ -14570,7 +14570,7 @@ zum	ADP
 Sonntag	NOUN
 im	ADP
 ostsächsischen	NOUN
-Zittau	ADV
+Zittau	NOUN
 nach	CONJ
 einer	DET
 Messerstecherei	NUM
@@ -14619,7 +14619,7 @@ verschlingen	ADV
 Das	CONJ
 alte	NOUN
 deutsche	ADJ
-Universitätsideal	CONJ
+Universitätsideal	NUM
 ,	.
 die	PRON
 von	ADP
@@ -14656,8 +14656,8 @@ zum	ADP
 Verlust	NOUN
 von	ADP
 150	NUM
-000	ADV
-Arbeitsplätzen	X
+000	NUM
+Arbeitsplätzen	NUM
 geführt	VERB
 .	.
 
@@ -14719,7 +14719,7 @@ schaffen	VERB
 und	CONJ
 10	NUM
 000	NUM
-Langzeitarbeitslose	CONJ
+Langzeitarbeitslose	NUM
 einstellen	VERB
 .	.
 
@@ -14739,8 +14739,8 @@ SPD	NOUN
 )	.
 .	.
 
-Thorsten	PRON
-Geißler	X
+Thorsten	NOUN
+Geißler	NUM
 ,	.
 CDU	NOUN
 -	.
@@ -14788,27 +14788,27 @@ Falschaussagen	NUM
 auf	PRT
 .	.
 
-Izetbegovic	X
+Izetbegovic	NUM
 zufrieden	ADJ
 mit	ADP
 Konferenz	NOUN
 in	ADP
 Dayton	NOUN
 
-171	X
+171	NUM
 stimmten	VERB
 dagegen	ADV
 .	.
 
 Ladenschluß	NOUN
 
-Geigerin	PRON
+Geigerin	NOUN
 Erica	NOUN
-Morini	CONJ
+Morini	NUM
 tot	ADJ
 
-DEN	PRON
-HAAG	X
+DEN	NOUN
+HAAG	NUM
 ,	.
 5.	NUM
 November	NOUN
@@ -14841,7 +14841,7 @@ Unternehmen	NOUN
 wegen	ADP
 ihrer	PRON
 wirtschaftlichen	ADJ
-Schieflage	CONJ
+Schieflage	NUM
 den	DET
 Versicherungsvertrag	NOUN
 gekündigt	ADV
@@ -14870,9 +14870,9 @@ ist	VERB
 noch	ADV
 offen	ADJ
 
-Schimon	PRON
-Peres	X
-wurde	X
+Schimon	NOUN
+Peres	NUM
+wurde	VERB
 im	ADP
 August	NOUN
 1923	NUM
@@ -14891,7 +14891,7 @@ Palästina	NOUN
 Sie	PRON
 sprachen	VERB
 sich	PRON
-aber	ADV
+aber	CONJ
 für	ADP
 einen	NUM
 Rücktritt	NOUN
@@ -14974,7 +14974,7 @@ wurde	VERB
 Benouis	NUM
 am	ADP
 Samstag	NOUN
-mittag	ADV
+mittag	NOUN
 mit	ADP
 einem	NUM
 weiteren	ADJ
@@ -15009,7 +15009,7 @@ Mark	NOUN
 hält	VERB
 diese	PRON
 Furcht	ADV
-aber	ADV
+aber	CONJ
 für	ADP
 unbegründet	ADV
 .	.
@@ -15022,7 +15022,7 @@ Laut	ADP
 PLO	NUM
 will	VERB
 Arafat	NOUN
-aber	ADV
+aber	CONJ
 aus	ADP
 Sicherheitsgründen	NOUN
 nicht	PRT
@@ -15087,7 +15087,7 @@ stehlen	VERB
 
 Er	PRON
 brach	VERB
-blutüberströmt	ADV
+blutüberströmt	.
 mit	ADP
 Einschüssen	NUM
 in	ADP
@@ -15109,7 +15109,7 @@ er	PRON
 nach	CONJ
 der	PRON
 größten	ADJ
-Friedensdemonstration	CONJ
+Friedensdemonstration	NUM
 in	ADP
 der	PRON
 Geschichte	NOUN
@@ -15313,7 +15313,7 @@ ruhig	ADJ
 .	.
 ''	.
 
-Ganz	X
+Ganz	NUM
 wichtig	ADJ
 ist	VERB
 ,	.
@@ -15349,7 +15349,7 @@ anstehenden	ADJ
 Fällen	NOUN
 geht	VERB
 es	PRON
-um	ADP
+um	CONJ
 folgenden	NOUN
 Sachverhalt	NOUN
 :	.
@@ -15407,7 +15407,7 @@ im	ADP
 argen	ADV
 .	.
 
-Kolleginnen	X
+Kolleginnen	NUM
 und	CONJ
 Kollegen	NOUN
 ,	.
@@ -15565,7 +15565,7 @@ herüberziehen	ADV
 Rabins	NOUN
 Vermächtnis	.
 
-Wohl	X
+Wohl	NUM
 nicht	PRT
 .	.
 
@@ -15636,7 +15636,7 @@ als	CONJ
 er	PRON
 von	ADP
 israelischen	ADJ
-Reportern	CONJ
+Reportern	NUM
 auf	ADP
 eine	NUM
 mögliche	NOUN
@@ -15707,12 +15707,12 @@ Siedler	NOUN
 und	CONJ
 Arzt	NOUN
 Baruch	VERB
-Goldstein	ADV
+Goldstein	CONJ
 vor	ADP
 anderthalb	NUM
 Jahren	NOUN
 29	NUM
-betende	VERB
+betende	NOUN
 Moslems	VERB
 niedergemetzelt	NUM
 hatte	CONJ
@@ -15779,7 +15779,7 @@ in	ADP
 Pretoria	NUM
 ,	.
 weiße	ADJ
-Wähler	NOUN
+Wähler	CONJ
 aus	ADP
 dem	PRON
 Lager	NOUN
@@ -15789,7 +15789,7 @@ Parteien	NOUN
 zurückgewinnen	ADV
 .	.
 
-Mischlinge	X
+Mischlinge	NUM
 ,	.
 die	DET
 bisher	ADV
@@ -15815,7 +15815,7 @@ in	ADP
 diesem	PRON
 Land	NOUN
 vorhandenen	ADJ
-Unternehmergeist	CONJ
+Unternehmergeist	NUM
 lobte	VERB
 der	PRON
 Minister	NOUN
@@ -15840,7 +15840,7 @@ Wasser	NOUN
 reine	ADJ
 Luft	NOUN
 ,	.
-intakte	PRON
+intakte	NOUN
 Ozonschicht	NUM
 ,	.
 sondern	ADV
@@ -15875,7 +15875,7 @@ gegen	ADP
 eine	NUM
 zweite	NOUN
 Amtszeit	NOUN
-Reischs	.
+Reischs	CONJ
 aus	PRT
 .	.
 
@@ -15974,7 +15974,7 @@ initiiert	VERB
 worden	VERB
 .	.
 
-ERFURT	X
+ERFURT	NUM
 ,	.
 6.	NUM
 November	NOUN
@@ -15990,7 +15990,7 @@ Peter	NOUN
 Bichsel	NUM
 wird	VERB
 1996	NUM
-Stadtschreiber	CONJ
+Stadtschreiber	NUM
 von	ADP
 Mainz	NOUN
 .	.
@@ -16031,7 +16031,7 @@ der	PRON
 Hygiene	NOUN
 .	.
 
-OTTAWA	X
+OTTAWA	NUM
 ,	.
 6.	NUM
 November	NOUN
@@ -16074,7 +16074,7 @@ Nach	ADP
 Verlusten	NOUN
 1994	NUM
 erwartet	VERB
-Cap	PRON
+Cap	.
 Gemini	NUM
 in	ADP
 diesem	PRON
@@ -16107,7 +16107,7 @@ exportiert	VERB
 werden	VERB
 .	.
 
-Westerwelle	X
+Westerwelle	NUM
 begründete	VERB
 diese	PRON
 Forderung	NOUN
@@ -16119,7 +16119,7 @@ damit	CONJ
 ,	.
 daß	CONJ
 es	PRON
-nach	ADP
+nach	CONJ
 dem	PRON
 Urnengang	NOUN
 am	ADP
@@ -16138,7 +16138,7 @@ dpa	DET
 
 KURZNACHRICHTEN	DET
 
-STOCKHOLM	X
+STOCKHOLM	NUM
 ,	.
 6.	NUM
 November	NOUN
@@ -16228,7 +16228,7 @@ am	ADP
 Samstag	NOUN
 .	.
 
-Vichy	X
+Vichy	NUM
 -	.
 Regime	NOUN
 
@@ -16253,7 +16253,7 @@ abgeschaltet	VERB
 worden	VERB
 .	.
 
-VAVUNIYA	X
+VAVUNIYA	NUM
 ,	.
 6.	NUM
 November	NOUN
@@ -16311,12 +16311,12 @@ von	ADP
 einem	DET
 Datenbankproblem	NUM
 vorübergehend	ADJ
-lahmgelegte	CONJ
-Frankfurter	ADJ
+lahmgelegte	NUM
+Frankfurter	NOUN
 Aktienbörse	NUM
 hat	VERB
 zum	ADP
-Wochenbeginn	ADV
+Wochenbeginn	NOUN
 etwas	PRON
 schwächer	ADJ
 geschlossen	ADJ
@@ -16369,7 +16369,7 @@ der	PRON
 Weiterentwicklung	NOUN
 tiergerechter	NUM
 ,	.
-effektiver	PRON
+effektiver	NOUN
 Fallen	NUM
 ''	.
 weiter	PRT
@@ -16378,7 +16378,7 @@ vermindern	VERB
 
 ``	.
 Und	CONJ
-wie	ADP
+wie	CONJ
 viele	PRON
 Divisionen	NOUN
 hat	VERB
@@ -16418,7 +16418,7 @@ ihrer	DET
 Nutznießer	ADV
 .	.
 
-Freilich	X
+Freilich	NUM
 können	VERB
 Symbole	NOUN
 sich	PRON
@@ -16442,7 +16442,7 @@ ist	VERB
 dabei	PRT
 ein	NUM
 ständiger	ADJ
-Zankapfel	CONJ
+Zankapfel	NUM
 zwischen	ADP
 Ökologie	NOUN
 und	CONJ
@@ -16485,14 +16485,14 @@ hält	VERB
 die	PRON
 Kritik	NOUN
 der	DET
-Natürschützer	NOUN
+Natürschützer	NUM
 für	ADP
 übertrieben	ADV
 :	.
 
 Das	CONJ
 vom	ADP
-Landwirtschaftsminister	NOUN
+Landwirtschaftsminister	NUM
 gern	ADV
 benutzte	VERB
 Arbeitsplatz	NOUN
@@ -16530,8 +16530,8 @@ Taschenbuch	NUM
 erhältlich	ADJ
 .	.
 
-Miteinander	PRON
-verschränkt	X
+Miteinander	NOUN
+verschränkt	NUM
 existieren	VERB
 Ethik	NOUN
 und	CONJ
@@ -16552,7 +16552,7 @@ wird	VERB
 verstärkt	VERB
 ,	.
 nachdem	CONJ
-auch	ADV
+auch	CONJ
 auf	ADP
 dem	PRON
 Aushängeschild	NOUN
@@ -16571,7 +16571,7 @@ klebt	ADV
 Die	PRON
 Anlagen	NOUN
 pusteten	VERB
-tonnenweise	PRON
+tonnenweise	VERB
 Staub	NUM
 ,	.
 Schwefeldioxid	NUM
@@ -16605,7 +16605,7 @@ Weg	NOUN
 vorbei	ADV
 .	.
 
-Badewitz	X
+Badewitz	NUM
 '	.
 alter	ADJ
 Freund	NOUN
@@ -16644,12 +16644,12 @@ Wolken	NOUN
 --	.
 das	CONJ
 Road	NOUN
-Movie	ADV
+Movie	NOUN
 als	ADP
 Episodenfilm	NUM
 ,	.
 der	DET
-Episodenfilm	ADV
+Episodenfilm	NOUN
 als	CONJ
 Road	NOUN
 Movie	ADV
@@ -16813,7 +16813,7 @@ hinzunehmen	ADV
 .	.
 
 Und	CONJ
-ohne	ADP
+ohne	CONJ
 diesen	PRON
 Tag	NOUN
 ist	VERB
@@ -16856,7 +16856,7 @@ so	CONJ
 ''	.
 .	.
 
-12.	X
+12.	NUM
 Demokratie	NOUN
 lebt	VERB
 von	ADP
@@ -16935,7 +16935,7 @@ Haotian	NUM
 dem	PRON
 Stellvertretenden	NOUN
 Generalsstabschef	VERB
-Cao	PRON
+Cao	VERB
 Gangchuan	NUM
 und	CONJ
 anderen	PRON
@@ -16962,7 +16962,7 @@ Mortiers	NUM
 Verdienst	NOUN
 ohnedies	NUM
 eine	DET
-Petitesse	ADJ
+Petitesse	NOUN
 :	.
 
 Von	ADP
@@ -16973,7 +16973,7 @@ Kopenhagen	NOUN
 )	.
 
 König	NOUN
-+	CONJ
++	X
 Neurath	NOUN
 
 Wer	PRON
@@ -16990,7 +16990,7 @@ kann	VERB
 bei	ADP
 den	CONJ
 sogenannten	ADJ
-Discount	CONJ
+Discount	NUM
 -	.
 oder	CONJ
 Direktbanken	NUM
@@ -17017,21 +17017,21 @@ dpa	NUM
 ap	ADV
 )	.
 
-Kwasniewski	X
+Kwasniewski	NUM
 wandte	VERB
 sich	PRON
 an	ADP
 den	DET
 ehemals	ADV
 führenden	ADJ
-Solidarnosc	CONJ
+Solidarnosc	NUM
 -	.
 Aktivisten	NOUN
 und	CONJ
 heutigen	ADJ
-Wahldritten	CONJ
+Wahldritten	NUM
 ,	.
-Kuron	ADV
+Kuron	NOUN
 :	.
 
 In	ADP
@@ -17044,7 +17044,7 @@ geschätzt	VERB
 rund	ADJ
 100	NUM
 000	NUM
-Asylbewerber	NOUN
+Asylbewerber	ADP
 aus	ADP
 Libanon	NOUN
 und	CONJ
@@ -17105,7 +17105,7 @@ haben	VERB
 Damit	CONJ
 stellt	VERB
 sich	PRON
-Leister	VERB
+Leister	ADP
 offen	PRT
 auf	ADP
 die	PRON
@@ -17127,7 +17127,7 @@ Haus	NOUN
 beansprucht	ADV
 .	.
 
-BDA	X
+BDA	NUM
 fordert	VERB
 stärkere	ADJ
 Finanzierung	NOUN
@@ -17148,7 +17148,7 @@ Experte	NOUN
 .	.
 
 Ob	CONJ
-das	PRON
+das	CONJ
 Kartellamt	NOUN
 ,	.
 das	CONJ
@@ -17177,7 +17177,7 @@ als	CONJ
 Milliarden	NOUN
 Mark	NOUN
 umfassenden	ADJ
-Zukunftsmarkt	CONJ
+Zukunftsmarkt	NUM
 übernehmen	VERB
 kann	VERB
 ,	.
@@ -17191,7 +17191,7 @@ Vielleicht	ADV
 der	DET
 Unschuldigste	NOUN
 
-Schewardnadse	X
+Schewardnadse	NUM
 war	VERB
 seither	ADV
 als	CONJ
@@ -17248,7 +17248,7 @@ in	ADP
 Höhe	NOUN
 von	ADP
 800	NUM
-Millionen	NOUN
+Millionen	NUM
 ,	.
 ist	VERB
 dagegen	ADV
@@ -17277,12 +17277,12 @@ Israel	NOUN
 will	VERB
 gewaltbereite	NUM
 jüdische	ADJ
-Extremistengruppen	CONJ
+Extremistengruppen	NUM
 entschieden	VERB
 bekämpfen	VERB
 .	.
 
-NACHRICHTEN	X
+NACHRICHTEN	NUM
 -	.
 BÖRSE	NOUN
 
@@ -17303,7 +17303,7 @@ Hussein	NOUN
 nahmen	VERB
 gleich	PRT
 vier	NUM
-Sicherheitsagenten	VERB
+Sicherheitsagenten	NOUN
 unauffällig	NUM
 Platz	NOUN
 .	.

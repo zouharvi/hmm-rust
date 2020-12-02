@@ -9,7 +9,7 @@ class HMMTag(HMM):
             loader.mapper_t.count(),
             loader.mapper_w.count()
         )
-        self.SCALE_FACTOR = 1500.0
+        self.SCALE_FACTOR = 1.0
         for sent in loader.data:
             key = sent.tokens[0][1]
             self.prob_start[key] += 1.0
@@ -24,11 +24,10 @@ class HMMTag(HMM):
                 key2 = sent.tokens[pos][1]
                 self.prob_trans[key1][key2] += 1.0
 
-        # skip normalizing transition probabilities
-        # for key1 in range(len(self.prob_trans)):
-        #     total = sum(self.prob_trans[key1]) / self.SCALE_FACTOR
-        #     for key2 in range(len(self.prob_trans[key1])):
-        #         self.prob_trans[key1][key2] /= total
+        for key1 in range(len(self.prob_trans)):
+            total = sum(self.prob_trans[key1]) / self.SCALE_FACTOR
+            for key2 in range(len(self.prob_trans[key1])):
+                self.prob_trans[key1][key2] /= total
 
         for sent in loader.data:
             for pos in range(len(sent.tokens)):

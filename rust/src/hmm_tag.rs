@@ -9,7 +9,7 @@ impl HMM {
             loader.mapper_t.count().unwrap(),
             loader.mapper_w.count().unwrap(),
         );
-        const SCALE_FACTOR: f64 = 4096.0;
+        const SCALE_FACTOR: f64 = 1500.0;
         for sent in &loader.data {
             let key = sent.tokens[0].1;
             hmm.prob_start[key] += 1.0;
@@ -26,12 +26,14 @@ impl HMM {
                 hmm.prob_trans[key1][key2] += 1.0;
             }
         }
-        for key1 in 0..hmm.prob_trans.len() {
-            let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / SCALE_FACTOR;
-            for key2 in 0..hmm.prob_trans[key1].len() {
-                hmm.prob_trans[key1][key2] /= total;
-            }
-        }
+
+        // skip normalizing 
+        // for key1 in 0..hmm.prob_trans.len() {
+        //     let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>() / SCALE_FACTOR;
+        //     for key2 in 0..hmm.prob_trans[key1].len() {
+        //         hmm.prob_trans[key1][key2] /= total;
+        //     }
+        // }
 
         for sent in &loader.data {
             for pos in 0..sent.tokens.len() {
