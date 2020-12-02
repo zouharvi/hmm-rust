@@ -18,14 +18,16 @@ rust/                  # Rust source code
 python/                # Python source code
 Makefile               # Makefile for common recipes</code></pre>
 <h2 id="makefile-and-reproducing-results">Makefile and reproducing results</h2>
-<p><code>make r-print-eval</code> trains two models on the data and outputs the CONLL-U file to <code>data_measured/p-de-eval.tt</code> and <code>data_measured/p-de-eval-smooth.tt</code>, similarly <code>make r-print-eval</code> produces <code>data_measured/r-de-eval.tt</code> and <code>data_measured/r-de-eval-smooth.tt</code> (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: <code>print_acc</code> self-reports the accuracy on anything it computes (<code>comp_test</code>, <code>comp_train</code> or <code>comp_eval</code>).</p>
-<p>File paths are relative hardcoded because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory the <code>README.md</code> is in). If <code>print_pred</code> is present, the program outputs predictions to stdout. Progress is output to stderr.</p>
+<p><code>make r-print-eval</code> trains three models on the data and outputs the CONLL-U file to <code>data_measured/p-de-eval{,-smooth,-vanilla}.tt</code>, similarly <code>make r-print-eval</code> produces <code>data_measured/r-de-eval{,-smooth}.tt</code> (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: <code>print_acc</code> self-reports the accuracy on anything it computes (<code>comp_test</code>, <code>comp_train</code> or <code>comp_eval</code>). <code>smooth</code> enables emission smoothing, <code>no_normalize</code> disables layer normalization.</p>
+<p>File paths are relative and hardcoded because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory the <code>README.md</code> is in). If <code>print_pred</code> is present, the program outputs predictions to stdout. Progress is output to stderr.</p>
 <h2 id="correctness">Correctness</h2>
-<p>Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used (f32 vs f64). All parameters were multiplied by <code>1500</code> in both versions because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). In trellis computation, the layers are all normalized to sum to <code>1</code> after every step. Making the normalization to sum to something other than <code>1</code> did not affect the performance.</p>
+<p>Even though the Viterbi algorithm should be mostly deterministic, there is an issue with number representation and rounding. There appears to be a difference in accuracy based on the underlying numeric type used (f32 vs f64).</p>
 <p>Unseen tokens were dealt with by substituting the emission probability with 1, thus relying on the surrounding transition probabilities.</p>
 <p>I tried to use the same algorithmic steps in both solutions so that they are comparable. It is, however, still possible, that I mistakenly used some other data structure, assuming it was the same. The two versions produce almost the same outputs (they differ slightly in the smoothed version).</p>
 <h2 id="log-space">Log space</h2>
-<p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results were (89.16%, 78.96%).</p>
+<p>Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed). It did not however affect the model performance and for simplicity reasons I left it out.</p>
+<h2 id="normalization">Normalization</h2>
+<p>Trellis layer normalization (so that it sums up to 1) had no effect on the output, but still can be turned off by <code>no_normalize</code>. It would have an effect in case of longer sentences. Making the normalization to sum to something other than 1 did not affect the accuracy.</p>
 <h2 id="code-structure">Code structure</h2>
 <p>Structures in both versions follow the same naming scheme. The programs function as follows:</p>
 <ol type="1">
@@ -39,9 +41,9 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>The performance was measured with respect to changing training data size (steps of 10000 tokens). The task was (1) train, (2) train + evaluate on eval, (3) train + evaluate on train and eval. Accuracy of these models was also measured. The measured times are without writing to files. Rust version is compiled with the <code>--release</code> flag and Python is run with <code>-O</code>. Both versions use aforementioned smoothing.</p>
 <p>Figure 1 shows simply that in training, the Rust implementation seems to be faster by the factor of ~6.</p>
 <p><img src="data_measured/time-1.png" alt="Train only" width="500px"></p>
-<p>Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.61s and Rust on 0.17s (factor of ~15).</p>
+<p>Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.00s and Rust on 0.17s (factor of ~12).</p>
 <p><img src="data_measured/time-2.png" alt="Train + Compute Eval." width="500px"></p>
-<p>Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 28.23s, for Rust it is 0.35s (factor of ~80). Train accuracy is 92.50%, evaluation accuracy 82.15%. One would expect the training accuracy to be decreasing because the capacity of the model is getting shared with a larger amount of examples. This is however not true in this case because of the smoothing, which is fine-tuned to maximize evaluation accuracy given all the training data.</p>
+<p>Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 18.81s, for Rust it is 0.29s (factor of ~65). Train accuracy is 97.43%, evaluation accuracy 90.96%. The training accuracy is decreasing because the capacity of the model is getting shared with a larger amount of examples.</p>
 <p><img src="data_measured/time-3.png" alt="Train + Compute Eval. + Compute Train" width="500px"></p>
 <p>A good question would be, why does the running time not increasy hyperlinearly, as the complexity suggests? An answer would be that the complexity is hyperlinear with respect to the state space and not observation count in total.</p>
 <h2 id="note-on-performance">Note on Performance</h2>
@@ -50,8 +52,7 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>Also, both versions contain code for computing sequence observation probability in trellis (<code>sum</code> instead of <code>max</code>), but is turned off in both versions. The Rust version gets an unfair advantage in this because it is removed compile-time, while in Python, the interpreter has a bit more work to do.</p>
 <h2 id="additional">Additional</h2>
 <h3 id="smoothing">Smoothing</h3>
-<p>I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in the constructor (class <code>HMM</code>) to some parameter <code>alpha</code> instead of zeroes. Since probabilities are scaled up by the factor of <code>1500</code>, it makes sense to use higher values.</p>
-<p>Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition count to a negative number <code>-32</code> resulted in the best results (I did not employ grid-search, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.47%, 82.15%). This is an improvement of (+0.32%, +0.46%). The resulting inferences are stored in <code>data_measured/{p,r}-de-eval-smooth.tt</code>.</p>
+<p>I also experimented with rudimentary smoothing. This is done in the <code>HMMTag</code> class by adding fractional counts to emission probabilities, so that there are no hard zeroes. I had however only a slight effect on the model performance (only accuracy difference was for training data). Smoothing other parameters does not make much sense and also had no effect.</p>
 <h3 id="ice-cream">Ice cream</h3>
 <p>The Rust code also contains the toy ice-cream X weather example. It can be run from the <code>rust</code> directory with <code>cargo test -- --nocapture</code>.</p>
 <h3 id="unknown-word-handling-by-subwords">Unknown word handling by subwords</h3>
@@ -64,262 +65,177 @@ Makefile               # Makefile for common recipes</code></pre>
 <p>Completely another approach would be some sort of sensitive stemming, which would remove affixes that do not change the part of speech. This would reduce the amount of word forms while preserving correctness in the annotation.</p>
 <h2 id="eval-results">Eval Results</h2>
 <p>This sections lists results of models in descending order. The file <code>eval.py</code> is included, because I changed it to produce markable tables.</p>
-<h3 id="scaling-normalization-smoothing">Scaling, normalization, smoothing</h3>
-<p>Highest results from <code>{r,p}-eval-smooth.tt</code>, accuracy: 82.15%.</p>
+<h3 id="smoothing-normalization">Smoothing, normalization</h3>
+<p>Highest results from <code>{r,p}-eval-smooth.tt</code>, accuracy: 90.95%.</p>
 <table>
 <thead>
 <tr class="header">
 <th>Tag</th>
 <th>Prec.</th>
 <th>Recall</th>
-<th>F1 score</th>
+<th>F1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>DET</td>
-<td>0.8556</td>
-<td>0.9430</td>
-<td>0.8972</td>
+<td><code>DET</code></td>
+<td>0.8220</td>
+<td>0.9768</td>
+<td>0.8927</td>
 </tr>
 <tr class="even">
-<td>ADV</td>
-<td>0.4454</td>
-<td>0.8374</td>
-<td>0.5815</td>
+<td><code>NOUN</code></td>
+<td>0.9307</td>
+<td>0.9139</td>
+<td>0.9222</td>
 </tr>
 <tr class="odd">
-<td>NOUN</td>
-<td>0.8882</td>
-<td>0.7526</td>
-<td>0.8148</td>
+<td><code>VERB</code></td>
+<td>0.9202</td>
+<td>0.9211</td>
+<td>0.9206</td>
 </tr>
 <tr class="even">
-<td>VERB</td>
-<td>0.9609</td>
-<td>0.8213</td>
-<td>0.8856</td>
+<td><code>ADP</code></td>
+<td>0.9343</td>
+<td>0.9775</td>
+<td>0.9554</td>
 </tr>
 <tr class="odd">
-<td>ADP</td>
-<td>0.9296</td>
-<td>0.8316</td>
-<td>0.8779</td>
+<td><code>.</code></td>
+<td>0.9608</td>
+<td>1.0000</td>
+<td>0.9800</td>
 </tr>
 <tr class="even">
-<td>.</td>
-<td>0.9921</td>
-<td>0.9983</td>
-<td>0.9952</td>
+<td><code>CONJ</code></td>
+<td>0.9513</td>
+<td>0.8974</td>
+<td>0.9236</td>
 </tr>
 <tr class="odd">
-<td>CONJ</td>
-<td>0.8953</td>
-<td>0.8254</td>
-<td>0.8590</td>
+<td><code>PRON</code></td>
+<td>0.8679</td>
+<td>0.8364</td>
+<td>0.8519</td>
 </tr>
 <tr class="even">
-<td>PRON</td>
-<td>0.8998</td>
-<td>0.7258</td>
-<td>0.8035</td>
+<td><code>ADV</code></td>
+<td>0.9043</td>
+<td>0.8051</td>
+<td>0.8518</td>
 </tr>
 <tr class="odd">
-<td>ADJ</td>
-<td>0.7517</td>
-<td>0.6264</td>
-<td>0.6834</td>
+<td><code>ADJ</code></td>
+<td>0.8088</td>
+<td>0.7213</td>
+<td>0.7625</td>
 </tr>
 <tr class="even">
-<td>NUM</td>
-<td>0.3877</td>
-<td>0.7222</td>
-<td>0.5045</td>
+<td><code>NUM</code></td>
+<td>0.9906</td>
+<td>0.7778</td>
+<td>0.8714</td>
 </tr>
 <tr class="odd">
-<td>PRT</td>
-<td>0.7359</td>
-<td>0.8078</td>
-<td>0.7702</td>
+<td><code>PRT</code></td>
+<td>0.8685</td>
+<td>0.9251</td>
+<td>0.8959</td>
 </tr>
 <tr class="even">
-<td>X</td>
-<td>0.1667</td>
+<td><code>X</code></td>
+<td>0.2222</td>
 <td>0.0909</td>
-<td>0.1176</td>
+<td>0.1290</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scaling-normalization">Scaling, normalization</h3>
-<p>File <code>{r,p}-eval.tt</code>, accuracy: 81.69%.</p>
+<h3 id="normalization-vanilla">Normalization / Vanilla</h3>
+<p>File <code>{r,p}-eval.tt</code>, accuracy: 90.95%.</p>
 <table>
 <thead>
 <tr class="header">
 <th>Tag</th>
 <th>Prec.</th>
 <th>Recall</th>
-<th>F1 score</th>
+<th>F1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>DET</td>
-<td>0.8463</td>
-<td>0.9496</td>
-<td>0.8950</td>
+<td><code>DET</code></td>
+<td>0.8232</td>
+<td>0.9755</td>
+<td>0.8929</td>
 </tr>
 <tr class="even">
-<td>ADV</td>
-<td>0.4433</td>
-<td>0.8335</td>
-<td>0.5788</td>
+<td><code>NOUN</code></td>
+<td>0.9296</td>
+<td>0.9141</td>
+<td>0.9218</td>
 </tr>
 <tr class="odd">
-<td>NOUN</td>
-<td>0.8896</td>
-<td>0.7497</td>
-<td>0.8137</td>
+<td><code>VERB</code></td>
+<td>0.9202</td>
+<td>0.9211</td>
+<td>0.9206</td>
 </tr>
 <tr class="even">
-<td>VERB</td>
-<td>0.9609</td>
-<td>0.8203</td>
-<td>0.8851</td>
+<td><code>ADP</code></td>
+<td>0.9348</td>
+<td>0.9775</td>
+<td>0.9557</td>
 </tr>
 <tr class="odd">
-<td>ADP</td>
-<td>0.9294</td>
-<td>0.8040</td>
-<td>0.8622</td>
+<td><code>.</code></td>
+<td>0.9608</td>
+<td>1.0000</td>
+<td>0.9800</td>
 </tr>
 <tr class="even">
-<td>.</td>
-<td>0.9933</td>
-<td>0.9937</td>
-<td>0.9935</td>
+<td><code>CONJ</code></td>
+<td>0.9498</td>
+<td>0.8974</td>
+<td>0.9228</td>
 </tr>
 <tr class="odd">
-<td>CONJ</td>
-<td>0.9013</td>
-<td>0.8254</td>
-<td>0.8617</td>
+<td><code>PRON</code></td>
+<td>0.8671</td>
+<td>0.8364</td>
+<td>0.8515</td>
 </tr>
 <tr class="even">
-<td>PRON</td>
-<td>0.9140</td>
-<td>0.7110</td>
-<td>0.7998</td>
+<td><code>ADV</code></td>
+<td>0.9043</td>
+<td>0.8058</td>
+<td>0.8523</td>
 </tr>
 <tr class="odd">
-<td>ADJ</td>
-<td>0.7489</td>
-<td>0.6255</td>
-<td>0.6816</td>
-</tr>
-<tr class="even">
-<td>NUM</td>
-<td>0.3816</td>
+<td><code>ADJ</code></td>
+<td>0.8099</td>
 <td>0.7222</td>
-<td>0.4994</td>
-</tr>
-<tr class="odd">
-<td>PRT</td>
-<td>0.6410</td>
-<td>0.8143</td>
-<td>0.7174</td>
+<td>0.7635</td>
 </tr>
 <tr class="even">
-<td>X</td>
-<td>0.1714</td>
-<td>0.2727</td>
-<td>0.2105</td>
+<td><code>NUM</code></td>
+<td>0.9905</td>
+<td>0.7704</td>
+<td>0.8667</td>
+</tr>
+<tr class="odd">
+<td><code>PRT</code></td>
+<td>0.8712</td>
+<td>0.9251</td>
+<td>0.8973</td>
+</tr>
+<tr class="even">
+<td><code>X</code></td>
+<td>0.2222</td>
+<td>0.0909</td>
+<td>0.1290</td>
 </tr>
 </tbody>
 </table>
-<h3 id="vanilla">Vanilla</h3>
-<p>Because in the first homework I was penalized for not sticking literally to the assignment (plotting top 100 most frequent words instead of all, because in the later case nothing could be infered - a deliberate decision), I do not trust that I would not be penalized also for not providing vanilla HMM POS tagger implementation in Python. Since the code would be too convoluted to parametrize also for vanilla implementation and I do not want to regress the performance of the main project, the code (duplicated with slight changes) is located in <code>python/vanilla/</code>. The resulting inference is in <code>data_measured/p-de-eval-vanilla.tt</code>. Accuracy: 67.77%.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Tag</th>
-<th>Prec.</th>
-<th>Recall</th>
-<th>F1 score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>DET</td>
-<td>0.8803</td>
-<td>0.3561</td>
-<td>0.5071</td>
-</tr>
-<tr class="even">
-<td>NUM</td>
-<td>0.1927</td>
-<td>0.7407</td>
-<td>0.3058</td>
-</tr>
-<tr class="odd">
-<td>NOUN</td>
-<td>0.9473</td>
-<td>0.6223</td>
-<td>0.7512</td>
-</tr>
-<tr class="even">
-<td>VERB</td>
-<td>0.9664</td>
-<td>0.7375</td>
-<td>0.8366</td>
-</tr>
-<tr class="odd">
-<td>ADP</td>
-<td>0.9383</td>
-<td>0.8406</td>
-<td>0.8868</td>
-</tr>
-<tr class="even">
-<td>.</td>
-<td>0.9671</td>
-<td>0.8408</td>
-<td>0.8995</td>
-</tr>
-<tr class="odd">
-<td>CONJ</td>
-<td>0.5759</td>
-<td>0.8361</td>
-<td>0.6821</td>
-</tr>
-<tr class="even">
-<td>PRON</td>
-<td>0.6956</td>
-<td>0.7965</td>
-<td>0.7426</td>
-</tr>
-<tr class="odd">
-<td>ADV</td>
-<td>0.3035</td>
-<td>0.5667</td>
-<td>0.3953</td>
-</tr>
-<tr class="even">
-<td>ADJ</td>
-<td>0.7590</td>
-<td>0.5067</td>
-<td>0.6077</td>
-</tr>
-<tr class="odd">
-<td>X</td>
-<td>0.0092</td>
-<td>0.5455</td>
-<td>0.0181</td>
-</tr>
-<tr class="even">
-<td>PRT</td>
-<td>0.6610</td>
-<td>0.7622</td>
-<td>0.7080</td>
-</tr>
-</tbody>
-</table>
-<p>I also did not provide any comment for the <code>alpha=0.9</code> parameter in matplotlib function call in <code>graph.py</code>, because that seems just absurd and commenting every other line reduces readability.</p>
+<h4 id="note">Note</h4>
+<p>I did not provide any comment for the <code>alpha=0.9</code> parameter in matplotlib function call in <code>graph.py</code>, because that seems just absurd and commenting every other line reduces readability.</p>

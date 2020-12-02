@@ -45,7 +45,7 @@ overall = 0
 
 print("\nComparing gold file \"" +
       sys.argv[1] + "\" and system file \"" + sys.argv[2] + "\"")
-print("\nTag | Prec. | Recall | F1 score")
+print("\nTag | Prec. | Recall | F1")
 print('-|-|-|-')
 
 for tag, counts in precision_recall.items():
@@ -58,6 +58,6 @@ for tag, counts in precision_recall.items():
         precision = counts[0] / counts[1]
         recall = counts[0] / counts[2]
         f1_score = (2 * precision * recall) / (precision + recall)
-        print(f'{tag} | {precision:.4f} | {recall:.4f} | {f1_score:.4f}')
+        print(f'`{tag}` | {precision:.4f} | {recall:.4f} | {f1_score:.4f}')
 
 print("\nAccuracy: %.4f\n" % (correct / overall))

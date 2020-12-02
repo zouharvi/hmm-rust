@@ -118,16 +118,18 @@ impl HMM {
             }
 
             // normalize layer
-            let layer_total_max: f64 = trellis[time].iter().map(|x| x.max_prob).sum();
-            for state_i in 0..(self.count_state) {
-                trellis[time][state_i].max_prob /= layer_total_max;
-            }
-            #[cfg(feature = "comp_cum")]
-            {
-                let layer_total_cum: f64 = trellis[time].iter().map(|x| x.cum_prob).sum();
+            #[cfg(not(feature = "no_normalize"))] {
+                let layer_total_max: f64 = trellis[time].iter().map(|x| x.max_prob).sum();
                 for state_i in 0..(self.count_state) {
-                    trellis[time][state_i].cum_prob =
-                        trellis[time][state_i].cum_prob / layer_total_cum;
+                    trellis[time][state_i].max_prob /= layer_total_max;
+                }
+                #[cfg(feature = "comp_cum")]
+                {
+                    let layer_total_cum: f64 = trellis[time].iter().map(|x| x.cum_prob).sum();
+                    for state_i in 0..(self.count_state) {
+                        trellis[time][state_i].cum_prob =
+                            trellis[time][state_i].cum_prob / layer_total_cum;
+                    }
                 }
             }
         }

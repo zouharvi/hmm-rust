@@ -23,16 +23,16 @@ a_r, = ax1.plot(v_size, v_run_r, color='orange', linestyle='--')
 
 ax2 = ax1.twinx()
 
-a_pea, = ax2.plot(v_size, v_run_pea, color='green', linestyle=':')
-a_rea, = ax2.plot(v_size, v_run_rea, color='orange', linestyle=':')
-a_pta, = ax2.plot(v_size, v_run_pta, color='green', linestyle='-.')
-a_rta, = ax2.plot(v_size, v_run_rta, color='orange', linestyle='-.')
+# a_pea, = ax2.plot(v_size, v_run_pea, color='green', linestyle=':')
+a_rea, = ax2.plot(v_size, v_run_rea, color='blue', linestyle=':')
+# a_pta, = ax2.plot(v_size, v_run_pta, color='green', linestyle='-.')
+a_rta, = ax2.plot(v_size, v_run_rta, color='blue', linestyle='-.')
 
 plt.legend(
-    [a_pea, a_rea, a_pta, a_rta, a_p, a_r],
+    [a_rea, a_rta, a_p, a_r],
     [
-        'Python eval. accuracy', 'Rust eval. accuracy', 'Python train accuracy',
-        'Rust train accuracy', 'Python time', 'Rust time'
+        'Eval. accuracy', 'Train accuracy',
+        'Python time', 'Rust time'
     ]
 )
 ax1.set_ylabel('Time (s)')
@@ -51,18 +51,19 @@ v_size = [float(x[0]) for x in data]
 v_run_r = [float(x[1]) for x in data]
 v_run_rea = [float(x[2])/100 for x in data]
 v_run_p = [float(x[3]) for x in data]
-v_run_pea = [float(x[4])/100 for x in data]
+# v_run_pea = [float(x[4])/100 for x in data]
 a_p, = ax1.plot(v_size, v_run_p, color='green', linestyle='--', alpha=0.9)
 a_r, = ax1.plot(v_size, v_run_r, color='orange', linestyle='--', alpha=0.9)
 
 ax2 = ax1.twinx()
 
-a_pea, = ax2.plot(v_size, v_run_pea, color='green', linestyle=':', alpha=0.9)
-a_rea, = ax2.plot(v_size, v_run_rea, color='orange', linestyle=':', alpha=0.9)
+# a_pea, = ax2.plot(v_size, v_run_pea, color='green', linestyle=':', alpha=0.9)
+a_rea, = ax2.plot(v_size, v_run_rea, color='blue', linestyle=':', alpha=0.9)
 
 plt.legend(
-    [a_pea, a_rea, a_p, a_r],
-    ['Python eval. accuracy', 'Rust eval. accuracy', 'Python time', 'Rust time']
+    [a_rea, a_p, a_r],
+    ['Eval. accuracy', 'Python time', 'Rust time'],
+    loc='center right'
 )
 ax1.set_ylabel('Time (s)')
 ax2.set_ylabel('Accuracy')

@@ -37,8 +37,7 @@ class HMMTag(HMM):
         # add partial count to everything, so that there are no zero probabilities
         if "smooth" in sys.argv:
             for key in range(len(self.prob_emiss)):
-                total = sum(self.prob_emiss[key])
-                self.prob_emiss[key] = [v+0.0001 for v in self.prob_emiss[key]]
+                self.prob_emiss[key] = [v+0.001 for v in self.prob_emiss[key]]
 
         for key in range(len(self.prob_emiss)):
             total = sum(self.prob_emiss[key])

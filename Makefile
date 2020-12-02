@@ -34,13 +34,13 @@ p-run-time:
 	@ # python3 -O python/main.py new_train smooth
 	@ # python3 -O python/main.py new_train comp_eval print_acc smooth
 
-p-run-acc:
-	@ python3 -O python/main.py comp_eval print_acc smooth
+p-run:
+	@ python3 -O python/main.py comp_train comp_eval print_acc
 
 p-run-smooth:
 	@ python3 -O python/main.py comp_train comp_eval print_acc smooth
 
 p-print-eval:
-	@ python3 -O python/vanilla/main.py comp_eval print_pred > data_measured/p-de-eval-vanilla.tt
 	@ python3 -O python/main.py comp_eval print_pred > data_measured/p-de-eval.tt
 	@ python3 -O python/main.py comp_eval print_pred smooth > data_measured/p-de-eval-smooth.tt
+	@ python3 -O python/main.py comp_eval print_pred no_normalize > data_measured/p-de-eval-vanilla.tt

@@ -27,13 +27,13 @@ Makefile               # Makefile for common recipes
 
 ## Makefile and reproducing results
 
-`make r-print-eval` trains two models on the data and outputs the CONLL-U file to `data_measured/p-de-eval.tt` and `data_measured/p-de-eval-smooth.tt`, similarly `make r-print-eval` produces `data_measured/r-de-eval.tt` and `data_measured/r-de-eval-smooth.tt` (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: `print_acc` self-reports the accuracy on anything it computes (`comp_test`, `comp_train` or `comp_eval`).
+`make r-print-eval` trains three models on the data and outputs the CONLL-U file to `data_measured/p-de-eval{,-smooth,-vanilla}.tt`, similarly `make r-print-eval` produces `data_measured/r-de-eval{,-smooth}.tt` (assuming stable Rust compiler in path). The semantics of the rest of the command line arguments is intuitive from the Makefile: `print_acc` self-reports the accuracy on anything it computes (`comp_test`, `comp_train` or `comp_eval`). `smooth` enables emission smoothing, `no_normalize` disables layer normalization.
 
-File paths are relative hardcoded because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory the `README.md` is in). If `print_pred` is present, the program outputs predictions to stdout. Progress is output to stderr.
+File paths are relative and hardcoded because there are no plans to make this portable and there were already too many switches. Both versions assume that they are run from the top-level directory (the directory the `README.md` is in). If `print_pred` is present, the program outputs predictions to stdout. Progress is output to stderr.
 
 ## Correctness
 
-Even though the Viterbi algorithm should be mostly deterministic, there is a big issue with number representation and rounding. There appears to be a big difference in accuracy based on the underlying numeric type used (f32 vs f64). All parameters were multiplied by `1500` in both versions because this maximized the performance (possibly striking the sweet spot between diminishing and exploding values). In trellis computation, the layers are all normalized to sum to `1` after every step. Making the normalization to sum to something other than `1` did not affect the performance.
+Even though the Viterbi algorithm should be mostly deterministic, there is an issue with number representation and rounding. There appears to be a difference in accuracy based on the underlying numeric type used (f32 vs f64). 
 
 Unseen tokens were dealt with by substituting the emission probability with 1, thus relying on the surrounding transition probabilities. 
 
@@ -41,7 +41,11 @@ I tried to use the same algorithmic steps in both solutions so that they are com
 
 ## Log space
 
-Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed) and also it had a negative effect on performance relative to the current solution: for (train, eval) accuracy, the new results were (89.16%, 78.96%).
+Another solution to the issue of storing very small probabilities would be to work in log space. One of the issues is that it no longer supports the computation of cumulative probability (because the probabilities there are summed). It did not however affect the model performance and for simplicity reasons I left it out.
+
+## Normalization
+
+Trellis layer normalization (so that it sums up to 1) had no effect on the output, but still can be turned off by `no_normalize`. It would have an effect in case of longer sentences. Making the normalization to sum to something other than 1 did not affect the accuracy.
 
 ## Code structure
 
@@ -62,11 +66,11 @@ Figure 1 shows simply that in training, the Rust implementation seems to be fast
 
 <img src="data_measured/time-1.png" alt="Train only" width="500px">
 
-Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.61s and Rust on 0.17s (factor of ~15).
+Figure 2 also shows that the Rust implementation is more stable (possibly because of the lack of runtime). We also see that there seems to be diminishing return in performance after we pass 50k train tokens. Python ends at 2.00s and Rust on 0.17s (factor of ~12).
 
 <img src="data_measured/time-2.png" alt="Train + Compute Eval." width="500px">
 
-Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 28.23s, for Rust it is 0.35s (factor of ~80). Train accuracy is 92.50%, evaluation accuracy 82.15%. One would expect the training accuracy to be decreasing because the capacity of the model is getting shared with a larger amount of examples. This is however not true in this case because of the smoothing, which is fine-tuned to maximize evaluation accuracy given all the training data.
+Evaluating the whole data proved to be the most challenging task. This is shown in Figure 3. While Python ends at 18.81s, for Rust it is 0.29s (factor of ~65). Train accuracy is 97.43%, evaluation accuracy 90.96%. The training accuracy is decreasing because the capacity of the model is getting shared with a larger amount of examples.
 
 <img src="data_measured/time-3.png" alt="Train + Compute Eval. + Compute Train" width="500px">
 
@@ -84,9 +88,7 @@ Also, both versions contain code for computing sequence observation probability 
 
 ### Smoothing
 
-I also experimented with rudimentary smoothing. This can be done easily by changing the initial probabilities in the constructor (class `HMM`) to some parameter `alpha` instead of zeroes. Since probabilities are scaled up by the factor of `1500`, it makes sense to use higher values.
-
-Interestingly enough, the performance increased by tinkering with start and transition probabilities and not emission probabilities. Furthermore, setting initial transition count to a negative number `-32` resulted in the best results (I did not employ grid-search, so there surely exists a better set of parameters. The resulting (train, eval) accuracies were (92.47%, 82.15%). This is an improvement of (+0.32%, +0.46%). The resulting inferences are stored in `data_measured/{p,r}-de-eval-smooth.tt`.
+I also experimented with rudimentary smoothing. This is done in the `HMMTag` class by adding fractional counts to emission probabilities, so that there are no hard zeroes. I had however only a slight effect on the model performance (only accuracy difference was for training data). Smoothing other parameters does not make much sense and also had no effect. 
 
 ### Ice cream
 
@@ -112,61 +114,44 @@ Completely another approach would be some sort of sensitive stemming, which woul
 
 This sections lists results of models in descending order. The file `eval.py` is included, because I changed it to produce markable tables.
 
-### Scaling, normalization, smoothing
+### Smoothing, normalization
 
-Highest results from `{r,p}-eval-smooth.tt`, accuracy: 82.15%.
+Highest results from `{r,p}-eval-smooth.tt`, accuracy: 90.95%.
 
-Tag | Prec. | Recall | F1 score
+Tag | Prec. | Recall | F1
 -|-|-|-
-DET | 0.8556 | 0.9430 | 0.8972
-ADV | 0.4454 | 0.8374 | 0.5815
-NOUN | 0.8882 | 0.7526 | 0.8148
-VERB | 0.9609 | 0.8213 | 0.8856
-ADP | 0.9296 | 0.8316 | 0.8779
-. | 0.9921 | 0.9983 | 0.9952
-CONJ | 0.8953 | 0.8254 | 0.8590
-PRON | 0.8998 | 0.7258 | 0.8035
-ADJ | 0.7517 | 0.6264 | 0.6834
-NUM | 0.3877 | 0.7222 | 0.5045
-PRT | 0.7359 | 0.8078 | 0.7702
-X | 0.1667 | 0.0909 | 0.1176
+`DET` | 0.8220 | 0.9768 | 0.8927
+`NOUN` | 0.9307 | 0.9139 | 0.9222
+`VERB` | 0.9202 | 0.9211 | 0.9206
+`ADP` | 0.9343 | 0.9775 | 0.9554
+`.` | 0.9608 | 1.0000 | 0.9800
+`CONJ` | 0.9513 | 0.8974 | 0.9236
+`PRON` | 0.8679 | 0.8364 | 0.8519
+`ADV` | 0.9043 | 0.8051 | 0.8518
+`ADJ` | 0.8088 | 0.7213 | 0.7625
+`NUM` | 0.9906 | 0.7778 | 0.8714
+`PRT` | 0.8685 | 0.9251 | 0.8959
+`X` | 0.2222 | 0.0909 | 0.1290
 
-### Scaling, normalization
+### Normalization / Vanilla
 
-File `{r,p}-eval.tt`, accuracy: 81.69%.
+File `{r,p}-eval.tt`, accuracy: 90.95%.
 
-Tag | Prec. | Recall | F1 score
+Tag | Prec. | Recall | F1
 -|-|-|-
-DET | 0.8463 | 0.9496 | 0.8950
-ADV | 0.4433 | 0.8335 | 0.5788
-NOUN | 0.8896 | 0.7497 | 0.8137
-VERB | 0.9609 | 0.8203 | 0.8851
-ADP | 0.9294 | 0.8040 | 0.8622
-. | 0.9933 | 0.9937 | 0.9935
-CONJ | 0.9013 | 0.8254 | 0.8617
-PRON | 0.9140 | 0.7110 | 0.7998
-ADJ | 0.7489 | 0.6255 | 0.6816
-NUM | 0.3816 | 0.7222 | 0.4994
-PRT | 0.6410 | 0.8143 | 0.7174
-X | 0.1714 | 0.2727 | 0.2105
+`DET` | 0.8232 | 0.9755 | 0.8929
+`NOUN` | 0.9296 | 0.9141 | 0.9218
+`VERB` | 0.9202 | 0.9211 | 0.9206
+`ADP` | 0.9348 | 0.9775 | 0.9557
+`.` | 0.9608 | 1.0000 | 0.9800
+`CONJ` | 0.9498 | 0.8974 | 0.9228
+`PRON` | 0.8671 | 0.8364 | 0.8515
+`ADV` | 0.9043 | 0.8058 | 0.8523
+`ADJ` | 0.8099 | 0.7222 | 0.7635
+`NUM` | 0.9905 | 0.7704 | 0.8667
+`PRT` | 0.8712 | 0.9251 | 0.8973
+`X` | 0.2222 | 0.0909 | 0.1290
 
-### Vanilla
+#### Note
 
-Because in the first homework I was penalized for not sticking literally to the assignment (plotting top 100 most frequent words instead of all, because in the later case nothing could be infered - a deliberate decision), I do not trust that I would not be penalized also for not providing vanilla HMM POS tagger implementation in Python. Since the code would be too convoluted to parametrize also for vanilla implementation and I do not want to regress the performance of the main project, the code (duplicated with slight changes) is located in `python/vanilla/`. The resulting inference is in `data_measured/p-de-eval-vanilla.tt`. Accuracy: 67.77%.
-
-Tag | Prec. | Recall | F1 score
--|-|-|-
-DET | 0.8803 | 0.3561 | 0.5071
-NUM | 0.1927 | 0.7407 | 0.3058
-NOUN | 0.9473 | 0.6223 | 0.7512
-VERB | 0.9664 | 0.7375 | 0.8366
-ADP | 0.9383 | 0.8406 | 0.8868
-. | 0.9671 | 0.8408 | 0.8995
-CONJ | 0.5759 | 0.8361 | 0.6821
-PRON | 0.6956 | 0.7965 | 0.7426
-ADV | 0.3035 | 0.5667 | 0.3953
-ADJ | 0.7590 | 0.5067 | 0.6077
-X | 0.0092 | 0.5455 | 0.0181
-PRT | 0.6610 | 0.7622 | 0.7080
-
-I also did not provide any comment for the `alpha=0.9` parameter in matplotlib function call in `graph.py`, because that seems just absurd and commenting every other line reduces readability.
+I did not provide any comment for the `alpha=0.9` parameter in matplotlib function call in `graph.py`, because that seems just absurd and commenting every other line reduces readability.

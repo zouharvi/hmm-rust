@@ -35,7 +35,6 @@ impl HMM {
         #[cfg(feature = "smooth")]
         {
             for key1 in 0..hmm.prob_trans.len() {
-                let total: f64 = hmm.prob_trans[key1].iter().sum::<f64>();
                 for key2 in 0..hmm.prob_trans[key1].len() {
                     hmm.prob_trans[key1][key2] += 0.001;
                 }
